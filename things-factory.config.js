@@ -7,6 +7,14 @@ export default {
     {
       tagname: 'fms-monitoring',
       page: 'fms-monitoring'
+    },
+    {
+      tagname: 'fms-report',
+      page: 'fms-report'
+    },
+    {
+      tagname: 'report-delivery',
+      page: 'report-delivery'
     }
   ],
   bootstrap

@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
-import { i18next, localize } from '@things-factory/i18n-base'
+import { i18next } from '@things-factory/i18n-base'
 
 export class CommonSearch extends LitElement {
   static get styles() {
@@ -42,14 +42,14 @@ export class CommonSearch extends LitElement {
     this.config = {
       list: { fields: ['client', 'delivery', 'device', 'status', 'battery'] },
       pagination: { infinite: true },
-      rows: { selectable: false },
+      rows: { selectable: false, appendable: false },
       columns: [
         { type: 'gutter', gutterName: 'sequence' },
         {
           type: 'string',
           name: 'client',
           header: i18next.t('field.client'),
-          record: { editable: true, align: 'left' },
+          record: { editable: false, align: 'left' },
           imex: { header: i18next.t('field.client'), key: 'client', width: 50, type: 'string' },
           sortable: true,
           width: 80
@@ -58,7 +58,7 @@ export class CommonSearch extends LitElement {
           type: 'string',
           name: 'delivery',
           header: i18next.t('field.delivery'),
-          record: { editable: true, align: 'left' },
+          record: { editable: false, align: 'left' },
           imex: { header: i18next.t('field.delivery'), key: 'delivery', width: 50, type: 'string' },
           sortable: true,
           width: 80
@@ -67,7 +67,7 @@ export class CommonSearch extends LitElement {
           type: 'string',
           name: 'device',
           header: i18next.t('field.device'),
-          record: { editable: true, align: 'left' },
+          record: { editable: false, align: 'left' },
           imex: { header: i18next.t('field.device'), key: 'device', width: 50, type: 'string' },
           sortable: true,
           width: 80
@@ -76,7 +76,7 @@ export class CommonSearch extends LitElement {
           type: 'string',
           name: 'status',
           header: i18next.t('field.status'),
-          record: { editable: true, align: 'left' },
+          record: { editable: false, align: 'left' },
           imex: { header: i18next.t('field.status'), key: 'status', width: 50, type: 'string' },
           sortable: true,
           width: 30
@@ -85,13 +85,18 @@ export class CommonSearch extends LitElement {
           type: 'string',
           name: 'battery',
           header: i18next.t('field.battery'),
-          record: { editable: true, align: 'left' },
+          record: { editable: false, align: 'left' },
           imex: { header: i18next.t('field.battery'), key: 'battery', width: 50, type: 'string' },
           sortable: true,
           width: 30
         }
       ]
     }
+  }
+
+  async firstUpdated() {
+    await this.updateComplete
+    this.renderRoot.querySelector('data-grist').fetch({ limit: 50 })
   }
 
   render() {
@@ -118,7 +123,21 @@ export class CommonSearch extends LitElement {
     `
   }
 
-  fetchHandler() {}
+  async fetchHandler({ page, limit, sorters = [] }) {
+    return {
+      total: 300,
+      records: Array(50)
+        .fill()
+        .map(() => {
+          var num = ~~(Math.random() * 100)
+          return {
+            client: 'Client-' + num,
+            delivery: 'Delivery-' + num,
+            device: 'Device-' + num
+          }
+        })
+    }
+  }
 }
 
 customElements.define('common-search', CommonSearch)

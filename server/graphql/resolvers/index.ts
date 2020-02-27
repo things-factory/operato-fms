@@ -1,16 +1,7 @@
-// import * as CommonCode from './common-code'
-// import * as CommonCodeDetail from './common-code-detail'
-//
-// export const queries = [
-//   CommonCode.Query,
-//   CommonCodeDetail.Query
-// ]
+import * as BoardSetting from './board-setting'
 
-// export const mutations = [
-//   CommonCode.Mutation,
-//   CommonCodeDetail.Mutation
-// ]
-
-export const queries = []
+export const queries = [BoardSetting.Query]
 
 export const mutations = []
+
+// export const subscriptions = [Scenario.Subscription]
