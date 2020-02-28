@@ -99,12 +99,30 @@ class ReportTemperature extends connect(store)(PageView) {
         },
         {
           type: 'string',
-          name: 'registration',
-          header: i18next.t('field.registration'),
+          name: 'value',
+          header: i18next.t('field.value'),
           record: { editable: false, align: 'left' },
-          imex: { header: i18next.t('field.registration'), key: 'registration', width: 50, type: 'string' },
+          imex: { header: i18next.t('field.value'), key: 'value', width: 50, type: 'string' },
           sortable: true,
           width: 150
+        },
+        {
+          type: 'datetime',
+          name: 'updatedAt',
+          header: i18next.t('field.updated_at'),
+          record: { editable: false, align: 'center' },
+          sortable: true,
+          width: 150
+        },
+        {
+          type: 'gutter',
+          gutterName: 'button',
+          icon: 'place',
+          handlers: {
+            click: function() {
+              alert('hahaha')
+            }
+          }
         }
       ]
     }
