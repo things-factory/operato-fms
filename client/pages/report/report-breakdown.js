@@ -9,7 +9,7 @@ import { ScrollbarStyles } from '@things-factory/styles'
 
 import '../../commons/common-search'
 
-class ReportDelivery extends connect(store)(PageView) {
+class ReportBreakDown extends connect(store)(PageView) {
   static get properties() {
     return {}
   }
@@ -47,7 +47,7 @@ class ReportDelivery extends connect(store)(PageView) {
 
       <div main>
         <div>
-          <label><a href="fms-report">Report</a> > Delivery</label>
+          <label><a href="fms-report">Report</a> > Break Down Rate</label>
           <mwc-button label=${i18next.t('button.export-excel')}> </mwc-button>
         </div>
         <data-grist
@@ -138,4 +138,4 @@ class ReportDelivery extends connect(store)(PageView) {
   }
 }
 
-window.customElements.define('report-delivery', ReportDelivery)
+window.customElements.define('report-breakdown', ReportBreakDown)

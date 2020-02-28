@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { i18next } from '@things-factory/i18n-base'
+import '@things-factory/grist-ui'
 
 export class CommonSearch extends LitElement {
   static get styles() {
@@ -36,8 +37,8 @@ export class CommonSearch extends LitElement {
     }
   }
 
-  constructor() {
-    super()
+  connectedCallback() {
+    super.connectedCallback()
 
     this.config = {
       list: { fields: ['client', 'delivery', 'device', 'status', 'battery'] },
