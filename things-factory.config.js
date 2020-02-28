@@ -9,6 +9,10 @@ export default {
       page: 'fms-monitoring'
     },
     {
+      tagname: 'fms-geofence',
+      page: 'fms-geofence'
+    },
+    {
       tagname: 'fms-report',
       page: 'fms-report'
     },

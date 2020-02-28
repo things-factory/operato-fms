@@ -7,6 +7,10 @@ export default function route(page) {
       import('./pages/monitoring/monitoring')
       return page
 
+    case 'fms-geofence':
+      import('./pages/geofence/geofence')
+      return page
+
     case 'fms-report':
       import('./pages/report/report')
       return page

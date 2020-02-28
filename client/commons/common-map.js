@@ -24,7 +24,9 @@ export class CommonMap extends LitElement {
       zoom: Number,
       map: Object,
       locations: Array,
-      focused: Object
+      focused: Object,
+      polygons: Array,
+      boundCoords: Array
     }
   }
 
@@ -57,6 +59,8 @@ export class CommonMap extends LitElement {
             detail: this.map
           })
         )
+
+        this.resetBounds()
       } catch (e) {
         console.error(e)
       }
@@ -78,7 +82,7 @@ export class CommonMap extends LitElement {
     await this.readyMap()
   }
 
-  async buildMarkers(locations) {
+  async buildMarkers(locations = []) {
     await this.readyMap()
 
     if (this.markers) {
@@ -127,18 +131,20 @@ export class CommonMap extends LitElement {
   async changeFocus(after, before) {
     await this.readyMap()
 
+    var locations = this.locations || []
+
     if (before) {
-      var idx = this.locations.findIndex(
+      var idx = locations.findIndex(
         location =>
           location.name == before.name &&
           location.position.lat == before.position.lat &&
           location.position.lng == before.position.lng
       )
-      idx !== -1 && this.markers && this.resetFocus(this.markers[idx], this.locations[idx].icon)
+      idx !== -1 && this.markers && this.resetFocus(this.markers[idx], locations[idx].icon)
     }
 
     if (after) {
-      var idx = this.locations.findIndex(
+      var idx = locations.findIndex(
         location =>
           location.name == after.name &&
           location.position.lat == after.position.lat &&
@@ -163,12 +169,31 @@ export class CommonMap extends LitElement {
         lng: this.lng
       })
     }
+
+    if (changes.has('polygons')) {
+      ;(changes.get('polygons') || []).forEach(geofence => geofence.setMap(null))
+      ;(this.polygons || []).forEach(geofence => geofence.setMap(this.map))
+    }
+
+    if (changes.has('boundsCoords')) {
+      this.resetBounds()
+    }
   }
 
   render() {
     return html`
       <div map></div>
     `
+  }
+
+  resetBounds() {
+    if (!this.boundsCoords || this.boundsCoords.length < 1) {
+      return
+    }
+
+    var bounds = new google.maps.LatLngBounds()
+    this.boundsCoords.forEach(coord => bounds.extend(coord))
+    this.map.fitBounds(bounds)
   }
 }
 
