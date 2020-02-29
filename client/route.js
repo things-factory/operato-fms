@@ -15,35 +15,47 @@ export default function route(page) {
       import('./pages/report/report')
       return page
 
-    case 'report-delivery':
+    case 'fms-device':
+      import('./pages/device/device')
+      return page
+
+    case 'fms-client':
+      import('./pages/client/client')
+      return page
+
+    case 'fms-admin':
+      import('./pages/admin/admin')
+      return page
+
+    case 'fms-report-delivery':
       import('./pages/report/report-delivery')
       return page
 
-    case 'report-air-pressure':
+    case 'fms-report-air-pressure':
       import('./pages/report/report-air-pressure')
       return page
 
-    case 'report-device':
+    case 'fms-report-device':
       import('./pages/report/report-device')
       return page
 
-    case 'report-breakdown':
+    case 'fms-report-breakdown':
       import('./pages/report/report-breakdown')
       return page
 
-    case 'report-humidity':
+    case 'fms-report-humidity':
       import('./pages/report/report-humidity')
       return page
 
-    case 'report-illuminance':
+    case 'fms-report-illuminance':
       import('./pages/report/report-illuminance')
       return page
 
-    case 'report-shock':
+    case 'fms-report-shock':
       import('./pages/report/report-shock')
       return page
 
-    case 'report-temperature':
+    case 'fms-report-temperature':
       import('./pages/report/report-temperature')
       return page
   }

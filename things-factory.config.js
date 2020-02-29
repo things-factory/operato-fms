@@ -17,36 +17,48 @@ export default {
       page: 'fms-report'
     },
     {
+      tagname: 'fms-client',
+      page: 'fms-client'
+    },
+    {
+      tagname: 'fms-device',
+      page: 'fms-device'
+    },
+    {
+      tagname: 'fms-admin',
+      page: 'fms-admin'
+    },
+    {
       tagname: 'report-delivery',
-      page: 'report-delivery'
+      page: 'fms-report-delivery'
     },
     {
       tagname: 'report-air-pressure',
-      page: 'report-air-pressure'
+      page: 'fms-report-air-pressure'
     },
     {
       tagname: 'report-breakdown',
-      page: 'report-breakdown'
+      page: 'fms-report-breakdown'
     },
     {
       tagname: 'report-device',
-      page: 'report-device'
+      page: 'fms-report-device'
     },
     {
       tagname: 'report-humidity',
-      page: 'report-humidity'
+      page: 'fms-report-humidity'
     },
     {
       tagname: 'report-illuminance',
-      page: 'report-illuminance'
+      page: 'fms-report-illuminance'
     },
     {
       tagname: 'report-shock',
-      page: 'report-shock'
+      page: 'fms-report-shock'
     },
     {
       tagname: 'report-temperature',
-      page: 'report-temperature'
+      page: 'fms-report-temperature'
     }
   ],
   bootstrap
