@@ -1,9 +1,16 @@
 import { css, html, LitElement } from 'lit-element'
+
 import './common-map'
+import { TrackBuilder } from './track-builder'
 
 class TrackPopup extends LitElement {
   static get properties() {
-    return {}
+    return {
+      _polylines: Array,
+      _markers: Array,
+      tracks: Array,
+      map: Object
+    }
   }
 
   static get styles() {
@@ -25,13 +32,46 @@ class TrackPopup extends LitElement {
 
   render() {
     return html`
-      <common-map main @map-change=${e => (this.map = e.detail)}> </common-map>
+      <common-map
+        main
+        .polylines=${this._polylines}
+        .markers=${this._markers}
+        @map-change=${e => (this.map = e.detail)}
+      >
+      </common-map>
     `
   }
 
   updated(changes) {
-    if (changes.has('map')) {
+    if (changes.has('map') || changes.has('tracks')) {
+      this.map && this.tracks && this.createTracks()
     }
+  }
+
+  createTracks() {
+    var { polylines, markers } = TrackBuilder.createTracks(this.tracks)
+
+    markers.forEach(marker => {
+      google.maps.event.addListener(marker, 'click', e => {
+        if (marker.content) {
+          this.infoWindow.open(this.map, marker)
+          this.infoWindow.setContent(marker.content)
+        }
+      })
+    })
+
+    this._polylines = polylines
+    this._markers = markers
+  }
+
+  get infoWindow() {
+    if (!this._infoWindow) {
+      this._infoWindow = new google.maps.InfoWindow({
+        content: 'loading...'
+      })
+    }
+
+    return this._infoWindow
   }
 }
 

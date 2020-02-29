@@ -19,13 +19,14 @@ export class CommonMap extends LitElement {
 
   static get properties() {
     return {
-      lat: Number,
-      lng: Number,
+      center: Object,
       zoom: Number,
       map: Object,
       locations: Array,
       focused: Object,
       polygons: Array,
+      polylines: Array,
+      markers: Array,
       boundCoords: Array
     }
   }
@@ -41,13 +42,11 @@ export class CommonMap extends LitElement {
       return
     }
 
-    var show = (lat, lng, zoom) => {
-      const position = { lat, lng }
-
+    var show = (center, zoom) => {
       try {
         const map = new google.maps.Map(this.anchor, {
           zoom,
-          center: position
+          center
         })
 
         this.markers && this.markers.forEach(marker => marker.setMap(map))
@@ -66,15 +65,22 @@ export class CommonMap extends LitElement {
       }
     }
 
-    var { lat, lng, zoom = 10 } = this
+    var { center, zoom = 10 } = this
 
-    if ((isNaN(lat) || isNaN(lng)) && 'geolocation' in navigator) {
+    if (!center && 'geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
-        position => show(position.coords.latitude, position.coords.longitude, zoom),
+        position =>
+          show(
+            {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            },
+            zoom
+          ),
         err => alert(`Error (${err.code}): ${err.message}`)
       )
     } else {
-      show(lat || 0, lng || 0, zoom)
+      show(center, zoom)
     }
   }
 
@@ -163,16 +169,23 @@ export class CommonMap extends LitElement {
       this.changeFocus(this.focused, changes.get('focused'))
     }
 
-    if (changes.has('lat') || changes.has('lng')) {
-      this.map.setCenter({
-        lat: this.lat,
-        lng: this.lng
-      })
+    if (changes.has('center')) {
+      this.map.setCenter(this.center)
     }
 
     if (changes.has('polygons')) {
       ;(changes.get('polygons') || []).forEach(geofence => geofence.setMap(null))
       ;(this.polygons || []).forEach(geofence => geofence.setMap(this.map))
+    }
+
+    if (changes.has('polylines')) {
+      ;(changes.get('polylines') || []).forEach(polyline => polyline.setMap(null))
+      ;(this.polylines || []).forEach(polyline => polyline.setMap(this.map))
+    }
+
+    if (changes.has('markers')) {
+      ;(changes.get('markers') || []).forEach(marker => marker.setMap(null))
+      ;(this.markers || []).forEach(marker => marker.setMap(this.map))
     }
 
     if (changes.has('boundsCoords')) {

@@ -8,37 +8,14 @@ import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
 
 import '../../commons/common-search'
+import { ReportStyles } from './report-style'
 
 class ReportIlluminance extends connect(store)(PageView) {
   static get properties() {
     return {}
   }
-
   static get styles() {
-    return [
-      ScrollbarStyles,
-      css`
-        :host {
-          display: flex;
-          flex-direction: row;
-        }
-
-        [sidebar] {
-          width: 300px;
-        }
-
-        [main] {
-          flex: 1;
-
-          display: flex;
-          flex-direction: column;
-        }
-
-        data-grist {
-          flex: 1;
-        }
-      `
-    ]
+    return [ScrollbarStyles, ReportStyles]
   }
 
   render() {
@@ -46,12 +23,11 @@ class ReportIlluminance extends connect(store)(PageView) {
       <common-search sidebar></common-search>
 
       <div main>
-        <div>
+        <div header>
           <label><a href="fms-report">Report</a> > Illuminance</label>
-          <mwc-button label=${i18next.t('button.export-excel')}> </mwc-button>
+          <mwc-button label=${i18next.t('button.export')}> </mwc-button>
         </div>
         <data-grist
-          main
           .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
           .config=${this.config}
           .fetchHandler=${this.fetchHandler.bind(this)}

@@ -48,10 +48,9 @@ class FMSAdmin extends connect(store)(PageView) {
       <div main>
         <div>
           <label>Admin</label>
-          <mwc-button label=${i18next.t('button.export-excel')}> </mwc-button>
+          <mwc-button label=${i18next.t('button.export')}> </mwc-button>
         </div>
         <data-grist
-          main
           .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
           .config=${this.config}
           .fetchHandler=${this.fetchHandler.bind(this)}

@@ -10,6 +10,9 @@ import { openPopup } from '@things-factory/layout-base'
 
 import '../../commons/common-search'
 import '../../commons/track-popup'
+import '../../commons/spot-info-content'
+
+import { ReportStyles } from './report-style'
 
 class ReportTemperature extends connect(store)(PageView) {
   static get properties() {
@@ -17,30 +20,7 @@ class ReportTemperature extends connect(store)(PageView) {
   }
 
   static get styles() {
-    return [
-      ScrollbarStyles,
-      css`
-        :host {
-          display: flex;
-          flex-direction: row;
-        }
-
-        [sidebar] {
-          width: 300px;
-        }
-
-        [main] {
-          flex: 1;
-
-          display: flex;
-          flex-direction: column;
-        }
-
-        data-grist {
-          flex: 1;
-        }
-      `
-    ]
+    return [ScrollbarStyles, ReportStyles]
   }
 
   render() {
@@ -48,12 +28,11 @@ class ReportTemperature extends connect(store)(PageView) {
       <common-search sidebar></common-search>
 
       <div main>
-        <div>
+        <div header>
           <label><a href="fms-report">Report</a> > Temperature</label>
-          <mwc-button label=${i18next.t('button.export-excel')}> </mwc-button>
+          <mwc-button label=${i18next.t('button.export')}> </mwc-button>
         </div>
         <data-grist
-          main
           .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
           .config=${this.config}
           .fetchHandler=${this.fetchHandler.bind(this)}
@@ -121,20 +100,37 @@ class ReportTemperature extends connect(store)(PageView) {
           gutterName: 'button',
           icon: 'place',
           handlers: {
-            click: function() {
-              var template = document.createElement('track-popup')
-
-              openPopup(template, {
-                backdrop: true,
-                size: 'large',
-                closable: true,
-                title: i18next.t('title.tracking')
-              })
-            }
+            click: this.showTrack.bind(this)
           }
         }
       ]
     }
+  }
+
+  showTrack() {
+    var template = document.createElement('track-popup')
+    template.tracks = new Array(10).fill(0).map(() => {
+      var lat = 37.5326 + Math.random() / 10
+      var lng = 127.024612 + Math.random() / 10
+
+      return {
+        position: { lat, lng },
+        get content() {
+          var content = document.createElement('spot-info-content')
+          content.name = this.name
+          content.position = this.position
+
+          return content
+        }
+      }
+    })
+
+    openPopup(template, {
+      backdrop: true,
+      size: 'large',
+      closable: true,
+      title: i18next.t('title.tracking')
+    })
   }
 
   async firstUpdated() {

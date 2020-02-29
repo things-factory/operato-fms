@@ -48,7 +48,7 @@ class FMSDevice extends connect(store)(PageView) {
       <div main>
         <div>
           <label>Device</label>
-          <mwc-button label=${i18next.t('button.export-excel')}> </mwc-button>
+          <mwc-button label=${i18next.t('button.export')}> </mwc-button>
         </div>
         <data-grist
           main

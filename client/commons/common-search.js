@@ -43,7 +43,33 @@ export class CommonSearch extends LitElement {
     this.config = {
       list: { fields: ['client', 'delivery', 'device', 'status', 'battery'] },
       pagination: { infinite: true },
-      rows: { selectable: false, appendable: false },
+      rows: {
+        selectable: false,
+        appendable: false,
+        handlers: {
+          click: (columns, data, column, record, rowIndex) => {
+            // var tracks = ['37.5326,127.024612', '37.517235,127.047325'].map(position => {
+            //   var [lat, lng] = position.split(',').map(pos => Number(pos))
+            //   var lat = 37.5326 + Math.random()
+            //   var lng
+
+            //   return { lat, lng }
+            // })
+            var tracks = new Array(10).fill(0).map(() => {
+              var lat = 37.5326 + Math.random() / 10
+              var lng = 127.024612 + Math.random() / 10
+
+              return { lat, lng }
+            })
+
+            this.dispatchEvent(
+              new CustomEvent('tracks', {
+                detail: tracks
+              })
+            )
+          }
+        }
+      },
       columns: [
         { type: 'gutter', gutterName: 'sequence' },
         {
