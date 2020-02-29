@@ -7,7 +7,9 @@ import '../../commons/common-map'
 
 class FMSMonitoring extends connect(store)(PageView) {
   static get properties() {
-    return {}
+    return {
+      map: Object
+    }
   }
 
   static get styles() {
@@ -31,24 +33,16 @@ class FMSMonitoring extends connect(store)(PageView) {
   }
 
   render() {
-    var warehouses = []
-    var focused = {}
-
     return html`
       <common-search sidebar></common-search>
 
-      <common-map
-        main
-        .locations=${warehouses}
-        .focused=${focused}
-        @map-change=${e =>
-          store.dispatch({
-            type: 'UPDATE_SEARCH_MAP',
-            map: e.detail
-          })}
-      >
-      </common-map>
+      <common-map main @map-change=${e => (this.map = e.detail)}> </common-map>
     `
+  }
+
+  updated(changes) {
+    if (changes.has('map')) {
+    }
   }
 
   stateChanged(state) {}

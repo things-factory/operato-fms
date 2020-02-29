@@ -6,8 +6,10 @@ import '@things-factory/grist-ui'
 import { i18next } from '@things-factory/i18n-base'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
+import { openPopup } from '@things-factory/layout-base'
 
 import '../../commons/common-search'
+import '../../commons/track-popup'
 
 class ReportTemperature extends connect(store)(PageView) {
   static get properties() {
@@ -120,7 +122,14 @@ class ReportTemperature extends connect(store)(PageView) {
           icon: 'place',
           handlers: {
             click: function() {
-              alert('hahaha')
+              var template = document.createElement('track-popup')
+
+              openPopup(template, {
+                backdrop: true,
+                size: 'large',
+                closable: true,
+                title: i18next.t('title.tracking')
+              })
             }
           }
         }
