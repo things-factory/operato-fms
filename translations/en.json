@@ -1,0 +1,7 @@
+{
+  "field.client": "client",
+  "field.delivery": "delivery",
+  "field.device": "device",
+  "field.registration": "registration",
+  "title.track": "track"
+}

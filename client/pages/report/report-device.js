@@ -3,14 +3,14 @@ import { connect } from 'pwa-helpers/connect-mixin.js'
 import '@material/mwc-button'
 import { store, PageView } from '@things-factory/shell'
 import '@things-factory/grist-ui'
-import { i18next } from '@things-factory/i18n-base'
+import { i18next, localize } from '@things-factory/i18n-base'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
 
 import '../../commons/common-search'
 import { ReportStyles } from './report-style'
 
-class ReportDevice extends connect(store)(PageView) {
+class ReportDevice extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
     return {}
   }

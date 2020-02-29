@@ -1,13 +1,15 @@
 import { html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store, PageView } from '@things-factory/shell'
+import { i18next, localize } from '@things-factory/i18n-base'
+
 import { TrackBuilder } from '../../commons/track-builder'
 
 import '../../commons/common-search'
 import '../../commons/common-map'
 import '../../commons/spot-info-content'
 
-class FMSMonitoring extends connect(store)(PageView) {
+class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
     return {
       _polylines: Array,
