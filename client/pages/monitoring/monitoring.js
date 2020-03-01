@@ -3,6 +3,9 @@ import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store, PageView } from '@things-factory/shell'
 import { i18next, localize } from '@things-factory/i18n-base'
 
+import { ScrollbarStyles } from '@things-factory/styles'
+import { FMSPageStyles } from '../fms-page-style'
+
 import { TrackBuilder } from '../../commons/track-builder'
 
 import '../../commons/common-search'
@@ -20,23 +23,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   static get styles() {
-    return css`
-      :host {
-        display: flex;
-        flex-direction: row;
-      }
-
-      [sidebar] {
-        width: 300px;
-
-        display: flex;
-        flex-direction: column;
-      }
-
-      [main] {
-        flex: 1;
-      }
-    `
+    return [ScrollbarStyles, FMSPageStyles]
   }
 
   render() {

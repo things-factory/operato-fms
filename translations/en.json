@@ -3,6 +3,8 @@
   "field.client": "client",
   "field.delivery": "delivery",
   "field.device": "device",
+  "field.#devices": "# of devices",
+  "field.monitoring": "monitoring",
   "field.registration": "registration",
   "field.status": "status",
   "title.track": "track"

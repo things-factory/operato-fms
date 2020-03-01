@@ -26,6 +26,7 @@ class FMSDevice extends connect(store)(localize(i18next)(PageView)) {
       <div main>
         <div header>
           <label>Device</label>
+          <mwc-button label=${i18next.t('button.register')}> </mwc-button>
           <mwc-button label=${i18next.t('button.export')}> </mwc-button>
         </div>
         <data-grist
@@ -49,6 +50,52 @@ class FMSDevice extends connect(store)(localize(i18next)(PageView)) {
         { type: 'gutter', gutterName: 'sequence' },
         {
           type: 'string',
+          name: 'device',
+          header: i18next.t('field.device'),
+          record: { editable: false, align: 'left' },
+          imex: { header: i18next.t('field.device'), key: 'device', width: 50, type: 'string' },
+          sortable: true,
+          width: 150
+        },
+        {
+          type: 'string',
+          name: 'monitoring',
+          header: i18next.t('field.monitoring'),
+          record: {
+            editable: false,
+            align: 'center',
+            renderer: function(value, column, record, rowIndex, field) {
+              var state = value ? 'ON' : 'OFF'
+              var backcolor = value ? '#5C9CD5' : '#C5C8D1'
+              return html`
+                <div style="color:white;background-color:${backcolor};border-radius:3px;">${state}</div>
+              `
+            }
+          },
+          imex: { header: i18next.t('field.monitoring'), key: 'monitoring', width: 50, type: 'string' },
+          sortable: true,
+          width: 60
+        },
+        {
+          type: 'number',
+          name: 'battery',
+          header: i18next.t('field.battery'),
+          record: {
+            editable: false,
+            align: 'center',
+            renderer: function(value, column, record, rowIndex, field) {
+              var backcolor = value < 30 ? '#C8414C' : value < 80 ? '#EEBB54' : '#96C564'
+              return html`
+                <div style="color:white;background-color:${backcolor};border-radius:3px;">${value}%</div>
+              `
+            }
+          },
+          imex: { header: i18next.t('field.battery'), key: 'battery', width: 50, type: 'string' },
+          sortable: true,
+          width: 60
+        },
+        {
+          type: 'string',
           name: 'client',
           header: i18next.t('field.client'),
           record: { editable: false, align: 'left' },
@@ -66,22 +113,13 @@ class FMSDevice extends connect(store)(localize(i18next)(PageView)) {
           width: 150
         },
         {
-          type: 'string',
-          name: 'device',
-          header: i18next.t('field.device'),
-          record: { editable: false, align: 'left' },
-          imex: { header: i18next.t('field.device'), key: 'device', width: 50, type: 'string' },
-          sortable: true,
-          width: 150
-        },
-        {
-          type: 'string',
+          type: 'datetime',
           name: 'registration',
           header: i18next.t('field.registration'),
           record: { editable: false, align: 'left' },
           imex: { header: i18next.t('field.registration'), key: 'registration', width: 50, type: 'string' },
           sortable: true,
-          width: 150
+          width: 180
         }
       ]
     }
@@ -108,7 +146,10 @@ class FMSDevice extends connect(store)(localize(i18next)(PageView)) {
           return {
             client: 'Client-' + num,
             delivery: 'Delivery-' + num,
-            device: 'Device-' + num
+            device: 'Device-' + num,
+            monitoring: Math.random() - 0.5 > 0 ? 0 : 1,
+            battery: ~~(Math.random() * 100),
+            registration: Date.now() - ~~(Math.random() * 100000000)
           }
         })
     }

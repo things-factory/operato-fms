@@ -6,8 +6,12 @@ import '@things-factory/grist-ui'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
+import { openPopup } from '@things-factory/layout-base'
 
 import '../../commons/common-search'
+import '../../commons/track-popup'
+import '../../commons/spot-info-content'
+
 import { ReportStyles } from './report-style'
 
 class ReportShock extends connect(store)(localize(i18next)(PageView)) {
@@ -48,6 +52,23 @@ class ReportShock extends connect(store)(localize(i18next)(PageView)) {
       columns: [
         { type: 'gutter', gutterName: 'sequence' },
         {
+          type: 'gutter',
+          gutterName: 'button',
+          icon: 'place',
+          handlers: {
+            click: this.showTrack.bind(this)
+          }
+        },
+        {
+          type: 'string',
+          name: 'device',
+          header: i18next.t('field.device'),
+          record: { editable: false, align: 'left' },
+          imex: { header: i18next.t('field.device'), key: 'device', width: 50, type: 'string' },
+          sortable: true,
+          width: 150
+        },
+        {
           type: 'string',
           name: 'client',
           header: i18next.t('field.client'),
@@ -66,25 +87,50 @@ class ReportShock extends connect(store)(localize(i18next)(PageView)) {
           width: 150
         },
         {
-          type: 'string',
-          name: 'device',
-          header: i18next.t('field.device'),
-          record: { editable: false, align: 'left' },
-          imex: { header: i18next.t('field.device'), key: 'device', width: 50, type: 'string' },
+          type: 'number',
+          name: 'value',
+          header: i18next.t('field.value') + '(g)',
+          record: { editable: false, align: 'right' },
+          imex: { header: i18next.t('field.value') + '(g)', key: 'value', width: 50, type: 'number' },
           sortable: true,
           width: 150
         },
         {
-          type: 'string',
-          name: 'registration',
-          header: i18next.t('field.registration'),
-          record: { editable: false, align: 'left' },
-          imex: { header: i18next.t('field.registration'), key: 'registration', width: 50, type: 'string' },
+          type: 'datetime',
+          name: 'updatedAt',
+          header: i18next.t('field.updated_at'),
+          record: { editable: false, align: 'center' },
           sortable: true,
-          width: 150
+          width: 180
         }
       ]
     }
+  }
+
+  showTrack() {
+    var template = document.createElement('track-popup')
+    template.tracks = new Array(10).fill(0).map(() => {
+      var lat = 37.5326 + Math.random() / 10
+      var lng = 127.024612 + Math.random() / 10
+
+      return {
+        position: { lat, lng },
+        get content() {
+          var content = document.createElement('spot-info-content')
+          content.name = this.name
+          content.position = this.position
+
+          return content
+        }
+      }
+    })
+
+    openPopup(template, {
+      backdrop: true,
+      size: 'large',
+      closable: true,
+      title: i18next.t('title.track')
+    })
   }
 
   async firstUpdated() {
@@ -108,7 +154,9 @@ class ReportShock extends connect(store)(localize(i18next)(PageView)) {
           return {
             client: 'Client-' + num,
             delivery: 'Delivery-' + num,
-            device: 'Device-' + num
+            device: 'Device-' + num,
+            value: ~~(Math.random() * 100),
+            updatedAt: Date.now() - ~~(Math.random() * 100000000)
           }
         })
     }

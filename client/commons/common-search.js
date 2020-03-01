@@ -33,7 +33,8 @@ export class CommonSearch extends LitElement {
   static get properties() {
     return {
       config: Object,
-      data: Object
+      data: Object,
+      total: Number
     }
   }
 
@@ -103,19 +104,38 @@ export class CommonSearch extends LitElement {
           type: 'string',
           name: 'status',
           header: i18next.t('field.status'),
-          record: { editable: false, align: 'left' },
+          record: {
+            editable: false,
+            align: 'center',
+            renderer: function(value, column, record, rowIndex, field) {
+              var state = value ? 'online' : 'offline'
+              var backcolor = value ? '#5C9CD5' : '#C5C8D1'
+              return html`
+                <div style="color:white;background-color:${backcolor};border-radius:3px;">${state}</div>
+              `
+            }
+          },
           imex: { header: i18next.t('field.status'), key: 'status', width: 50, type: 'string' },
           sortable: true,
-          width: 30
+          width: 44
         },
         {
-          type: 'string',
+          type: 'number',
           name: 'battery',
           header: i18next.t('field.battery'),
-          record: { editable: false, align: 'left' },
+          record: {
+            editable: false,
+            align: 'center',
+            renderer: function(value, column, record, rowIndex, field) {
+              var backcolor = value < 30 ? '#C8414C' : value < 80 ? '#EEBB54' : '#96C564'
+              return html`
+                <div style="color:white;background-color:${backcolor};border-radius:3px;">${value}%</div>
+              `
+            }
+          },
           imex: { header: i18next.t('field.battery'), key: 'battery', width: 50, type: 'string' },
           sortable: true,
-          width: 30
+          width: 40
         }
       ]
     }
@@ -142,6 +162,8 @@ export class CommonSearch extends LitElement {
         <select></select>
       </div>
 
+      <div>total : ${this.total}</div>
+
       <data-grist
         .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
         .config=${this.config}
@@ -151,6 +173,8 @@ export class CommonSearch extends LitElement {
   }
 
   async fetchHandler({ page, limit, sorters = [] }) {
+    this.total = 300
+
     return {
       total: 300,
       records: Array(50)
@@ -160,7 +184,9 @@ export class CommonSearch extends LitElement {
           return {
             client: 'Client-' + num,
             delivery: 'Delivery-' + num,
-            device: 'Device-' + num
+            device: 'Device-' + num,
+            status: Math.random() - 0.5 > 0 ? 0 : 1,
+            battery: ~~(Math.random() * 100)
           }
         })
     }

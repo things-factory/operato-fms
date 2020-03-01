@@ -52,6 +52,14 @@ class ReportTemperature extends connect(store)(localize(i18next)(PageView)) {
       columns: [
         { type: 'gutter', gutterName: 'sequence' },
         {
+          type: 'gutter',
+          gutterName: 'button',
+          icon: 'place',
+          handlers: {
+            click: this.showTrack.bind(this)
+          }
+        },
+        {
           type: 'string',
           name: 'client',
           header: i18next.t('field.client'),
@@ -79,11 +87,11 @@ class ReportTemperature extends connect(store)(localize(i18next)(PageView)) {
           width: 150
         },
         {
-          type: 'string',
+          type: 'number',
           name: 'value',
-          header: i18next.t('field.value'),
-          record: { editable: false, align: 'left' },
-          imex: { header: i18next.t('field.value'), key: 'value', width: 50, type: 'string' },
+          header: i18next.t('field.value') + '(°F)',
+          record: { editable: false, align: 'right' },
+          imex: { header: i18next.t('field.value') + '(°F)', key: 'value', width: 50, type: 'number' },
           sortable: true,
           width: 150
         },
@@ -93,15 +101,7 @@ class ReportTemperature extends connect(store)(localize(i18next)(PageView)) {
           header: i18next.t('field.updated_at'),
           record: { editable: false, align: 'center' },
           sortable: true,
-          width: 150
-        },
-        {
-          type: 'gutter',
-          gutterName: 'button',
-          icon: 'place',
-          handlers: {
-            click: this.showTrack.bind(this)
-          }
+          width: 180
         }
       ]
     }
@@ -154,7 +154,9 @@ class ReportTemperature extends connect(store)(localize(i18next)(PageView)) {
           return {
             client: 'Client-' + num,
             delivery: 'Delivery-' + num,
-            device: 'Device-' + num
+            device: 'Device-' + num,
+            value: ~~(Math.random() * 100),
+            updatedAt: Date.now() - ~~(Math.random() * 100000000)
           }
         })
     }

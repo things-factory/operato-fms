@@ -48,6 +48,15 @@ class ReportDevice extends connect(store)(localize(i18next)(PageView)) {
         { type: 'gutter', gutterName: 'sequence' },
         {
           type: 'string',
+          name: 'device',
+          header: i18next.t('field.device'),
+          record: { editable: false, align: 'left' },
+          imex: { header: i18next.t('field.device'), key: 'device', width: 50, type: 'string' },
+          sortable: true,
+          width: 150
+        },
+        {
+          type: 'string',
           name: 'client',
           header: i18next.t('field.client'),
           record: { editable: false, align: 'left' },
@@ -65,22 +74,13 @@ class ReportDevice extends connect(store)(localize(i18next)(PageView)) {
           width: 150
         },
         {
-          type: 'string',
-          name: 'device',
-          header: i18next.t('field.device'),
-          record: { editable: false, align: 'left' },
-          imex: { header: i18next.t('field.device'), key: 'device', width: 50, type: 'string' },
-          sortable: true,
-          width: 150
-        },
-        {
-          type: 'string',
+          type: 'datetime',
           name: 'registration',
           header: i18next.t('field.registration'),
           record: { editable: false, align: 'left' },
           imex: { header: i18next.t('field.registration'), key: 'registration', width: 50, type: 'string' },
           sortable: true,
-          width: 150
+          width: 180
         }
       ]
     }
@@ -107,7 +107,8 @@ class ReportDevice extends connect(store)(localize(i18next)(PageView)) {
           return {
             client: 'Client-' + num,
             delivery: 'Delivery-' + num,
-            device: 'Device-' + num
+            device: 'Device-' + num,
+            registration: Date.now() - ~~(Math.random() * 100000000)
           }
         })
     }

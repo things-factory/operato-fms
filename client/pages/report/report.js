@@ -4,6 +4,9 @@ import gql from 'graphql-tag'
 import { css, html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 
+import { ScrollbarStyles } from '@things-factory/styles'
+import { FMSPageStyles } from '../fms-page-style'
+
 import '../../commons/common-search'
 
 const NOOP = () => {}
@@ -22,22 +25,10 @@ export class FMSReport extends connect(store)(PageView) {
 
   static get styles() {
     return [
+      ScrollbarStyles,
+      FMSPageStyles,
       css`
-        :host {
-          display: flex;
-          flex-direction: row;
-        }
-
-        [sidebar] {
-          width: 300px;
-
-          display: flex;
-          flex-direction: column;
-        }
-
         [main] {
-          flex: 1;
-
           display: flex;
           flex-direction: column;
 
