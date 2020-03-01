@@ -66,7 +66,7 @@ export default function bootstrap() {
     type: APPEND_APP_TOOL,
     tool: {
       template: html`
-        <span style="font-size: 1.0em;">Help</span>
+        <span style="font-size: 1.0em;">Notification</span>
       `,
       position: TOOL_POSITION.REAR
     }
