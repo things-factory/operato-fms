@@ -1,7 +1,9 @@
 {
+  "field.battery": "battery",
   "field.client": "client",
   "field.delivery": "delivery",
   "field.device": "device",
   "field.registration": "registration",
+  "field.status": "status",
   "title.track": "track"
 }
