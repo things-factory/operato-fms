@@ -1,5 +1,7 @@
-import { ICONS, FOCUS_ICON } from './marker-icons'
+import { ICONS, EVENT_ICONS } from './marker-icons'
 const SCALED_SIZE = { width: 24, height: 24 }
+
+const RANDOM_ICONS = [...ICONS, ...EVENT_ICONS]
 
 export class TrackBuilder {
   static createTracks(tracks) {
@@ -21,7 +23,7 @@ export class TrackBuilder {
         name,
         position: spot.position,
         icon: {
-          url: ICONS[Math.round(Math.random() * 100) % 6],
+          url: EVENT_ICONS[~~(Math.random() * 7)],
           scaledSize: SCALED_SIZE
         },
         title: name,
