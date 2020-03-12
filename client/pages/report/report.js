@@ -10,7 +10,7 @@ import { FMSPageStyles } from '../fms-page-style'
 import '../../commons/common-search'
 
 const NOOP = () => {}
-const HOME_BOARD = 'home'
+const DASHBOARD = 'dashboard'
 
 export class FMSReport extends connect(store)(PageView) {
   static get properties() {
@@ -123,7 +123,7 @@ export class FMSReport extends connect(store)(PageView) {
     this._baseUrl = state.app.baseUrl
     this._license = state.license
 
-    this._boardId = (state.dashboard[HOME_BOARD] || { board: {} }).board.id
+    this._boardId = (state.boardSetting[DASHBOARD] || { board: {} }).board.id
   }
 
   async refresh() {

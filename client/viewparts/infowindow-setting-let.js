@@ -9,10 +9,10 @@ import { UPDATE_BOARD_SETTINGS } from '../actions/board-settings'
 import '@things-factory/board-ui'
 import { fetchDashboardSettings } from './fetch-dashboard-settings'
 
-const DASHBOARD = 'dashboard'
-const DASHBOARD_DESCRIPTION = 'dashboard board'
+const INFOWINDOW_BOARD = 'infowindow'
+const INFOWINDOW_DESCRIPTION = 'infowindow board'
 
-export class DashboardSettingLet extends connect(store)(localize(i18next)(LitElement)) {
+export class InfowindowSettingLet extends connect(store)(localize(i18next)(LitElement)) {
   static get styles() {
     return [
       css`
@@ -103,22 +103,22 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
 
   static get properties() {
     return {
-      dashboard: Object
+      infowindowBoard: Object
     }
   }
 
   render() {
     return html`
       <setting-let>
-        <i18n-msg slot="title" msgid="title.dashboard setting"></i18n-msg>
+        <i18n-msg slot="title" msgid="title.infowindow setting"></i18n-msg>
 
         <form slot="content" @submit=${e => this._handleSubmit(e)}>
           ${[
             {
-              title: i18next.t('title.dashboard'),
-              board: this.dashboard,
-              key: DASHBOARD,
-              description: DASHBOARD_DESCRIPTION
+              title: i18next.t('title.infowindow board'),
+              board: this.infowindowBoard,
+              key: INFOWINDOW_BOARD,
+              description: INFOWINDOW_DESCRIPTION
             }
           ].map(
             field => html`
@@ -152,9 +152,9 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
   }
 
   stateChanged(state) {
-    var dashboard = state.boardSetting[DASHBOARD]
+    var infowindowBoard = state.boardSetting[INFOWINDOW_BOARD]
 
-    this.dashboard = (dashboard ? dashboard.board : {}) || {}
+    this.infowindowBoard = (infowindowBoard ? infowindowBoard.board : {}) || {}
   }
 
   onClickBoardSelector(name, description) {
@@ -217,4 +217,4 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
   }
 }
 
-customElements.define('dashboard-setting-let', DashboardSettingLet)
+customElements.define('infowindow-setting-let', InfowindowSettingLet)

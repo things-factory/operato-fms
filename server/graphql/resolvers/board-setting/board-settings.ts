@@ -2,12 +2,13 @@ import { Board } from '@things-factory/board-service'
 import { Setting } from '@things-factory/setting-base'
 import { getRepository } from 'typeorm'
 
-const HOME_BOARD = 'home'
+const DASHBOARD_BOARD = 'dashboard'
+const INFOWINDOW_BOARD = 'infowindow'
 
 export const boardSettingsResolver = {
   async boardSettings(_: any, params: any, context: any) {
     const queryBuilder = getRepository(Setting).createQueryBuilder()
-    const names = [HOME_BOARD]
+    const names = [DASHBOARD_BOARD, INFOWINDOW_BOARD]
 
     var qb = queryBuilder
       .innerJoin(Board, 'Board', 'Setting.value = CAST(Board.id AS char(36))')

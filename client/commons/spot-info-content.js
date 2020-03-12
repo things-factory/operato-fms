@@ -1,49 +1,22 @@
 import { LitElement, html, css } from 'lit-element'
+import { connect } from 'pwa-helpers/connect-mixin.js'
+import { store } from '@things-factory/shell'
+import { provider } from '@things-factory/board-ui'
 
-export class SpotInfoContent extends LitElement {
+const INFOWINDOW_BOARD = 'infowindow'
+
+export class SpotInfoContent extends connect(store)(LitElement) {
   static get styles() {
     return [
       css`
         :host {
-          display: flex;
+          display: block;
           position: relative;
         }
 
-        image-slider {
-          margin: 5px;
-          width: 300px;
-          height: 200px;
-        }
-
-        [rate] {
-          position: absolute;
-          display: flex;
-          align-items: center;
-          font-size: 0.8em;
-          top: 10px;
-          right: 0;
-        }
-
-        [info] {
-          flex: 1;
-        }
-
-        [note] {
-          font-size: 1em;
-          font-weight: bold;
-        }
-
-        [brief] {
-          font-size: 1.3em;
-        }
-
-        [desc] {
-          font-size: 1em;
-        }
-
-        mwc-icon {
-          font-size: 1em;
-          color: red;
+        div {
+          width: 100%;
+          height: 100%;
         }
       `
     ]
@@ -51,24 +24,71 @@ export class SpotInfoContent extends LitElement {
 
   static get properties() {
     return {
-      name: String,
-      position: Object /* {lat, lng} */
+      data: Object,
+      scene: Object,
+      _refresh: Number
     }
+  }
+
+  stateChanged(state) {
+    this._boardId = (state.boardSetting[INFOWINDOW_BOARD] || { board: {} }).board.id
+  }
+
+  updated(changes) {
+    if (changes.has('_refresh')) {
+      this._onRefresh()
+    }
+
+    if (changes.has('scene') && this.scene) {
+      this.scene.fit()
+    }
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+
+    this._refresh = (this._refresh || 0) + 1
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+
+    this._releaseRef()
+  }
+
+  get targetEl() {
+    return this.renderRoot.getElementById('target')
   }
 
   render() {
     return html`
-      <div info>
-        <div note>[super partner] cold storage</div>
-        <h2 brief>${this.name}</h2>
-        <div desc>Blah Blah Blah Blah Blah Blah</div>
-        <div desc>Blah Blah Blah Blah Blah Blah</div>
-      </div>
-      <div rate>
-        <mwc-icon>star</mwc-icon>
-        <span>4.70(203)</span>
-      </div>
+      <div id="target"></div>
     `
+  }
+
+  _releaseRef() {
+    if (this.scene) {
+      this.scene.target = null
+      this.scene.release()
+      this.scene = null
+    }
+  }
+
+  async _onRefresh() {
+    if (!this._boardId) return
+
+    try {
+      var scene = await provider.get(this._boardId, true)
+      let { width, height } = scene.model
+      this.setAttribute('style', `width:${width}px;height:${height}px`)
+
+      scene.target = this.targetEl
+      scene.data = this.data
+
+      this.scene = scene
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
 

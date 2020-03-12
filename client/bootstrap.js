@@ -5,14 +5,15 @@ import { TOOL_POSITION } from '@things-factory/layout-base'
 import { APPEND_APP_TOOL } from '@things-factory/apptool-base'
 import { ADD_SETTING } from '@things-factory/setting-base'
 
-import { UPDATE_DASHBOARD_SETTINGS } from './actions/dashboard-settings'
+import { UPDATE_BOARD_SETTINGS } from './actions/board-settings'
 import { fetchDashboardSettings } from './viewparts/fetch-dashboard-settings'
 
-import dashboard from './reducers/dashboard-settings'
+import boardSetting from './reducers/board-settings'
 
 import './viewparts/user-circle'
 import './viewparts/top-menus'
 import './viewparts/dashboard-setting-let'
+import './viewparts/infowindow-setting-let'
 
 console.log(
   `%c
@@ -26,7 +27,7 @@ console.log(
 )
 
 export default function bootstrap() {
-  store.addReducers({ dashboard })
+  store.addReducers({ boardSetting })
 
   /* 사용자 signin/signout 에 따라서, setting 변경 */
   auth.on('profile', async () => {
@@ -34,7 +35,7 @@ export default function bootstrap() {
     var settings = await fetchDashboardSettings()
 
     store.dispatch({
-      type: UPDATE_DASHBOARD_SETTINGS,
+      type: UPDATE_BOARD_SETTINGS,
       settings: settings.reduce((settings, setting) => {
         settings[setting.name] = setting
         return settings
@@ -88,6 +89,16 @@ export default function bootstrap() {
       seq: 20,
       template: html`
         <dashboard-setting-let></dashboard-setting-let>
+      `
+    }
+  })
+
+  store.dispatch({
+    type: ADD_SETTING,
+    setting: {
+      seq: 20,
+      template: html`
+        <infowindow-setting-let></infowindow-setting-let>
       `
     }
   })

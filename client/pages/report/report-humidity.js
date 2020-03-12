@@ -118,7 +118,10 @@ class ReportHumidity extends connect(store)(localize(i18next)(PageView)) {
         get content() {
           var content = document.createElement('spot-info-content')
           content.name = this.name
-          content.position = this.position
+          content.data = {
+            name: this.name,
+            position: this.position
+          }
 
           return content
         }
