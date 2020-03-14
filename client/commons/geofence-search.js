@@ -93,14 +93,14 @@ export class GenfenceSearch extends LitElement {
         {
           type: 'number',
           name: 'event',
-          header: i18next.t('field.event'),
+          header: 'event', // i18next.t('field.event'),
           record: {
             editable: false,
             align: 'center',
             renderer: function(value, column, record, rowIndex, field) {
-              var backcolor = value < 30 ? '#C8414C' : value < 80 ? '#EEBB54' : '#96C564'
+              var backcolor = value > 2 ? '#C8414C' : value > 0 ? '#EEBB54' : '#96C564'
               return html`
-                <div style="color:white;background-color:${backcolor};border-radius:3px;">${value}%</div>
+                <div style="color:white;background-color:${backcolor};border-radius:3px;">${value}</div>
               `
             }
           },
@@ -141,11 +141,11 @@ export class GenfenceSearch extends LitElement {
   }
 
   async fetchHandler({ page, limit, sorters = [] }) {
-    this.total = 300
+    this.total = 10
 
     return {
-      total: 300,
-      records: Array(50)
+      total: 10,
+      records: Array(10)
         .fill()
         .map(() => {
           var num = ~~(Math.random() * 100)
@@ -153,7 +153,7 @@ export class GenfenceSearch extends LitElement {
             client: 'Client-' + num,
             name: 'Geofence-' + num,
             type: ['Inbound', 'Outbound'][~~(Math.random() * 2)],
-            event: ~~(Math.random() * 100)
+            event: ~~(Math.random() * 5)
           }
         })
     }

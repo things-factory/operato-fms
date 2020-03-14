@@ -14,7 +14,6 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
     return {
       map: Object,
       polygons: Array,
-      polygon: Object,
       coords: Array
     }
   }
@@ -38,54 +37,32 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
     }
   }
 
-  getCoordinates() {
-    var coordsArr = []
-
-    for (var i = 0; i < this.polygon.getPath().getLength(); i++) {
-      coordsArr.push(
-        this.polygon
-          .getPath()
-          .getAt(i)
-          .toUrlValue(15)
-          .split(',')
-      )
-    }
-
-    return coordsArr
-  }
-
-  coordinatesToLatLng(coordinates) {
-    var coords = []
-
-    if (!Array.isArray(coordinates) || coordinates.length < 3) {
-      throw new Error('Coordinates size must be greater than 3')
-    }
-
-    for (var coordinate in coordinates) {
-      coords.push(new google.maps.LatLng(coordinates[coordinate][0], coordinates[coordinate][1]))
-    }
-
-    return coords
-  }
-
   createPolygon() {
     if (!this.map) {
       return
     }
 
-    if (this.polygon) {
-      this.polygon.setMap(null)
+    if (this.polygons) {
+      this.polygons.forEach(polygon => polygon.setMap(null))
     }
 
-    var polygon = new google.maps.Polygon({
-      strokeWeight: 1,
-      editable: true,
-      draggable: true,
-      path: this.coords
-    })
+    if (this.coords) {
+      if (this.coords.length < 3) {
+        this.polygons = []
+        throw new Error('Coordinates size must be greater than 3')
+      }
 
-    this.polygon = polygon
-    this.polygons = [this.polygon]
+      this.polygons = [
+        new google.maps.Polygon({
+          strokeWeight: 1,
+          editable: true,
+          draggable: true,
+          path: this.coords
+        })
+      ]
+    } else {
+      this.polygons = []
+    }
   }
 }
 
