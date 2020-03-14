@@ -8,6 +8,7 @@ import { FMSPageStyles } from '../fms-page-style'
 
 import '../../commons/common-search'
 import '../../commons/common-map'
+import { fetchGeofence } from '../../commons/fetch-geofence'
 
 class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
@@ -27,12 +28,7 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
     return html`
       <common-search sidebar></common-search>
 
-      <common-map
-        main
-        .polygons=${this.polygons}
-        .boundCoords=${this.coords}
-        @map-change=${e => (this.map = e.detail)}
-      >
+      <common-map main .polygons=${this.polygons} .boundCoords=${this.coords} @map-change=${e => (this.map = e.detail)}>
       </common-map>
     `
   }
@@ -40,14 +36,11 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
   connectedCallback() {
     super.connectedCallback()
 
-    this.coords = [
-      [23.832570352277692, 90.41199964550788],
-      [23.798165936805923, 90.38352334497074],
-      [23.79768310017011, 90.43916111914064]
-    ].map(coord => {
+    this.coords = fetchGeofence().map(position => {
+      var [lat, lng] = position.split(',').map(pos => Number(pos))
       return {
-        lat: coord[0],
-        lng: coord[1]
+        lat,
+        lng
       }
     })
   }
