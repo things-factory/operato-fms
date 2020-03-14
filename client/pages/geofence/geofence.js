@@ -6,9 +6,8 @@ import { i18next, localize } from '@things-factory/i18n-base'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { FMSPageStyles } from '../fms-page-style'
 
-import '../../commons/common-search'
+import '../../commons/geofence-search'
 import '../../commons/common-map'
-import { fetchGeofence } from '../../commons/fetch-geofence'
 
 class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
@@ -26,23 +25,11 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
 
   render() {
     return html`
-      <common-search sidebar></common-search>
+      <geofence-search sidebar @geofence=${e => (this.coords = e.detail)}></geofence-search>
 
       <common-map main .polygons=${this.polygons} .boundCoords=${this.coords} @map-change=${e => (this.map = e.detail)}>
       </common-map>
     `
-  }
-
-  connectedCallback() {
-    super.connectedCallback()
-
-    this.coords = fetchGeofence().map(position => {
-      var [lat, lng] = position.split(',').map(pos => Number(pos))
-      return {
-        lat,
-        lng
-      }
-    })
   }
 
   updated(changes) {
