@@ -8,6 +8,7 @@ import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { openPopup } from '@things-factory/layout-base'
 
+import { fetchTrack } from '../../commons/fetch-track'
 import '../../commons/common-search'
 import '../../commons/track-popup'
 import '../../commons/spot-info-content'
@@ -109,17 +110,19 @@ class ReportAirPressure extends connect(store)(localize(i18next)(PageView)) {
 
   showTrack() {
     var template = document.createElement('track-popup')
-    template.tracks = new Array(10).fill(0).map(() => {
-      var lat = 37.5326 + Math.random() / 10
-      var lng = 127.024612 + Math.random() / 10
+
+    template.tracks = fetchTrack().map(track => {
+      var { name, lat, lng, parameters } = track
+      var position = { lat, lng }
 
       return {
         position: { lat, lng },
         get content() {
           var content = document.createElement('spot-info-content')
           content.data = {
-            name: this.name,
-            position: this.position
+            name,
+            position,
+            parameters
           }
 
           return content

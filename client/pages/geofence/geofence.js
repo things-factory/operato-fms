@@ -30,7 +30,7 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
       <common-map
         main
         .polygons=${this.polygons}
-        .boundsCoords=${this.coords}
+        .boundCoords=${this.coords}
         @map-change=${e => (this.map = e.detail)}
       >
       </common-map>

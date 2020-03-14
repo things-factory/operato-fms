@@ -8,6 +8,7 @@ class TrackPopup extends LitElement {
     return {
       _polylines: Array,
       _markers: Array,
+      _boundCoords: Array,
       tracks: Array,
       map: Object
     }
@@ -36,6 +37,7 @@ class TrackPopup extends LitElement {
         main
         .polylines=${this._polylines}
         .markers=${this._markers}
+        .boundCoords=${this._boundCoords}
         @map-change=${e => (this.map = e.detail)}
       >
       </common-map>
@@ -49,7 +51,7 @@ class TrackPopup extends LitElement {
   }
 
   createTracks() {
-    var { polylines, markers } = TrackBuilder.createTracks(this.tracks)
+    var { polylines, markers, boundCoords } = TrackBuilder.createTracks(this.tracks)
 
     markers.forEach(marker => {
       google.maps.event.addListener(marker, 'click', e => {
@@ -62,6 +64,7 @@ class TrackPopup extends LitElement {
 
     this._polylines = polylines
     this._markers = markers
+    this._boundCoords = boundCoords
   }
 
   get infoWindow() {

@@ -17,6 +17,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     return {
       _polylines: Array,
       _markers: Array,
+      _boundCoords: Array,
       tracks: Array,
       map: Object
     }
@@ -34,6 +35,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
         main
         .polylines=${this._polylines}
         .markers=${this._markers}
+        .boundCoords=${this._boundCoords}
         @map-change=${e => (this.map = e.detail)}
       >
       </common-map>
@@ -47,14 +49,18 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   createTrack() {
-    var tracks = (this.tracks || []).map(({ lat, lng }) => {
+    var tracks = (this.tracks || []).map(track => {
+      var { name, lat, lng, parameters } = track
+      var position = { lat, lng }
+
       return {
         position: { lat, lng },
         get content() {
           var content = document.createElement('spot-info-content')
           content.data = {
-            name: this.name,
-            position: this.position
+            name,
+            position,
+            parameters
           }
 
           return content
@@ -62,7 +68,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       }
     })
 
-    var { polylines, markers } = TrackBuilder.createTracks(tracks)
+    var { polylines, markers, boundCoords } = TrackBuilder.createTracks(tracks)
 
     markers.forEach(marker => {
       google.maps.event.addListener(marker, 'click', e => {
@@ -75,6 +81,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
 
     this._polylines = polylines
     this._markers = markers
+    this._boundCoords = boundCoords
   }
 
   stateChanged(state) {}

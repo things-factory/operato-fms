@@ -188,7 +188,7 @@ export class CommonMap extends LitElement {
       ;(this.markers || []).forEach(marker => marker.setMap(this.map))
     }
 
-    if (changes.has('boundsCoords')) {
+    if (changes.has('boundCoords')) {
       this.resetBounds()
     }
   }
@@ -200,12 +200,12 @@ export class CommonMap extends LitElement {
   }
 
   resetBounds() {
-    if (!this.boundsCoords || this.boundsCoords.length < 1) {
+    if (!this.boundCoords || this.boundCoords.length < 1) {
       return
     }
 
     var bounds = new google.maps.LatLngBounds()
-    this.boundsCoords.forEach(coord => bounds.extend(coord))
+    this.boundCoords.forEach(coord => bounds.extend(coord))
     this.map.fitBounds(bounds)
   }
 }

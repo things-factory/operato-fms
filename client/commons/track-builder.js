@@ -1,7 +1,5 @@
-import { ICONS, EVENT_ICONS } from './marker-icons'
+import { EVENT_ICONS } from './marker-icons'
 const SCALED_SIZE = { width: 24, height: 24 }
-
-const RANDOM_ICONS = [...ICONS, ...EVENT_ICONS]
 
 export class TrackBuilder {
   static createTracks(tracks) {
@@ -33,7 +31,8 @@ export class TrackBuilder {
 
     return {
       markers,
-      polylines
+      polylines,
+      boundCoords: path
     }
   }
 }
