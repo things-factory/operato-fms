@@ -23,6 +23,10 @@ export class CommonSearch extends LitElement {
           margin: 4px;
         }
 
+        [search] label {
+          color: var(--secondary-text-color);
+        }
+
         data-grist {
           --grist-padding: 0px;
           overflow-y: auto;

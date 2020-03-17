@@ -1,16 +1,16 @@
 body {
   /* theme color */
-  --primary-color-rgb: 34, 166, 167;
+  --primary-color-rgb: 107, 178, 249;
   --primary-color: rgb(var(--primary-color-rgb));
-  --secondary-color: #394e64;
+  --secondary-color: #2d3542;
   --focus-color: #fff;
   --primary-background-color: var(--secondary-color);
   --secondary-background-color: #283644;
-  --main-section-background-color: #f4f7fb;
+  --main-section-background-color: #e9f4fe;
 
   --focus-background-color: var(--primary-color);
   --primary-text-color: #111;
-  --secondary-text-color: #017e7f;
+  --secondary-text-color: #2f547a;
 
   --opacity-dark-color: rgba(0, 0, 0, 0.4);
   --opacity-light-color: rgba(255, 255, 255, 0.8);

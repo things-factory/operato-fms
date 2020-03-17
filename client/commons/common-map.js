@@ -13,6 +13,13 @@ export class CommonMap extends LitElement {
         [map] {
           flex: 1;
         }
+        .gm-style-iw > button {
+          top: -0px !important;
+          right: -4px !important;
+        }
+        .gm-style .gm-style-iw-c {
+          padding: 0;
+        }
       `
     ]
   }
