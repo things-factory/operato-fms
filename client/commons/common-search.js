@@ -15,6 +15,8 @@ export class CommonSearch extends LitElement {
           display: flex;
           flex-direction: column;
           overflow: hidden;
+          padding: 10px 15px;
+          background-color: var(--main-section-background-color);
         }
 
         [search] {
@@ -25,6 +27,8 @@ export class CommonSearch extends LitElement {
 
         [search] label {
           color: var(--secondary-text-color);
+          font: 400 15px var(--theme-font);
+          text-transform: capitalize;
         }
 
         data-grist {

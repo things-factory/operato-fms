@@ -17,12 +17,12 @@ export class TopMenus extends connect(store)(localize(i18next)(LitElement)) {
         a {
           color: inherit;
           cursor: pointer;
-          font-size: 1em;
+          font-size: 1rem;
           text-decoration: none;
         }
 
         [active] {
-          color: tomato;
+          color: var(--primary-color);
         }
       `
     ]

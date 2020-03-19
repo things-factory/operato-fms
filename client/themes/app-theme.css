@@ -2,15 +2,15 @@ body {
   /* theme color */
   --primary-color-rgb: 107, 178, 249;
   --primary-color: rgb(var(--primary-color-rgb));
-  --secondary-color: #2d3542;
+  --secondary-color: #344563;
   --focus-color: #fff;
   --primary-background-color: var(--secondary-color);
   --secondary-background-color: #283644;
-  --main-section-background-color: #e9f4fe;
+  --main-section-background-color: #edf5fd;
 
   --focus-background-color: var(--primary-color);
   --primary-text-color: #111;
-  --secondary-text-color: #2f547a;
+  --secondary-text-color: #3a4868;
 
   --opacity-dark-color: rgba(0, 0, 0, 0.4);
   --opacity-light-color: rgba(255, 255, 255, 0.8);
