@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit-element'
 
 import './common-map'
-import { TrackBuilder } from './track-builder'
+import { MapBuilder } from './map-builder'
 
 class TrackPopup extends LitElement {
   static get properties() {
@@ -51,7 +51,7 @@ class TrackPopup extends LitElement {
   }
 
   createTracks() {
-    var { polylines, markers, boundCoords } = TrackBuilder.createTracks(this.tracks)
+    var { polylines, markers, boundCoords } = MapBuilder.createMapComponents([], this.tracks)
 
     markers.forEach(marker => {
       google.maps.event.addListener(marker, 'click', e => {

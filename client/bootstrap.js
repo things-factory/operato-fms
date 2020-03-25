@@ -5,10 +5,12 @@ import { TOOL_POSITION } from '@things-factory/layout-base'
 import { APPEND_APP_TOOL } from '@things-factory/apptool-base'
 import { ADD_SETTING } from '@things-factory/setting-base'
 
+import { searchFleets } from './actions/fleets'
 import { UPDATE_BOARD_SETTINGS } from './actions/board-settings'
 import { fetchDashboardSettings } from './viewparts/fetch-dashboard-settings'
 
 import boardSetting from './reducers/board-settings'
+import fleets from './reducers/fleets'
 
 import './viewparts/user-circle'
 import './viewparts/top-menus'
@@ -27,7 +29,8 @@ console.log(
 )
 
 export default function bootstrap() {
-  store.addReducers({ boardSetting })
+  store.addReducers({ boardSetting, fleets })
+  searchFleets()
 
   /* 사용자 signin/signout 에 따라서, setting 변경 */
   auth.on('profile', async () => {

@@ -6,7 +6,7 @@ import { i18next, localize } from '@things-factory/i18n-base'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { FMSPageStyles } from '../fms-page-style'
 
-import { TrackBuilder } from '../../commons/track-builder'
+import { MapBuilder } from '../../commons/map-builder'
 
 import '../../commons/common-search'
 import '../../commons/common-map'
@@ -18,6 +18,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       _polylines: Array,
       _markers: Array,
       _boundCoords: Array,
+      fleets: Array,
       tracks: Array,
       map: Object
     }
@@ -43,12 +44,32 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   updated(changes) {
-    if (changes.has('map') || changes.has('tracks')) {
-      this.map && this.tracks && this.createTrack()
+    if (changes.has('map') || changes.has('tracks') || changes.has('fleets')) {
+      this.map && this.createTrack()
     }
   }
 
   createTrack() {
+    var fleets = (this.fleets || []).map(fleet => {
+      var { name, latlng, parameters } = fleet
+      var [lat, lng] = latlng.split(',').map(parseFloat)
+      var position = { lat, lng }
+
+      return {
+        position: { lat, lng },
+        get content() {
+          var content = document.createElement('spot-info-content')
+          content.data = {
+            name,
+            position,
+            parameters
+          }
+
+          return content
+        }
+      }
+    })
+
     var tracks = (this.tracks || []).map(track => {
       var { name, lat, lng, parameters } = track
       var position = { lat, lng }
@@ -68,7 +89,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       }
     })
 
-    var { polylines, markers, boundCoords } = TrackBuilder.createTracks(tracks)
+    var { polylines, markers, boundCoords } = MapBuilder.createMapComponents(fleets, tracks)
 
     markers.forEach(marker => {
       google.maps.event.addListener(marker, 'click', e => {
@@ -84,7 +105,9 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     this._boundCoords = boundCoords
   }
 
-  stateChanged(state) {}
+  stateChanged(state) {
+    this.fleets = state.fleets.fleets
+  }
 
   get infoWindow() {
     if (!this._infoWindow) {

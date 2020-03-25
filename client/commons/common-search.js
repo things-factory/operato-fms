@@ -1,12 +1,15 @@
 import { LitElement, html, css } from 'lit-element'
+import { connect } from 'pwa-helpers/connect-mixin.js'
+import { store } from '@things-factory/shell'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
-import { i18next } from '@things-factory/i18n-base'
+import { localize, i18next } from '@things-factory/i18n-base'
 import '@things-factory/grist-ui'
 
+import { searchFleets } from '../actions/fleets'
 import { fetchTrack } from './fetch-track'
 
-export class CommonSearch extends LitElement {
+export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) {
   static get styles() {
     return [
       ScrollbarStyles,
@@ -42,10 +45,15 @@ export class CommonSearch extends LitElement {
 
   static get properties() {
     return {
+      search: Object,
       config: Object,
-      data: Object,
-      total: Number
+      fleets: Object
     }
+  }
+
+  stateChanged(state) {
+    this.search = state.fleets.search
+    this.fleets = state.fleets.fleets
   }
 
   connectedCallback() {
@@ -139,55 +147,42 @@ export class CommonSearch extends LitElement {
     }
   }
 
-  async firstUpdated() {
-    await this.updateComplete
-    this.renderRoot.querySelector('data-grist').fetch({ limit: 50 })
-  }
-
   render() {
+    var { device = '', client = '', delivery = '', fromdate, todate } = this.search || {}
+    var fleets = this.fleets || []
+    var data = {
+      total: fleets.length,
+      records: fleets
+    }
+
     return html`
-      <div search>
+      <div @change=${this.onchangeSearch.bind(this)} search>
         <label>client id</label>
-        <select></select>
+        <input name="client" type="text" .value=${client} />
 
         <label>delivery id</label>
-        <select></select>
+        <input name="delivery" type="text" .value=${delivery} />
 
         <label>date range</label>
-        <select></select>
+        <input name="fromdate" type="date" .value=${fromdate} />~<input name="todate" type="date" .value=${todate} />
 
         <label>device id</label>
-        <select></select>
+        <input name="device" type="text" .value=${device} />
       </div>
 
-      <div>total : ${this.total}</div>
+      <div>total : ${fleets.length}</div>
 
-      <data-grist
-        .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
-        .config=${this.config}
-        .fetchHandler=${this.fetchHandler.bind(this)}
-      ></data-grist>
+      <data-grist .mode=${isMobileDevice() ? 'LIST' : 'GRID'} .config=${this.config} .data=${data}></data-grist>
     `
   }
 
-  async fetchHandler({ page, limit, sorters = [] }) {
-    this.total = 300
+  onchangeSearch(e) {
+    var target = e.target
 
-    return {
-      total: 300,
-      records: Array(50)
-        .fill()
-        .map(() => {
-          var num = ~~(Math.random() * 100)
-          return {
-            client: 'Client-' + num,
-            delivery: 'Delivery-' + num,
-            device: 'Device-' + num,
-            status: Math.random() - 0.5 > 0 ? 0 : 1,
-            battery: ~~(Math.random() * 100)
-          }
-        })
-    }
+    searchFleets({
+      ...this.search,
+      [target.name]: target.value
+    })
   }
 }
 
