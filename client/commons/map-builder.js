@@ -1,33 +1,32 @@
 import { EVENT_ICONS } from './marker-icons'
+
 const SCALED_SIZE = { width: 24, height: 24 }
 
 export class MapBuilder {
   static createMapComponents(fleets = [], tracks = []) {
     var markers = fleets.map(spot => {
-      let name = `(${spot.position.lat},${spot.position.lng})`
+      var { title, position } = spot
       return new google.maps.Marker({
-        name,
-        position: spot.position,
+        title,
+        position,
         icon: {
           url: EVENT_ICONS[~~(Math.random() * 7)],
           scaledSize: SCALED_SIZE
         },
-        title: name,
         content: spot.content
       })
     })
 
     markers = markers.concat(
       tracks.map(spot => {
-        let name = `(${spot.position.lat},${spot.position.lng})`
+        var { title, position } = spot
         return new google.maps.Marker({
-          name,
-          position: spot.position,
+          title,
+          position,
           icon: {
             url: EVENT_ICONS[~~(Math.random() * 7)],
             scaledSize: SCALED_SIZE
           },
-          title: name,
           content: spot.content
         })
       })

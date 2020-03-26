@@ -20,7 +20,8 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       _boundCoords: Array,
       fleets: Array,
       tracks: Array,
-      map: Object
+      map: Object,
+      googleMap: Object
     }
   }
 
@@ -29,9 +30,9 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   render() {
-    return html`
-      <common-search sidebar @tracks=${e => (this.tracks = e.detail)}></common-search>
+    // <common-search sidebar @tracks=${e => (this.tracks = e.detail)}></common-search>
 
+    return html`
       <common-map
         main
         .polylines=${this._polylines}
@@ -44,6 +45,19 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   updated(changes) {
+    if (changes.has('map') && this.map) {
+      var search = document.createElement('common-search')
+      search.addEventListener('tracks', ({ detail: tracks }) => {
+        this.tracks = tracks
+      })
+      search.style.cssText = `
+        width: 300px;
+        height: 500px;
+      `
+
+      this.map.controls[google.maps.ControlPosition.LEFT].push(search)
+    }
+
     if (changes.has('map') || changes.has('tracks') || changes.has('fleets')) {
       this.map && this.createTrack()
     }
@@ -56,6 +70,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       var position = { lat, lng }
 
       return {
+        title: name,
         position: { lat, lng },
         get content() {
           var content = document.createElement('spot-info-content')
@@ -75,6 +90,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       var position = { lat, lng }
 
       return {
+        title: name,
         position: { lat, lng },
         get content() {
           var content = document.createElement('spot-info-content')

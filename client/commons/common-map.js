@@ -34,7 +34,8 @@ export class CommonMap extends LitElement {
       polygons: Array,
       polylines: Array,
       markers: Array,
-      boundCoords: Array
+      boundCoords: Array,
+      controls: Object
     }
   }
 

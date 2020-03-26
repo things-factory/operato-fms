@@ -116,6 +116,7 @@ class ReportAirPressure extends connect(store)(localize(i18next)(PageView)) {
       var position = { lat, lng }
 
       return {
+        title: name,
         position: { lat, lng },
         get content() {
           var content = document.createElement('spot-info-content')
