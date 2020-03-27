@@ -10,7 +10,9 @@ import { MapBuilder } from '../../commons/map-builder'
 
 import '../../commons/common-search'
 import '../../commons/common-map'
-import '../../commons/spot-info-content'
+import '../../commons/marker-info-content'
+
+import { MARKER_IW_BOARD_FOR_FLEET, MARKER_IW_BOARD_FOR_TRACK } from '../../actions/board-settings'
 
 class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
@@ -64,6 +66,9 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   createTrack() {
+    var fleetBoardId = this.fleetBoardId
+    var trackBoardId = this.trackBoardId
+
     var fleets = (this.fleets || []).map(fleet => {
       var { name, latlng, parameters } = fleet
       var [lat, lng] = latlng.split(',').map(parseFloat)
@@ -73,7 +78,8 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
         title: name,
         position: { lat, lng },
         get content() {
-          var content = document.createElement('spot-info-content')
+          var content = document.createElement('marker-info-content')
+          content.boardId = fleetBoardId
           content.data = {
             name,
             position,
@@ -93,7 +99,8 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
         title: name,
         position: { lat, lng },
         get content() {
-          var content = document.createElement('spot-info-content')
+          var content = document.createElement('marker-info-content')
+          content.boardId = trackBoardId
           content.data = {
             name,
             position,
@@ -123,6 +130,9 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
 
   stateChanged(state) {
     this.fleets = state.fleets.fleets
+
+    this.trackBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_TRACK] || { board: {} }).board.id
+    this.fleetBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_FLEET] || { board: {} }).board.id
   }
 
   get infoWindow() {

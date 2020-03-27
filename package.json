@@ -30,6 +30,7 @@
     "stop": "things-factory-stop operato-fms"
   },
   "dependencies": {
+    "@material/mwc-linear-progress": "^0.14.1",
     "@things-factory/apptool-ui": "^2.0.0",
     "@things-factory/auth-base": "^2.0.0",
     "@things-factory/auth-ui-jwt": "^2.0.0",

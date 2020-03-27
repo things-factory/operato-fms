@@ -12,6 +12,8 @@ import { fetchDashboardSettings } from './viewparts/fetch-dashboard-settings'
 import boardSetting from './reducers/board-settings'
 import fleets from './reducers/fleets'
 
+import GoogleMapLoader from './commons/google-map-loader'
+
 import './viewparts/user-circle'
 import './viewparts/top-menus'
 import './viewparts/dashboard-setting-let'
@@ -29,7 +31,13 @@ console.log(
 )
 
 export default function bootstrap() {
+  /* load google-map api */
+  GoogleMapLoader.load()
+
+  /* initialize reducers */
   store.addReducers({ boardSetting, fleets })
+
+  /* get fleets information from the start */
   searchFleets()
 
   /* 사용자 signin/signout 에 따라서, setting 변경 */

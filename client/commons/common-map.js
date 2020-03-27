@@ -1,8 +1,10 @@
 import { LitElement, html, css } from 'lit-element'
+import { connect } from 'pwa-helpers/connect-mixin.js'
+import { store } from '@things-factory/shell'
 
 import GoogleMapLoader from './google-map-loader'
 
-export class CommonMap extends LitElement {
+export class CommonMap extends connect(store)(LitElement) {
   static get styles() {
     return [
       css`
@@ -37,6 +39,10 @@ export class CommonMap extends LitElement {
       boundCoords: Array,
       controls: Object
     }
+  }
+
+  stateChanged(state) {
+    this.defaultCenter = state.fleets.location
   }
 
   get anchor() {
@@ -75,17 +81,18 @@ export class CommonMap extends LitElement {
 
     var { center, zoom = 10 } = this
 
+    /* center 속성이 설정되어있지 않으면, 현재 위치를 구해서 지도의 center로 설정한다. */
     if (!center && 'geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
-        position =>
-          show(
-            {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            },
-            zoom
-          ),
-        err => alert(`Error (${err.code}): ${err.message}`)
+        ({ coords: { latitude: lat, longitude: lng } }) => show({ lat, lng }, zoom),
+        err => {
+          console.warn(`navigator.geolocation.getCurrentPosition failed. (${err.code}): ${err.message}`)
+          show(this.defaultCenter, zoom)
+        },
+        {
+          /* https://stackoverflow.com/questions/3397585/navigator-geolocation-getcurrentposition-sometimes-works-sometimes-doesnt */
+          timeout: 2000
+        }
       )
     } else {
       show(center, zoom)

@@ -5,12 +5,12 @@ import { gqlBuilder } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers'
-import { UPDATE_BOARD_SETTINGS } from '../actions/board-settings'
+import { UPDATE_BOARD_SETTINGS, MARKER_IW_BOARD_FOR_FLEET, MARKER_IW_BOARD_FOR_TRACK } from '../actions/board-settings'
 import '@things-factory/board-ui'
 import { fetchDashboardSettings } from './fetch-dashboard-settings'
 
-const INFOWINDOW_BOARD = 'infowindow'
-const INFOWINDOW_DESCRIPTION = 'infowindow board'
+const MARKER_IW_BOARD_FOR_TRACK_DESCRIPTION = 'infowindow board for track'
+const MARKER_IW_BOARD_FOR_FLEET_DESCRIPTION = 'infowindow board for fleet'
 
 export class InfowindowSettingLet extends connect(store)(localize(i18next)(LitElement)) {
   static get styles() {
@@ -103,7 +103,8 @@ export class InfowindowSettingLet extends connect(store)(localize(i18next)(LitEl
 
   static get properties() {
     return {
-      infowindowBoard: Object
+      fleetBoard: Object,
+      trackBoard: Object
     }
   }
 
@@ -115,10 +116,16 @@ export class InfowindowSettingLet extends connect(store)(localize(i18next)(LitEl
         <form slot="content" @submit=${e => this._handleSubmit(e)}>
           ${[
             {
-              title: i18next.t('title.infowindow board'),
-              board: this.infowindowBoard,
-              key: INFOWINDOW_BOARD,
-              description: INFOWINDOW_DESCRIPTION
+              title: 'Fleet',
+              board: this.fleetBoard,
+              key: MARKER_IW_BOARD_FOR_FLEET,
+              description: MARKER_IW_BOARD_FOR_FLEET_DESCRIPTION
+            },
+            {
+              title: 'Track',
+              board: this.trackBoard,
+              key: MARKER_IW_BOARD_FOR_TRACK,
+              description: MARKER_IW_BOARD_FOR_TRACK_DESCRIPTION
             }
           ].map(
             field => html`
@@ -152,9 +159,11 @@ export class InfowindowSettingLet extends connect(store)(localize(i18next)(LitEl
   }
 
   stateChanged(state) {
-    var infowindowBoard = state.boardSetting[INFOWINDOW_BOARD]
+    var fleetBoard = state.boardSetting[MARKER_IW_BOARD_FOR_FLEET]
+    var trackBoard = state.boardSetting[MARKER_IW_BOARD_FOR_TRACK]
 
-    this.infowindowBoard = (infowindowBoard ? infowindowBoard.board : {}) || {}
+    this.fleetBoard = (fleetBoard ? fleetBoard.board : {}) || {}
+    this.trackBoard = (trackBoard ? trackBoard.board : {}) || {}
   }
 
   onClickBoardSelector(name, description) {
@@ -189,7 +198,7 @@ export class InfowindowSettingLet extends connect(store)(localize(i18next)(LitEl
       {
         backdrop: true,
         size: 'large',
-        title: i18next.t('title.dashboard setting')
+        title: i18next.t('title.infowindow setting')
       }
     )
   }

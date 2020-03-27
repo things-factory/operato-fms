@@ -11,9 +11,10 @@ import { openPopup } from '@things-factory/layout-base'
 import { fetchTrack } from '../../commons/fetch-track'
 import '../../commons/common-search'
 import '../../commons/track-popup'
-import '../../commons/spot-info-content'
+import '../../commons/marker-info-content'
 
 import { ReportStyles } from './report-style'
+import { MARKER_IW_BOARD_FOR_TRACK } from '../../actions/board-settings'
 
 class ReportTemperature extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
@@ -108,7 +109,12 @@ class ReportTemperature extends connect(store)(localize(i18next)(PageView)) {
     }
   }
 
+  stateChanged(state) {
+    this.trackBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_TRACK] || { board: {} }).board.id
+  }
+
   showTrack() {
+    var boardId = this.trackBoardId
     var template = document.createElement('track-popup')
 
     template.tracks = fetchTrack().map(track => {
@@ -119,7 +125,8 @@ class ReportTemperature extends connect(store)(localize(i18next)(PageView)) {
         title: name,
         position: { lat, lng },
         get content() {
-          var content = document.createElement('spot-info-content')
+          var content = document.createElement('marker-info-content')
+          content.boardId = boardId
           content.data = {
             name,
             position,

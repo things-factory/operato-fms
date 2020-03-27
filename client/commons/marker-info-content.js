@@ -1,19 +1,16 @@
 import { LitElement, html, css } from 'lit-element'
-import { connect } from 'pwa-helpers/connect-mixin.js'
-import { store } from '@things-factory/shell'
+import '@material/mwc-linear-progress'
 import { provider } from '@things-factory/board-ui'
 import { sleep } from '@things-factory/utils'
-
-const INFOWINDOW_BOARD = 'infowindow'
 
 /**
  * 구글맵 마커 인포윈도우용 컨텐트
  * - 인포윈도우에 things-scene을 활용한다.
  * - 해당보드 인스턴스 하나를 모든 인포윈도우에서 공유한다. (provider를 사용하기 때문)
- * - 즉, SpotInfoContent는 마커당 하나의 인스턴스가 만들어지지만, scene은 하나의 인스턴스를 공유한다.
+ * - 즉, MarkerInfoContent는 마커당 하나의 인스턴스가 만들어지지만, scene은 하나의 인스턴스를 공유한다.
  * - 만약, 여러 인스턴스 scene을 사용하고 싶다면, 다른 방법을 사용해야 한다.
  */
-export class SpotInfoContent extends connect(store)(LitElement) {
+export class MarkerInfoContent extends LitElement {
   static get styles() {
     return [
       css`
@@ -30,7 +27,7 @@ export class SpotInfoContent extends connect(store)(LitElement) {
         #loading {
           display: table-cell;
           width: 200px;
-          height: 100px;
+          height: 50px;
           vertical-align: middle;
           text-align: center;
         }
@@ -41,12 +38,9 @@ export class SpotInfoContent extends connect(store)(LitElement) {
   static get properties() {
     return {
       data: Object,
-      scene: Object
+      scene: Object,
+      boardId: String
     }
-  }
-
-  stateChanged(state) {
-    this._boardId = (state.boardSetting[INFOWINDOW_BOARD] || { board: {} }).board.id
   }
 
   connectedCallback() {
@@ -71,7 +65,7 @@ export class SpotInfoContent extends connect(store)(LitElement) {
         ? html``
         : html`
             <div id="loading">
-              <div>Loading...</div>
+              <mwc-linear-progress indeterminate></mwc-linear-progress>
             </div>
           `}
       <div id="target"></div>
@@ -101,13 +95,13 @@ export class SpotInfoContent extends connect(store)(LitElement) {
   }
 
   async show() {
-    if (!this._boardId) {
+    if (!this.boardId) {
       return
     }
 
     try {
       if (!this.scene) {
-        this.scene = await provider.get(this._boardId, true)
+        this.scene = await provider.get(this.boardId, true)
         let { width, height } = this.scene.model
         this.setAttribute('style', `width:${width}px;height:${height}px`)
       }
@@ -124,4 +118,4 @@ export class SpotInfoContent extends connect(store)(LitElement) {
   }
 }
 
-customElements.define('spot-info-content', SpotInfoContent)
+customElements.define('marker-info-content', MarkerInfoContent)
