@@ -24,12 +24,9 @@ export class MarkerInfoContent extends LitElement {
           height: 100%;
         }
 
-        #loading {
-          display: table-cell;
+        mwc-linear-progress {
+          margin: 13px;
           width: 200px;
-          height: 50px;
-          vertical-align: middle;
-          text-align: center;
         }
       `
     ]
@@ -64,9 +61,7 @@ export class MarkerInfoContent extends LitElement {
       ${this.scene
         ? html``
         : html`
-            <div id="loading">
-              <mwc-linear-progress indeterminate></mwc-linear-progress>
-            </div>
+            <mwc-linear-progress indeterminate></mwc-linear-progress>
           `}
       <div id="target"></div>
     `
