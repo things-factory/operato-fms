@@ -28,9 +28,10 @@ export class SpotInfoContent extends connect(store)(LitElement) {
         }
 
         #loading {
-          width: 100px;
-          height: 24px;
-
+          display: table-cell;
+          width: 200px;
+          height: 100px;
+          vertical-align: middle;
           text-align: center;
         }
       `
@@ -69,7 +70,9 @@ export class SpotInfoContent extends connect(store)(LitElement) {
       ${this.scene
         ? html``
         : html`
-            <div id="loading">Loading...</div>
+            <div id="loading">
+              <div>Loading...</div>
+            </div>
           `}
       <div id="target"></div>
     `
