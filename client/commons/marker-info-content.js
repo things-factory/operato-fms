@@ -40,6 +40,12 @@ export class MarkerInfoContent extends LitElement {
     }
   }
 
+  constructor() {
+    super()
+
+    this.___ = ~~(Math.random() * 100)
+  }
+
   connectedCallback() {
     super.connectedCallback()
 
@@ -74,18 +80,13 @@ export class MarkerInfoContent extends LitElement {
    * 임시 대응함.
    */
   async hide() {
-    if (this.scene && !this.__scene_about_to_be_desctroied__) {
-      this.__scene_about_to_be_desctroied__ = true
-      this.scene.target = null
+    if (this.__about_to_create_scene__) {
+      this.__about_to_create_scene__ = false
+    }
 
-      await sleep(1000)
-
-      if (this.__scene_about_to_be_desctroied__ && this.scene) {
-        this.scene.release()
-        this.scene = null
-      }
-
-      this.__scene_about_to_be_desctroied__ = false
+    if (this.scene) {
+      this.scene.release()
+      this.scene = null
     }
   }
 
@@ -96,12 +97,17 @@ export class MarkerInfoContent extends LitElement {
 
     try {
       if (!this.scene) {
+        this.__about_to_create_scene__ = true
         this.scene = await provider.get(this.boardId, true)
+        if (!this.__about_to_create_scene__) {
+          this.scene.release()
+          this.scene = null
+          return
+        }
+        this.__about_to_create_scene__ = false
         let { width, height } = this.scene.model
         this.setAttribute('style', `width:${width}px;height:${height}px`)
       }
-
-      this.__scene_about_to_be_desctroied__ = false
 
       this.scene.target = this.targetEl
       this.scene.data = this.data
