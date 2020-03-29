@@ -24,11 +24,21 @@ export class CommonSearch extends LitElement {
           grid-template-columns: 2fr 3fr;
           margin: 4px;
         }
+        [search] * {
+          margin: 1px 0 4px 0;
+          color: var(--secondary-text-color);
+          font: normal 13px var(--theme-font);
+        }
 
         [search] label {
-          color: var(--secondary-text-color);
-          font: 400 15px var(--theme-font);
           text-transform: capitalize;
+          font-weight: bold;
+        }
+
+        [search] input,
+        [search] select {
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          background-color: transparent;
         }
 
         data-grist {
