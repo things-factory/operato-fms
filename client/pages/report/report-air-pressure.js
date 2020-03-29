@@ -1,22 +1,16 @@
 import { html, css } from 'lit-element'
-import { connect } from 'pwa-helpers/connect-mixin.js'
 import '@material/mwc-button'
-import { store, PageView } from '@things-factory/shell'
 import '@things-factory/grist-ui'
-import { i18next, localize } from '@things-factory/i18n-base'
+import { i18next } from '@things-factory/i18n-base'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
-import { openPopup } from '@things-factory/layout-base'
 
-import { fetchTrack } from '../../commons/fetch-track'
+import { ReportBasedOnTrack } from './report-based-on-track'
 import '../../commons/common-search'
-import '../../commons/track-popup'
-import '../../commons/marker-info-content'
 
 import { ReportStyles } from './report-style'
-import { MARKER_IW_BOARD_FOR_TRACK } from '../../actions/board-settings'
 
-class ReportAirPressure extends connect(store)(localize(i18next)(PageView)) {
+class ReportAirPressure extends ReportBasedOnTrack {
   static get properties() {
     return {}
   }
@@ -110,40 +104,7 @@ class ReportAirPressure extends connect(store)(localize(i18next)(PageView)) {
   }
 
   stateChanged(state) {
-    this.trackBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_TRACK] || { board: {} }).board.id
-  }
-
-  showTrack() {
-    var boardId = this.trackBoardId
-    var template = document.createElement('track-popup')
-
-    template.tracks = fetchTrack().map(track => {
-      var { name, lat, lng, parameters } = track
-      var position = { lat, lng }
-
-      return {
-        title: name,
-        position: { lat, lng },
-        get content() {
-          var content = document.createElement('marker-info-content')
-          content.boardId = boardId
-          content.data = {
-            name,
-            position,
-            parameters
-          }
-
-          return content
-        }
-      }
-    })
-
-    openPopup(template, {
-      backdrop: true,
-      size: 'large',
-      closable: true,
-      title: i18next.t('title.track')
-    })
+    super.stateChanged(state)
   }
 
   async firstUpdated() {
@@ -154,24 +115,6 @@ class ReportAirPressure extends connect(store)(localize(i18next)(PageView)) {
   pageUpdated(changes, lifecycle) {
     if (this.active) {
     } else {
-    }
-  }
-
-  async fetchHandler({ page, limit, sorters = [] }) {
-    return {
-      total: 300,
-      records: Array(50)
-        .fill()
-        .map(() => {
-          var num = ~~(Math.random() * 100)
-          return {
-            client: 'Client-' + num,
-            delivery: 'Delivery-' + num,
-            device: 'Device-' + num,
-            value: ~~(Math.random() * 1500),
-            updatedAt: Date.now() - ~~(Math.random() * 100000000)
-          }
-        })
     }
   }
 }

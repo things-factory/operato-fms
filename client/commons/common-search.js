@@ -6,8 +6,7 @@ import { ScrollbarStyles } from '@things-factory/styles'
 import { localize, i18next } from '@things-factory/i18n-base'
 import '@things-factory/grist-ui'
 
-import { searchFleets } from '../actions/fleets'
-import { fetchTrack } from './fetch-track'
+import { searchFleets, setFocusedFleet } from '../actions/fleets'
 
 export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) {
   static get styles() {
@@ -67,13 +66,7 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
         appendable: false,
         handlers: {
           click: (columns, data, column, record, rowIndex) => {
-            var tracks = fetchTrack(record.track)
-
-            this.dispatchEvent(
-              new CustomEvent('tracks', {
-                detail: tracks
-              })
-            )
+            setFocusedFleet(record)
           }
         }
       },

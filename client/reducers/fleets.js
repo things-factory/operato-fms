@@ -14,7 +14,8 @@ const INITIAL_STATE = {
     fromdate: today,
     todate: today
   },
-  fleets: []
+  fleets: [],
+  focusedFleet: null
 }
 
 const fleets = (state = INITIAL_STATE, action) => {

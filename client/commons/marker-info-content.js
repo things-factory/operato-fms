@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit-element'
 import '@material/mwc-linear-progress'
 import { provider } from '@things-factory/board-ui'
-import { sleep } from '@things-factory/utils'
 
 /**
  * 구글맵 마커 인포윈도우용 컨텐트
@@ -40,12 +39,6 @@ export class MarkerInfoContent extends LitElement {
     }
   }
 
-  constructor() {
-    super()
-
-    this.___ = ~~(Math.random() * 100)
-  }
-
   connectedCallback() {
     super.connectedCallback()
 
@@ -64,12 +57,12 @@ export class MarkerInfoContent extends LitElement {
 
   render() {
     return html`
+      <div id="target"></div>
       ${this.scene
         ? html``
         : html`
             <mwc-linear-progress indeterminate></mwc-linear-progress>
           `}
-      <div id="target"></div>
     `
   }
 

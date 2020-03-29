@@ -20,3 +20,12 @@ export async function searchFleets({ device, client, delivery, fromdate, todate 
     }
   })
 }
+
+export async function setFocusedFleet(fleet) {
+  store.dispatch({
+    type: UPDATE_FLEETS,
+    fleets: {
+      focusedFleet: fleet
+    }
+  })
+}

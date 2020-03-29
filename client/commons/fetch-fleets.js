@@ -1,5 +1,3 @@
-import { UPDATE_FLEETS } from '../'
-
 function latlng(lat, lng) {
   return `${lat},${lng}`
 }
@@ -9,8 +7,8 @@ export async function fetchFleets({ page, limit, sorters = [] } = {}) {
     total: 300,
     records: Array(50)
       .fill()
-      .map(() => {
-        var num = ~~(Math.random() * 100)
+      .map((_, idx) => {
+        var num = idx + 1
         return {
           name: 'Fleet' + num,
           client: 'Client-' + num,

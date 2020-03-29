@@ -1,12 +1,14 @@
 import { LitElement, html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store } from '@things-factory/shell'
+import { ScrollbarStyles } from '@things-factory/styles'
 
 import GoogleMapLoader from './google-map-loader'
 
 export class CommonMap extends connect(store)(LitElement) {
   static get styles() {
     return [
+      ScrollbarStyles,
       css`
         :host {
           display: flex;
@@ -15,12 +17,13 @@ export class CommonMap extends connect(store)(LitElement) {
         [map] {
           flex: 1;
         }
-        .gm-style-iw > button {
-          top: -0px !important;
-          right: -4px !important;
-        }
+
         .gm-style .gm-style-iw-c {
           padding: 0;
+        }
+
+        .gm-style .gm-style-iw-d {
+          overflow: auto !important;
         }
       `
     ]
