@@ -156,7 +156,7 @@ export function fetchTrack() {
   return TRACKS[~~(Math.random() * TRACKS.length)].map((position, idx) => {
     var [lat, lng] = position.split(',').map(pos => Number(pos))
     return {
-      name: idx,
+      name: String(idx),
       lat,
       lng,
       parameters: {

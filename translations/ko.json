@@ -8,5 +8,7 @@
   "field.monitoring": "모니터링",
   "field.registration": "등록",
   "field.status": "상태",
+  "title.dashboard setting": "대시보드 설정",
+  "title.infowindow setting": "인포윈도우 설정",
   "title.track": "트랙"
 }

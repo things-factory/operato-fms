@@ -8,5 +8,7 @@
   "field.monitoring": "monitoring",
   "field.registration": "registration",
   "field.status": "status",
+  "title.dashboard setting": "dashboard setting",
+  "title.infowindow setting": "infowindow setting",
   "title.track": "track"
 }

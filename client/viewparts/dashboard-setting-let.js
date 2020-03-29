@@ -10,7 +10,7 @@ import '@things-factory/board-ui'
 import { fetchDashboardSettings } from './fetch-dashboard-settings'
 
 const DASHBOARD = 'dashboard'
-const DASHBOARD_DESCRIPTION = 'dashboard board'
+const DASHBOARD_DESCRIPTION = 'dashboard'
 
 export class DashboardSettingLet extends connect(store)(localize(i18next)(LitElement)) {
   static get styles() {
@@ -115,7 +115,7 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
         <form slot="content" @submit=${e => this._handleSubmit(e)}>
           ${[
             {
-              title: i18next.t('title.dashboard'),
+              title: 'Dashboard',
               board: this.dashboard,
               key: DASHBOARD,
               description: DASHBOARD_DESCRIPTION
