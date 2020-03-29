@@ -42,6 +42,11 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
           border: 1px solid rgba(0, 0, 0, 0.2);
           background-color: transparent;
         }
+        [search-result] {
+          padding: 3px 0 5px 3px;
+          font: normal 13px var(--theme-font);
+          color: var(--secondary-text-color);
+        }
 
         data-grist {
           --grist-padding: 0px;
@@ -173,7 +178,7 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
         <input name="device" type="text" .value=${device} />
       </div>
 
-      <div>total : ${fleets.length}</div>
+      <div search-result>total : <strong>${fleets.length}</strong></div>
 
       <data-grist .mode=${isMobileDevice() ? 'LIST' : 'GRID'} .config=${this.config} .data=${data}></data-grist>
     `

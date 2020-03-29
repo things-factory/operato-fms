@@ -25,6 +25,10 @@ export class CommonMap extends connect(store)(LitElement) {
         .gm-style .gm-style-iw-d {
           overflow: auto !important;
         }
+        .gm-style .gm-style-iw-d + button {
+          top: 0 !important;
+          right: 0 !important;
+        }
       `
     ]
   }
