@@ -38,10 +38,24 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
         }
 
         [search] input,
-        [search] select {
+        [search] select,
+        [wrap] {
           border: 1px solid rgba(0, 0, 0, 0.2);
           background-color: transparent;
         }
+
+        [wrap] {
+          display: flex;
+          align-items: stretch;
+          border: 0;
+        }
+
+        [wrap] input {
+          flex: 1;
+          margin: 0;
+          min-width: 0;
+        }
+
         [search-result] {
           padding: 3px 0 5px 3px;
           font: normal 13px var(--theme-font);
@@ -172,7 +186,9 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
         <input name="delivery" type="text" .value=${delivery} />
 
         <label>date range</label>
-        <input name="fromdate" type="date" .value=${fromdate} />~<input name="todate" type="date" .value=${todate} />
+        <div wrap>
+          <input name="fromdate" type="date" .value=${fromdate} />-<input name="todate" type="date" .value=${todate} />
+        </div>
 
         <label>device id</label>
         <input name="device" type="text" .value=${device} />
