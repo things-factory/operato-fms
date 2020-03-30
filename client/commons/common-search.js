@@ -89,13 +89,21 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
     return {
       search: Object,
       config: Object,
-      fleets: Object
+      fleets: Object,
+      focusedFleetId: String
     }
   }
 
   stateChanged(state) {
     this.search = state.fleets.search
     this.fleets = state.fleets.fleets
+    this.focusedFleetId = state.fleets.focusedFleetId
+  }
+
+  updated(changes) {
+    if (changes.has('focusedFleetId')) {
+      // TODO focused 레코드를 자동으로 변경한다. Map과 데이타를 동기화 하기위함임.
+    }
   }
 
   connectedCallback() {
@@ -109,7 +117,7 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
         appendable: false,
         handlers: {
           click: (columns, data, column, record, rowIndex) => {
-            setFocusedFleet(record)
+            setFocusedFleet(record.id)
           }
         }
       },

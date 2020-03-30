@@ -44,7 +44,8 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       _boundCoords: Array,
       fleets: Array,
       tracks: Array,
-      focusedFleet: Object,
+      fleetId: String,
+      trackId: String,
       map: Object,
       googleMap: Object
     }
@@ -83,8 +84,8 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       this.map && this.updateMapComponents()
     }
 
-    if (changes.has('focusedFleet')) {
-      this.map && this.changeFocusedFleet(this.focusedFleet, changes.get('focusedFleet'))
+    if (changes.has('fleetId')) {
+      this.map && this.changeFleetId(this.fleetId, changes.get('fleetId'))
     }
   }
 
@@ -92,7 +93,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     var fleetBoardId = this.fleetBoardId
 
     var fleets = (this.fleets || []).map(fleet => {
-      var { name, latlng, parameters } = fleet
+      var { id, name, latlng, parameters } = fleet
       var [lat, lng] = latlng.split(',').map(parseFloat)
       var position = { lat, lng }
 
@@ -104,6 +105,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
           var content = document.createElement('marker-info-content')
           content.boardId = fleetBoardId
           content.data = {
+            id,
             name,
             position,
             parameters
@@ -119,10 +121,10 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     markers.forEach(marker => {
       google.maps.event.addListener(marker, 'click', e => {
         var focusedFleet = this.fleets.find(fleet => {
-          return fleet.name == marker.content.data.name
+          return fleet.id == marker.content.data.id
         })
 
-        setFocusedFleet(focusedFleet)
+        setFocusedFleet(focusedFleet.id)
       })
     })
 
@@ -135,9 +137,18 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     this._boundCoords = boundCoords
   }
 
+  pageUpdated(changes, lifecycle) {
+    if ('params' in changes) {
+      var { fleetId, trackId } = changes.params
+      if (fleetId) {
+        setFocusedFleet(fleetId)
+      }
+    }
+  }
+
   stateChanged(state) {
     this.fleets = state.fleets.fleets
-    this.focusedFleet = state.fleets.focusedFleet
+    this.fleetId = state.fleets.focusedFleetId
 
     this.fleetBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_FLEET] || { board: {} }).board.id
   }
@@ -162,14 +173,14 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     focus.setIcon(icon)
   }
 
-  async changeFocusedFleet(after, before) {
+  async changeFleetId(after, before) {
     if (before) {
-      var idx = this.fleets.findIndex(fleet => fleet.name == before.name)
+      var idx = this.fleets.findIndex(fleet => fleet.id == before)
       idx !== -1 && this._markers && this.resetFocus(this._markers[idx], NORMAL_ICON)
     }
 
     if (after) {
-      var idx = this.fleets.findIndex(fleet => fleet.name == after.name)
+      var idx = this.fleets.findIndex(fleet => fleet.id == after)
       idx !== -1 && this._markers && this.setFocus(this._markers[idx], FOCUSED_ICON)
 
       var marker = this._markers[idx]

@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import '@material/mwc-linear-progress'
+import { client } from '@things-factory/shell'
+import gql from 'graphql-tag'
 import { provider } from '@things-factory/board-ui'
 
 /**
@@ -18,7 +20,7 @@ export class MarkerInfoContent extends LitElement {
           position: relative;
         }
 
-        #target {
+        #viewer {
           width: 100%;
           height: 100%;
         }
@@ -34,7 +36,7 @@ export class MarkerInfoContent extends LitElement {
   static get properties() {
     return {
       data: Object,
-      scene: Object,
+      board: Object,
       boardId: String
     }
   }
@@ -51,14 +53,17 @@ export class MarkerInfoContent extends LitElement {
     this.hide()
   }
 
-  get targetEl() {
-    return this.renderRoot.getElementById('target')
-  }
-
   render() {
     return html`
-      <div id="target"></div>
-      ${this.scene
+      <board-viewer
+        id="viewer"
+        .board=${this.board}
+        .data=${this.data}
+        .provider=${provider}
+        hide-fullscreen
+      ></board-viewer>
+
+      ${this.board
         ? html``
         : html`
             <mwc-linear-progress indeterminate></mwc-linear-progress>
@@ -68,18 +73,17 @@ export class MarkerInfoContent extends LitElement {
 
   /*
    * FIXME
-   * __scene_about_to_be_desctroied__ 를 사용하는 이유는
-   * things-scene의 reference-map이 async 대응에 문제가 있어서 (같은 아이디의 scene을 빠르게 중복 요청하는 경우)
+   * __board_about_to_be_desctroied__ 를 사용하는 이유는
+   * things-board의 reference-map이 async 대응에 문제가 있어서 (같은 아이디의 board을 빠르게 중복 요청하는 경우)
    * 임시 대응함.
    */
   async hide() {
-    if (this.__about_to_create_scene__) {
-      this.__about_to_create_scene__ = false
+    if (this.__about_to_create_board__) {
+      this.__about_to_create_board__ = false
     }
 
-    if (this.scene) {
-      this.scene.release()
-      this.scene = null
+    if (this.board) {
+      this.board = null
     }
   }
 
@@ -89,23 +93,36 @@ export class MarkerInfoContent extends LitElement {
     }
 
     try {
-      if (!this.scene) {
-        this.__about_to_create_scene__ = true
-        this.scene = await provider.get(this.boardId, true)
-        if (!this.__about_to_create_scene__) {
-          this.scene.release()
-          this.scene = null
+      if (!this.board) {
+        this.__about_to_create_board__ = true
+        const response = await client.query({
+          query: gql`
+            query FetchBoardById($id: String!) {
+              board(id: $id) {
+                id
+                name
+                model
+              }
+            }
+          `,
+          variables: { id: this.boardId }
+        })
+
+        const board = response.data.board
+
+        this.board = {
+          ...board,
+          model: JSON.parse(board.model)
+        }
+        if (!this.__about_to_create_board__) {
+          this.board = null
           return
         }
-        this.__about_to_create_scene__ = false
-        let { width, height } = this.scene.model
+        this.__about_to_create_board__ = false
+
+        let { width, height } = this.board.model
         this.setAttribute('style', `width:${width}px;height:${height}px`)
       }
-
-      this.scene.target = this.targetEl
-      this.scene.data = this.data
-
-      this.scene.fit()
     } catch (e) {
       console.error(e)
     }

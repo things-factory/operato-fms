@@ -156,6 +156,7 @@ export function fetchTrack() {
   return TRACKS[~~(Math.random() * TRACKS.length)].map((position, idx) => {
     var [lat, lng] = position.split(',').map(pos => Number(pos))
     return {
+      id: idx,
       name: String(idx),
       lat,
       lng,
@@ -165,7 +166,8 @@ export function fetchTrack() {
         illuminance: ~~(Math.random() * 1000),
         shock: ~~(Math.random() * 100),
         airPressure: ~~(Math.random() * 1500),
-        breakdown: !!~~(Math.random() * 2)
+        breakdown: !!~~(Math.random() * 2),
+        smoking: !!~~(Math.random() * 2)
       }
     }
   })

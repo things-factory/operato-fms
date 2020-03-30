@@ -10,6 +10,7 @@ export async function fetchFleets({ page, limit, sorters = [] } = {}) {
       .map((_, idx) => {
         var num = idx + 1
         return {
+          id: idx,
           name: 'Fleet' + num,
           client: 'Client-' + num,
           delivery: 'Delivery-' + num,
@@ -18,8 +19,13 @@ export async function fetchFleets({ page, limit, sorters = [] } = {}) {
           battery: ~~(Math.random() * 100),
           latlng: latlng(37.5326 + Math.random() / 2 - 0.25, 127.024612 + Math.random() / 2 - 0.25),
           parameters: {
-            a: 1,
-            b: 2
+            temperature: ~~(Math.random() * 100),
+            humidity: ~~(Math.random() * 100),
+            illuminance: ~~(Math.random() * 1000),
+            shock: ~~(Math.random() * 100),
+            airPressure: ~~(Math.random() * 1500),
+            breakdown: !!~~(Math.random() * 2),
+            smoking: !!~~(Math.random() * 2)
           }
         }
       })
