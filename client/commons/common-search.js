@@ -26,6 +26,7 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
           grid-template-columns: 2fr 3fr;
           margin: 4px;
         }
+
         [search] * {
           margin: 1px 0 4px 0;
           color: var(--secondary-text-color);
