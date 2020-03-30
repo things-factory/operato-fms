@@ -15,12 +15,66 @@ export class GenfenceSearch extends LitElement {
           display: flex;
           flex-direction: column;
           overflow: hidden;
+          padding: 10px 15px;
+          background-color: var(--main-section-background-color);
         }
 
         [search] {
           display: grid;
-          grid-template-columns: 2fr 3fr;
-          margin: 4px;
+          grid-template-columns: repeat(10, 1fr);
+          grid-gap: 5px;
+
+          align-items: center;
+        }
+
+        [search] > * {
+          box-sizing: border-box;
+          margin: 0;
+
+          color: var(--secondary-text-color);
+          font: normal 13px var(--theme-font);
+        }
+
+        [search] label {
+          grid-column: span 3;
+          text-transform: capitalize;
+          font-weight: bold;
+          text-align: right;
+          align-self: center;
+        }
+
+        [search] > input,
+        [search] > select,
+        [wrap] {
+          grid-column: span 7;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          align-self: stretch;
+        }
+
+        [search] label {
+          grid-column: span 3;
+          text-transform: capitalize;
+          font-weight: bold;
+          text-align: right;
+          align-self: center;
+        }
+
+        [search] > input,
+        [search] > select {
+          grid-column: span 7;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          align-self: stretch;
+        }
+
+        input {
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          background-color: transparent;
+        }
+
+        [search-result] {
+          padding: 3px 0 5px 3px;
+          font: normal 13px var(--theme-font);
+          color: var(--secondary-text-color);
         }
 
         data-grist {
@@ -130,7 +184,7 @@ export class GenfenceSearch extends LitElement {
         <select></select>
       </div>
 
-      <div>total : ${this.total}</div>
+      <div search-result>total : <strong>${this.total}</strong></div>
 
       <data-grist
         .mode=${isMobileDevice() ? 'LIST' : 'GRID'}

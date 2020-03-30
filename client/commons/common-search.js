@@ -23,26 +23,34 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
 
         [search] {
           display: grid;
-          grid-template-columns: 2fr 3fr;
-          margin: 4px;
+          grid-template-columns: repeat(10, 1fr);
+          grid-gap: 5px;
+
+          align-items: center;
         }
 
-        [search] * {
-          margin: 1px 0 4px 0;
+        [search] > * {
+          box-sizing: border-box;
+          margin: 0;
+
           color: var(--secondary-text-color);
           font: normal 13px var(--theme-font);
         }
 
         [search] label {
+          grid-column: span 3;
           text-transform: capitalize;
           font-weight: bold;
+          text-align: right;
+          align-self: center;
         }
 
-        [search] input,
-        [search] select,
+        [search] > input,
+        [search] > select,
         [wrap] {
+          grid-column: span 7;
           border: 1px solid rgba(0, 0, 0, 0.2);
-          background-color: transparent;
+          align-self: stretch;
         }
 
         [wrap] {
@@ -55,6 +63,11 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
           flex: 1;
           margin: 0;
           min-width: 0;
+        }
+
+        input {
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          background-color: transparent;
         }
 
         [search-result] {
@@ -188,7 +201,11 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
 
         <label>date range</label>
         <div wrap>
-          <input name="fromdate" type="date" .value=${fromdate} />-<input name="todate" type="date" .value=${todate} />
+          <input name="fromdate" type="date" .value=${fromdate} />&nbsp;-&nbsp;<input
+            name="todate"
+            type="date"
+            .value=${todate}
+          />
         </div>
 
         <label>device id</label>
