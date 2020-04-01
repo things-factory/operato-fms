@@ -7,7 +7,7 @@ import { css, html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers'
 import { UPDATE_BOARD_SETTINGS, MARKER_IW_BOARD_FOR_FLEET, MARKER_IW_BOARD_FOR_TRACK } from '../actions/board-settings'
 import '@things-factory/board-ui'
-import { fetchDashboardSettings } from './fetch-dashboard-settings'
+import { fetchBoardSettings } from './fetch-board-settings'
 
 const MARKER_IW_BOARD_FOR_TRACK_DESCRIPTION = 'infowindow board for track'
 const MARKER_IW_BOARD_FOR_FLEET_DESCRIPTION = 'infowindow board for fleet'
@@ -181,7 +181,7 @@ export class InfowindowSettingLet extends connect(store)(localize(i18next)(LitEl
               description
             })
 
-            var settings = await fetchDashboardSettings()
+            var settings = await fetchBoardSettings()
             store.dispatch({
               type: UPDATE_BOARD_SETTINGS,
               settings: settings.reduce((settings, setting) => {

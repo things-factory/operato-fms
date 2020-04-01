@@ -7,7 +7,7 @@ import { css, html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers'
 import { UPDATE_BOARD_SETTINGS } from '../actions/board-settings'
 import '@things-factory/board-ui'
-import { fetchDashboardSettings } from './fetch-dashboard-settings'
+import { fetchBoardSettings } from './fetch-board-settings'
 
 const DASHBOARD = 'dashboard'
 const DASHBOARD_DESCRIPTION = 'dashboard'
@@ -172,7 +172,7 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
               description
             })
 
-            var settings = await fetchDashboardSettings()
+            var settings = await fetchBoardSettings()
             store.dispatch({
               type: UPDATE_BOARD_SETTINGS,
               settings: settings.reduce((settings, setting) => {
