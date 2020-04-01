@@ -86,7 +86,7 @@ export class GeofenceSearch extends LitElement {
         }
 
         [active] {
-          background-color: #ddd;
+          background-color: #34a6ff;
         }
       `
     ]
@@ -111,17 +111,17 @@ export class GeofenceSearch extends LitElement {
 
     return html`
       <div search>
-        <label>client</label>
+        <label><i18n-msg msgid="field.client"></i18n-msg></label>
         <select></select>
 
-        <label>geofence</label>
+        <label><i18n-msg msgid="field.geofence"></i18n-msg></label>
         <select></select>
 
-        <label>type</label>
+        <label><i18n-msg msgid="field.type"></i18n-msg></label>
         <select></select>
       </div>
 
-      <div search-result>total : <strong>${total}</strong></div>
+      <div search-result><i18n-msg msgid="title.total"></i18n-msg> : <strong>${total}</strong></div>
 
       <ul style="overflow:scroll;">
         ${geofences.map(

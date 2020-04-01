@@ -2,13 +2,16 @@
   "button.register": "register",
   "field.battery": "battery",
   "field.client": "client",
+  "field.date": "date",
   "field.delivery": "delivery",
   "field.device": "device",
   "field.#devices": "# of devices",
+  "field.geofence": "geofence",
   "field.monitoring": "monitoring",
   "field.registration": "registration",
   "field.status": "status",
   "title.dashboard setting": "dashboard setting",
   "title.infowindow setting": "infowindow setting",
+  "title.total": "total",
   "title.track": "track"
 }

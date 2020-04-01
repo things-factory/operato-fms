@@ -94,7 +94,7 @@ export class FleetSearch extends connect(store)(localize(i18next)(LitElement)) {
         }
 
         [active] {
-          background-color: #ddd;
+          background-color: #34a6ff;
         }
       `
     ]
@@ -130,13 +130,13 @@ export class FleetSearch extends connect(store)(localize(i18next)(LitElement)) {
 
     return html`
       <div @change=${this.onchangeSearch.bind(this)} search>
-        <label>client</label>
+        <label><i18n-msg msgid="field.client"></i18n-msg></label>
         <input name="client" type="text" .value=${client} />
 
-        <label>delivery</label>
+        <label><i18n-msg msgid="field.delivery"></i18n-msg></label>
         <input name="delivery" type="text" .value=${delivery} />
 
-        <label>date</label>
+        <label><i18n-msg msgid="field.date"></i18n-msg></label>
         <div wrap>
           <input name="fromdate" type="date" .value=${fromdate} />&nbsp;-&nbsp;<input
             name="todate"
@@ -145,11 +145,11 @@ export class FleetSearch extends connect(store)(localize(i18next)(LitElement)) {
           />
         </div>
 
-        <label>device</label>
+        <label><i18n-msg msgid="field.device"></i18n-msg></label>
         <input name="device" type="text" .value=${device} />
       </div>
 
-      <div search-result>total : <strong>${fleets.length}</strong></div>
+      <div search-result><i18n-msg msgid="title.total"></i18n-msg> : <strong>${fleets.length}</strong></div>
 
       <ul style="overflow:scroll;">
         ${fleets.map(

@@ -2,13 +2,16 @@
   "button.register": "등록",
   "field.battery": "배터리",
   "field.client": "고객",
+  "field.date": "날짜",
   "field.delivery": "배송번호",
   "field.device": "디바이스",
   "field.#devices": "디바이스 갯수",
+  "field.geofence": "geofence",
   "field.monitoring": "모니터링",
   "field.registration": "등록",
   "field.status": "상태",
   "title.dashboard setting": "대시보드 설정",
   "title.infowindow setting": "인포윈도우 설정",
+  "title.total": "총",
   "title.track": "트랙"
 }
