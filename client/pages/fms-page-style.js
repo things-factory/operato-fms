@@ -4,6 +4,8 @@ export const FMSPageStyles = css`
   :host {
     display: flex;
     flex-direction: row;
+
+    --header-bar-background-color: var(--primary-color);
   }
 
   [sidebar] {
