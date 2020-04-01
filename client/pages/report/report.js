@@ -7,7 +7,7 @@ import { connect } from 'pwa-helpers/connect-mixin.js'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { FMSPageStyles } from '../fms-page-style'
 
-import '../../commons/common-search'
+import '../../commons/fleet-search'
 
 const NOOP = () => {}
 const DASHBOARD = 'dashboard'
@@ -78,7 +78,7 @@ export class FMSReport extends connect(store)(PageView) {
 
     return oops
       ? html`
-          <common-search sidebar></common-search>
+          <fleet-search sidebar></fleet-search>
           <div main>
             <oops-note
               icon=${oops.icon}
@@ -89,7 +89,7 @@ export class FMSReport extends connect(store)(PageView) {
           </div>
         `
       : html`
-          <common-search sidebar></common-search>
+          <fleet-search sidebar></fleet-search>
 
           <board-viewer main .board=${this._board} .provider=${provider}></board-viewer>
           <oops-spinner ?show=${this._showSpinner}></oops-spinner>

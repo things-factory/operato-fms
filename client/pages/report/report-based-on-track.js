@@ -6,7 +6,7 @@ import { i18next, localize } from '@things-factory/i18n-base'
 import { openPopup } from '@things-factory/layout-base'
 
 import { fetchTrack } from '../../commons/fetch-track'
-import '../../commons/common-search'
+import '../../commons/fleet-search'
 import '../../commons/track-popup'
 import '../../commons/marker-info-content'
 

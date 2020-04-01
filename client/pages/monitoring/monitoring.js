@@ -9,7 +9,7 @@ import { FMSPageStyles } from '../fms-page-style'
 import { MapBuilder } from '../../commons/map-builder'
 import { setFocusedFleet } from '../../actions/fleets'
 
-import '../../commons/common-search'
+import '../../commons/fleet-search'
 import '../../commons/common-map'
 import '../../commons/marker-info-content'
 
@@ -57,7 +57,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
 
   render() {
     return html`
-      <common-search sidebar @tracks=${e => (this.tracks = e.detail)}></common-search>
+      <fleet-search sidebar @tracks=${e => (this.tracks = e.detail)}></fleet-search>
       <common-map
         main
         .polylines=${this._polylines}
@@ -71,7 +71,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
 
   updated(changes) {
     // if (changes.has('map') && this.map) {
-    //   var search = document.createElement('common-search')
+    //   var search = document.createElement('fleet-search')
     //   search.style.cssText = `
     //     width: 300px;
     //     height: 500px;

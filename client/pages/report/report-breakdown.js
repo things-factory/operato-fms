@@ -6,7 +6,7 @@ import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
 
 import { ReportBasedOnTrack } from './report-based-on-track'
-import '../../commons/common-search'
+import '../../commons/fleet-search'
 
 import { ReportStyles } from './report-style'
 
@@ -21,7 +21,7 @@ class ReportBreakDown extends ReportBasedOnTrack {
 
   render() {
     return html`
-      <common-search sidebar></common-search>
+      <fleet-search sidebar></fleet-search>
 
       <div main>
         <div header>

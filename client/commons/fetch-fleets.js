@@ -15,6 +15,7 @@ export async function fetchFleets({ page, limit, sorters = [] } = {}) {
           client: 'Client-' + num,
           delivery: 'Delivery-' + num,
           device: 'Device-' + num,
+          driver: 'Driver-' + num,
           status: Math.random() - 0.5 > 0 ? 0 : 1,
           battery: ~~(Math.random() * 100),
           latlng: latlng(37.5326 + Math.random() / 2 - 0.25, 127.024612 + Math.random() / 2 - 0.25),

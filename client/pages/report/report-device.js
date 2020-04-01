@@ -7,7 +7,7 @@ import { i18next, localize } from '@things-factory/i18n-base'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
 
-import '../../commons/common-search'
+import '../../commons/fleet-search'
 import { ReportStyles } from './report-style'
 
 class ReportDevice extends connect(store)(localize(i18next)(PageView)) {
@@ -20,7 +20,7 @@ class ReportDevice extends connect(store)(localize(i18next)(PageView)) {
 
   render() {
     return html`
-      <common-search sidebar></common-search>
+      <fleet-search sidebar></fleet-search>
 
       <div main>
         <div header>

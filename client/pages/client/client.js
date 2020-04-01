@@ -8,7 +8,7 @@ import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { FMSPageStyles } from '../fms-page-style'
 
-import '../../commons/common-search'
+import '../../commons/fleet-search'
 
 class FMSClient extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
@@ -21,7 +21,7 @@ class FMSClient extends connect(store)(localize(i18next)(PageView)) {
 
   render() {
     return html`
-      <common-search sidebar></common-search>
+      <fleet-search sidebar></fleet-search>
 
       <div main>
         <div header>

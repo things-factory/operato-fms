@@ -5,9 +5,18 @@ import { ScrollbarStyles } from '@things-factory/styles'
 import { localize, i18next } from '@things-factory/i18n-base'
 import '@things-factory/grist-ui'
 
+import './fleet-item'
+
 import { searchFleets, setFocusedFleet } from '../actions/fleets'
 
-export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) {
+function scrollIntoViewIfNeeded(container, target) {
+  let rect = target.getBoundingClientRect(),
+    rectContainer = container.getBoundingClientRect()
+  if (rect.bottom > rectContainer.bottom) target.scrollIntoView(false)
+  if (rect.top < rectContainer.top) target.scrollIntoView()
+}
+
+export class FleetSearch extends connect(store)(localize(i18next)(LitElement)) {
   static get styles() {
     return [
       ScrollbarStyles,
@@ -76,11 +85,16 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
         }
 
         ul {
-          flex: 1;
+          padding: 4px;
+          margin: 0;
+          list-style-type: none;
+        }
+
+        li {
         }
 
         [active] {
-          background-color: red;
+          background-color: tomato;
         }
       `
     ]
@@ -100,9 +114,13 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
     this.focusedFleetId = state.fleets.focusedFleetId
   }
 
-  updated(changes) {
+  async updated(changes) {
     if (changes.has('focusedFleetId')) {
-      // TODO focused 레코드를 자동으로 변경한다. Map과 데이타를 동기화 하기위함임.
+      await this.updateComplete
+
+      var container = this.renderRoot.querySelector('ul')
+      var element = this.renderRoot.querySelector('li[active]')
+      element && scrollIntoViewIfNeeded(container, element)
     }
   }
 
@@ -135,14 +153,9 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
 
       <ul style="overflow:scroll;">
         ${fleets.map(
-          data => html`
-            <li @click=${e => setFocusedFleet(data.id)} ?active=${this.focusedFleetId == data.id}>
-              <span name>${data.name}</span>
-              <span battery>${data.battery}</span>
-              <span onoff>${data.status ? 'online' : 'offline'}</span>
-              <span client>${data.client}</span>
-              <span delivery>${data.delivery}</span>
-              <span drever>${data.drever}</span>
+          fleet => html`
+            <li @click=${e => setFocusedFleet(fleet.id)} ?active=${this.focusedFleetId == fleet.id}>
+              <fleet-item .fleet=${fleet}></fleet-item>
             </li>
           `
         )}
@@ -160,4 +173,4 @@ export class CommonSearch extends connect(store)(localize(i18next)(LitElement)) 
   }
 }
 
-customElements.define('common-search', CommonSearch)
+customElements.define('fleet-search', FleetSearch)
