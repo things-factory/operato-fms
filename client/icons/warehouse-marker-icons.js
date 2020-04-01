@@ -47,8 +47,8 @@ const FOCUS_ICON_WAREHOUSE_TEMPLATE = `<?xml version="1.0" encoding="utf-8"?>
 `
 
 export const WAREHOUSE_ICONS = ['black', 'red', 'blue', 'yellow', 'orange', 'tomato'].map(
-  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_WAREHOUSE_TEMPLATE.replace('{{fillcolor}}', color))
+  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_WAREHOUSE_TEMPLATE.replace(/{{fillcolor}}/g, color))
 )
 
 export const FOCUS_WAREHOUSE_ICON =
-  'data:image/svg+xml;charset=UTF-8;base64,' + btoa(FOCUS_ICON_WAREHOUSE_TEMPLATE.replace('{{fillcolor}}', 'brown'))
+  'data:image/svg+xml;charset=UTF-8;base64,' + btoa(FOCUS_ICON_WAREHOUSE_TEMPLATE.replace(/{{fillcolor}}/g, 'brown'))

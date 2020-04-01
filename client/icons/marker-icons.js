@@ -287,14 +287,14 @@ const ICON_COLOR_TEMPLATE = `
 `
 
 export const WAREHOUSE_ICONS = ['black', 'red', 'blue', 'yellow', 'orange', 'tomato'].map(
-  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_TEMPLATE.replace('{{fillcolor}}', color))
+  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_TEMPLATE.replace(/{{fillcolor}}/g, color))
 )
 
 export const FOCUS_WAREHOUSE_ICON =
-  'data:image/svg+xml;charset=UTF-8;base64,' + btoa(FOCUS_ICON_TEMPLATE.replace('{{fillcolor}}', 'brown'))
+  'data:image/svg+xml;charset=UTF-8;base64,' + btoa(FOCUS_ICON_TEMPLATE.replace(/{{fillcolor}}/g, 'brown'))
 
 export const ICONS = ['#3E9CFA', '#2D3542', '#78B214', '#D14946', '#EE8D03'].map(
-  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_COLOR_TEMPLATE.replace('{{fillcolor}}', color))
+  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_COLOR_TEMPLATE.replace(/{{fillcolor}}/g, color))
 )
 
 export const EVENT_ICONS = [
@@ -308,5 +308,5 @@ export const EVENT_ICONS = [
 ].map(event => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(event))
 
 export const FLEET_ICONS = ['#3E9CFA', '#2D3542', '#78B214', '#D14946', '#EE8D03'].map(
-  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_DEFAULT.replace('{{fillcolor}}', color))
+  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_DEFAULT.replace(/{{fillcolor}}/g, color))
 )

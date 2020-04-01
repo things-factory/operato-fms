@@ -56,6 +56,11 @@ export class MenuTools extends connect(store)(LitElement) {
           overflow: none;
         }
 
+        :host([width='NARROW']) ul {
+          width: 100%;
+          justify-content: space-around;
+        }
+
         :host([width='WIDE']) ul {
           flex-direction: column;
         }
@@ -66,8 +71,10 @@ export class MenuTools extends connect(store)(LitElement) {
         }
 
         a {
-          display: block;
+          display: flex;
+          flex-direction: column;
           padding: 5px 0px;
+          align-items: center;
           text-align: center;
           text-decoration: none;
           color: var(--menu-tools-color);
@@ -78,9 +85,15 @@ export class MenuTools extends connect(store)(LitElement) {
           background-color: rgba(0, 0, 0, 0.2);
         }
 
-        mwc-icon {
-          padding: 5px 15px 0px 15px;
+        img {
+          display: block;
+          width: 40px;
+          padding: 5px 5px 0px 5px;
           vertical-align: bottom;
+        }
+
+        :host([width='NARROW']) img {
+          width: 20px;
         }
 
         div {

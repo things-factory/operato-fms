@@ -32,5 +32,5 @@ const ICON_FLEET_TEMPLATE = `
 `
 
 export const FLEET_ICONS = ['#3E9CFA', '#2D3542', '#78B214', '#D14946', '#EE8D03'].map(
-  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_FLEET_TEMPLATE.replace('{{fillcolor}}', color))
+  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_FLEET_TEMPLATE.replace(/{{fillcolor}}/g, color))
 )

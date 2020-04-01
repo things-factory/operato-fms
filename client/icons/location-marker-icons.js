@@ -15,5 +15,5 @@ const ICON_LOCATION = `
 `
 
 export const ICONS = ['#3E9CFA', '#2D3542', '#78B214', '#D14946', '#EE8D03'].map(
-  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_LOCATION.replace('{{fillcolor}}', color))
+  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_LOCATION.replace(/{{fillcolor}}/g, color))
 )
