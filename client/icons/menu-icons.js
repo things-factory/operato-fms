@@ -106,7 +106,7 @@ const ICON_ADMINISTRATOR = `
 
 function icons(template) {
   return ['#64A3D9', '#ffffff'].map(
-    color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace('{{strokecolor}}', color))
+    color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
   )
 }
 

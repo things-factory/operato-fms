@@ -118,7 +118,7 @@ export class MenuTools extends connect(store)(LitElement) {
         icons: ICONS_GEOFENCE
       },
       {
-        name: 'administrator',
+        name: 'admin',
         path: 'fms-admin',
         icons: ICONS_ADMINISTRATOR
       }
