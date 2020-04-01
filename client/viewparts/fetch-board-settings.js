@@ -1,7 +1,7 @@
 import { client } from '@things-factory/shell'
 import gql from 'graphql-tag'
 
-export async function fetchDashboardSettings() {
+export async function fetchBoardSettings() {
   var response = await client.query({
     query: gql`
       {
