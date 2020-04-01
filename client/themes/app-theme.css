@@ -1,6 +1,6 @@
 body {
   /* theme color */
-  --primary-color-rgb: 107, 178, 249;
+  --primary-color-rgb: 92, 163, 234;
   --primary-color: rgb(var(--primary-color-rgb));
   --secondary-color: #344563;
   --focus-color: #fff;

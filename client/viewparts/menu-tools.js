@@ -31,11 +31,13 @@ export class MenuTools extends connect(store)(LitElement) {
       css`
         :host {
           display: flex;
-          background-color: var(--menu-tools-background-color);
+          background-color: var(--secondary-color);
 
           /* for narrow mode */
           flex-direction: column;
           width: 100%;
+          --menu-tools-color: rgba(255, 255, 255, 0.9);
+          --menu-tools-active-color: rgba(107, 178, 249, 1);
         }
 
         :host([width='WIDE']) {
@@ -74,21 +76,27 @@ export class MenuTools extends connect(store)(LitElement) {
           display: flex;
           flex-direction: column;
           padding: 5px 0px;
+          opacity: 0.7;
           align-items: center;
           text-align: center;
           text-decoration: none;
+          text-transform: capitalize;
           color: var(--menu-tools-color);
+          border-left: 2px solid transparent;
         }
 
         a[active] {
+          opacity: 1;
           color: var(--menu-tools-active-color);
-          background-color: rgba(0, 0, 0, 0.2);
+          font-weight: bold;
+          background-color: rgba(0, 0, 0, 0.15);
+          border-left: 2px solid var(--menu-tools-active-color);
         }
 
         img {
           display: block;
-          width: 40px;
-          padding: 5px 5px 0px 5px;
+          width: 35px;
+          padding: 5px 10px 0px 10px;
           vertical-align: bottom;
         }
 
