@@ -7,7 +7,7 @@ export const FMSPageStyles = css`
   }
 
   [sidebar] {
-    width: 360px;
+    width: 240px;
   }
 
   [main] {
