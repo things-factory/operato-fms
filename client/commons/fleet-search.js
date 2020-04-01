@@ -94,7 +94,7 @@ export class FleetSearch extends connect(store)(localize(i18next)(LitElement)) {
         }
 
         [active] {
-          background-color: tomato;
+          background-color: #ddd;
         }
       `
     ]
