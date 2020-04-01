@@ -5,6 +5,8 @@ import '@material/mwc-icon'
 
 import { store } from '@things-factory/shell'
 
+import { MENU_ICONS, FOCUS_MENU_ICONS } from '../icons/menu-icons'
+
 export class MenuTools extends connect(store)(LitElement) {
   static get properties() {
     return {
@@ -85,33 +87,27 @@ export class MenuTools extends connect(store)(LitElement) {
     this.menus = [
       {
         name: 'monitoring',
-        path: 'fms-monitoring',
-        icon: 'dvr'
+        path: 'fms-monitoring'
       },
       {
         name: 'report',
-        path: 'fms-report',
-        icon: 'airplay'
+        path: 'fms-report'
       },
       {
         name: 'device',
-        path: 'fms-device',
-        icon: 'font_download'
+        path: 'fms-device'
       },
       {
         name: 'client',
-        path: 'fms-client',
-        icon: 'attachment'
+        path: 'fms-client'
       },
       {
         name: 'geo-fence',
-        path: 'fms-geofence',
-        icon: 'device_hub'
+        path: 'fms-geofence'
       },
       {
         name: 'administrator',
-        path: 'fms-admin',
-        icon: 'format_list_numbered'
+        path: 'fms-admin'
       }
     ]
 
@@ -120,10 +116,10 @@ export class MenuTools extends connect(store)(LitElement) {
     return html`
       <ul>
         ${this.menus.map(
-          menu => html`
+          (menu, idx) => html`
             <li>
               <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)}>
-                <mwc-icon>${menu.icon}</mwc-icon>
+                <img src=${!!~page.indexOf(menu.path) ? FOCUS_MENU_ICONS[idx] : MENU_ICONS[idx]} />
                 <div>${menu.name}</div>
               </a>
             </li>
