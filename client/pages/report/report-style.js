@@ -7,7 +7,7 @@ export const ReportStyles = css`
   }
 
   [sidebar] {
-    width: 360px;
+    width: 240px;
   }
 
   [main] {
