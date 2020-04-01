@@ -104,6 +104,15 @@ const ICON_ADMINISTRATOR = `
 </svg>
 `
 
-export const MENU_ICONS = ['#64A3D9', '#ffffff'].map(
-  color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(ICON_MONITORING.replace('{{strokecolor}}', color))
-)
+function icons(template) {
+  return ['#64A3D9', '#ffffff'].map(
+    color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace('{{strokecolor}}', color))
+  )
+}
+
+export const ICONS_MONITORING = icons(ICON_MONITORING)
+export const ICONS_REPORT = icons(ICON_REPORT)
+export const ICONS_DEVICE = icons(ICON_DEVICE)
+export const ICONS_DRIVER = icons(ICON_DRIVER)
+export const ICONS_GEOFENCE = icons(ICON_GEOFENCE)
+export const ICONS_ADMINISTRATOR = icons(ICON_ADMINISTRATOR)

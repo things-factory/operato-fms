@@ -5,7 +5,14 @@ import '@material/mwc-icon'
 
 import { store } from '@things-factory/shell'
 
-import { MENU_ICONS, FOCUS_MENU_ICONS } from '../icons/menu-icons'
+import {
+  ICONS_MONITORING,
+  ICONS_REPORT,
+  ICONS_DEVICE,
+  ICONS_DRIVER,
+  ICONS_GEOFENCE,
+  ICONS_ADMINISTRATOR
+} from '../icons/menu-icons'
 
 export class MenuTools extends connect(store)(LitElement) {
   static get properties() {
@@ -87,27 +94,33 @@ export class MenuTools extends connect(store)(LitElement) {
     this.menus = [
       {
         name: 'monitoring',
-        path: 'fms-monitoring'
+        path: 'fms-monitoring',
+        icons: ICONS_MONITORING
       },
       {
         name: 'report',
-        path: 'fms-report'
+        path: 'fms-report',
+        icons: ICONS_REPORT
       },
       {
         name: 'device',
-        path: 'fms-device'
+        path: 'fms-device',
+        icons: ICONS_DEVICE
       },
       {
         name: 'client',
-        path: 'fms-client'
+        path: 'fms-client',
+        icons: ICONS_DRIVER
       },
       {
         name: 'geo-fence',
-        path: 'fms-geofence'
+        path: 'fms-geofence',
+        icons: ICONS_GEOFENCE
       },
       {
         name: 'administrator',
-        path: 'fms-admin'
+        path: 'fms-admin',
+        icons: ICONS_ADMINISTRATOR
       }
     ]
 
@@ -116,10 +129,10 @@ export class MenuTools extends connect(store)(LitElement) {
     return html`
       <ul>
         ${this.menus.map(
-          (menu, idx) => html`
+          menu => html`
             <li>
               <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)}>
-                <img src=${!!~page.indexOf(menu.path) ? FOCUS_MENU_ICONS[idx] : MENU_ICONS[idx]} />
+                <img src=${!!~page.indexOf(menu.path) ? menu.icons[1] : menu.icons[0]} />
                 <div>${menu.name}</div>
               </a>
             </li>
