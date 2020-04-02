@@ -37,7 +37,7 @@ export class GeofenceItem extends LitElement {
         [type] {
           flex: none;
           margin: 3px 0 0 5px;
-          background-color: #539d04; /* inbound : #539d04, oubbound : #045a9d */
+          background-color: #539d04;
           border-radius: var(--border-radius);
           width: 65px;
           height: 14px;
@@ -47,6 +47,10 @@ export class GeofenceItem extends LitElement {
           font-size: 10px;
           text-transform: uppercase;
           font-weight: bold;
+        }
+
+        [type].outbound {
+          background-color: #045a9d;
         }
 
         [client] {
@@ -73,7 +77,7 @@ export class GeofenceItem extends LitElement {
     return html`
       <div first-line>
         <span name>${name}</span>
-        <span type>${type}</span>
+        <span class=${type.toLowerCase()} type>${type}</span>
       </div>
       <div second-line>
         <span client><mwc-icon>domain</mwc-icon>${client}</span>
