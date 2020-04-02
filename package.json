@@ -44,7 +44,7 @@
     "@things-factory/resource-ui": "^2.0.0",
     "@things-factory/setting-base": "^2.0.0",
     "@things-factory/setting-ui": "^2.0.0",
-    "@things-factory/shell": "^2.3.0-beta.1",
+    "@things-factory/shell": "^2.0.0",
     "@things-factory/system-ui": "^2.0.0",
     "@things-scene/chartjs": "*",
     "@things-scene/clock": "*",
@@ -77,9 +77,5 @@
     "@things-scene/wheel-sorter": "*",
     "chance": "^1.1.4"
   },
-  "devDependencies": {},
-  "resolutions": {
-    "@things-factory/shell": "^2.3.0-beta.1",
-    "@things-factory/integration-ui": "^2.2.0-beta.1"
-  }
+  "devDependencies": {}
 }
