@@ -74,7 +74,8 @@
     "@things-scene/table": "*",
     "@things-scene/timer": "*",
     "@things-scene/visualizer": "*",
-    "@things-scene/wheel-sorter": "*"
+    "@things-scene/wheel-sorter": "*",
+    "chance": "^1.1.4"
   },
   "devDependencies": {},
   "resolutions": {

@@ -14,6 +14,7 @@ export class FleetItem extends LitElement {
           flex-direction: row;
           position: relative;
         }
+
         [first-line] * {
           vertical-align: middle;
         }
@@ -23,10 +24,18 @@ export class FleetItem extends LitElement {
           flex-direction: row;
           position: relative;
         }
+
         [second-line] * {
           vertical-align: middle;
           opacity: 0.8;
         }
+
+        span {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
         [second-line] mwc-icon {
           margin-right: 2px;
           font-size: 13px;
@@ -45,16 +54,29 @@ export class FleetItem extends LitElement {
           font-weight: bold;
           text-align: right;
         }
+
         [battery] mwc-icon {
           width: 10px;
           height: 10px;
-          background-color: #539d04; /* green : #539d04, red : #bb4023, orange : #f48400 */
+          background-color: #ccc;
           border-radius: 50%;
           margin-right: 3px;
           padding: 1px 3px 3px 1px;
           color: #fff;
           font-size: 12px;
           font-weight: normal;
+        }
+
+        [battery].good mwc-icon {
+          background-color: #539d04;
+        }
+
+        [battery].warn mwc-icon {
+          background-color: #f48400;
+        }
+
+        [battery].bad mwc-icon {
+          background-color: #bb4023;
         }
 
         [status] {
@@ -81,7 +103,7 @@ export class FleetItem extends LitElement {
         }
 
         [delivery] {
-          flex: 1;
+          flex: 1.5;
         }
 
         [driver] {
@@ -99,17 +121,18 @@ export class FleetItem extends LitElement {
 
   render() {
     var { name, battery, status, client, delivery, driver } = this.fleet || {}
+    var batteryLevel = !battery ? 'dead' : battery < 20 ? 'bad' : battery < 60 ? 'warn' : 'good'
 
     return html`
       <div first-line>
         <span name>${name}</span>
-        <span battery><mwc-icon>battery_full</mwc-icon>${battery}%</span>
+        <span battery class=${batteryLevel}><mwc-icon>battery_full</mwc-icon>${battery}%</span>
         <span status ?on=${!!status}>${status ? 'on' : 'off'}</span>
       </div>
       <div second-line>
-        <span client><mwc-icon>domain</mwc-icon>${client}</span>
-        <span delivery><mwc-icon>local_shipping</mwc-icon>${delivery}</span>
-        <span driver><mwc-icon>account_circle</mwc-icon>${driver}</span>
+        <span client title=${client}><mwc-icon>domain</mwc-icon>${client}</span>
+        <span delivery title=${delivery}><mwc-icon>local_shipping</mwc-icon>${delivery}</span>
+        <span driver title=${driver}><mwc-icon>account_circle</mwc-icon>${driver}</span>
       </div>
     `
   }

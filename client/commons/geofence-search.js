@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { i18next } from '@things-factory/i18n-base'
+import Chance from 'chance'
 
 import { fetchGeofence } from './fetch-geofence'
 import './geofence-item'
@@ -158,6 +159,8 @@ export class GeofenceSearch extends LitElement {
   }
 
   async fetchGeofences() {
+    var chance = new Chance()
+
     this.total = 10
     this.geofences = Array(10)
       .fill()
@@ -165,8 +168,8 @@ export class GeofenceSearch extends LitElement {
         var num = ~~(Math.random() * 100)
         return {
           id: idx,
-          client: 'Client-' + num,
-          name: 'Geofence-' + num,
+          client: 'ebay',
+          name: chance.address(),
           type: ['Inbound', 'Outbound'][~~(Math.random() * 2)],
           event: ~~(Math.random() * 5)
         }
