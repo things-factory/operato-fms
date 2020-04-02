@@ -2,15 +2,6 @@ import { css } from 'lit-element'
 
 export const ReportStyles = css`
   :host {
-    display: flex;
-    flex-direction: row;
-  }
-
-  [sidebar] {
-    width: 240px;
-  }
-
-  [main] {
     flex: 1;
 
     display: flex;
@@ -26,14 +17,16 @@ export const ReportStyles = css`
     overflow: auto;
   }
 
-  [header] {
+  [search] {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+
+    padding: 10px;
   }
 
-  [header] mwc-button {
-    align-self: flex-end;
+  [search] * {
+    flex: none;
+    margin: 0 20px 0 0;
   }
 `

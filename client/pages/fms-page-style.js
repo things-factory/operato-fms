@@ -28,14 +28,16 @@ export const FMSPageStyles = css`
     overflow: auto;
   }
 
-  [header] {
+  [search] {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+
+    padding: 10px;
   }
 
-  [header] mwc-button {
-    align-self: flex-end;
+  [search] * {
+    flex: none;
+    margin: 0 20px 0 0;
   }
 `

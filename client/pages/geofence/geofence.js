@@ -22,6 +22,12 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
     return [ScrollbarStyles, FMSPageStyles]
   }
 
+  get context() {
+    return {
+      title: i18next.t('title.geofence')
+    }
+  }
+
   render() {
     return html`
       <geofence-search sidebar @geofence=${e => (this.coords = e.detail)}></geofence-search>

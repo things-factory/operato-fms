@@ -2,17 +2,16 @@ import { client, PageView, store } from '@things-factory/shell'
 import { provider } from '@things-factory/board-ui'
 import gql from 'graphql-tag'
 import { css, html } from 'lit-element'
+import { i18next, localize } from '@things-factory/i18n-base'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 
 import { ScrollbarStyles } from '@things-factory/styles'
 import { FMSPageStyles } from '../fms-page-style'
 
-import '../../commons/fleet-search'
-
 const NOOP = () => {}
 const DASHBOARD = 'dashboard'
 
-export class FMSReport extends connect(store)(PageView) {
+export class FMSReport extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
     return {
       _board: Object,
@@ -65,6 +64,12 @@ export class FMSReport extends connect(store)(PageView) {
     ]
   }
 
+  get context() {
+    return {
+      title: i18next.t('title.report')
+    }
+  }
+
   get oopsNote() {
     return {
       icon: 'insert_chart_outlined',
@@ -78,7 +83,6 @@ export class FMSReport extends connect(store)(PageView) {
 
     return oops
       ? html`
-          <fleet-search sidebar></fleet-search>
           <div main>
             <oops-note
               icon=${oops.icon}
@@ -89,8 +93,6 @@ export class FMSReport extends connect(store)(PageView) {
           </div>
         `
       : html`
-          <fleet-search sidebar></fleet-search>
-
           <board-viewer main .board=${this._board} .provider=${provider}></board-viewer>
           <oops-spinner ?show=${this._showSpinner}></oops-spinner>
         `

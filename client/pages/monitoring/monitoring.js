@@ -55,6 +55,12 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     return [ScrollbarStyles, FMSPageStyles]
   }
 
+  get context() {
+    return {
+      title: i18next.t('title.monitoring')
+    }
+  }
+
   render() {
     return html`
       <fleet-search sidebar @tracks=${e => (this.tracks = e.detail)}></fleet-search>

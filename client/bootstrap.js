@@ -108,7 +108,7 @@ export default function bootstrap() {
     type: APPEND_APP_TOOL,
     tool: {
       template: html`
-        <span style="font-size: 1.0em;">Notification</span>
+        <span style="font-size: 2.0em;"><mwc-icon>notification_important</mwc-icon></span>
       `,
       position: TOOL_POSITION.REAR
     }

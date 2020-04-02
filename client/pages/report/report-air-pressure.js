@@ -1,12 +1,11 @@
 import { html, css } from 'lit-element'
-import '@material/mwc-button'
+import '@material/mwc-textfield'
 import '@things-factory/grist-ui'
 import { i18next } from '@things-factory/i18n-base'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
 
 import { ReportBasedOnTrack } from './report-based-on-track'
-import '../../commons/fleet-search'
 
 import { ReportStyles } from './report-style'
 
@@ -19,22 +18,34 @@ class ReportAirPressure extends ReportBasedOnTrack {
     return [ScrollbarStyles, ReportStyles]
   }
 
+  get context() {
+    return {
+      title: i18next.t('title.air-pressure'),
+      exportable: {
+        accept: ['json'],
+        name: 'device',
+        data: () => {
+          return []
+        }
+      }
+    }
+  }
+
   render() {
     return html`
-      <fleet-search sidebar></fleet-search>
-
-      <div main>
-        <div header>
-          <label><a href="fms-report">Report</a> > Air Pressure</label>
-          <mwc-button label=${i18next.t('button.export')}> </mwc-button>
-        </div>
-        <data-grist
-          .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
-          .config=${this.config}
-          .fetchHandler=${this.fetchHandler.bind(this)}
-        >
-        </data-grist>
-      </div>
+      <form search>
+        <mwc-textfield label="device" icon="router"></mwc-textfield>
+        <mwc-textfield label="client" icon="domain"></mwc-textfield>
+        <mwc-textfield label="delivery" icon="local_shipping"></mwc-textfield>
+        <mwc-textfield label="from date" icon="event" type="date"></mwc-textfield>
+        <mwc-textfield label="to date" icon="event" type="date"></mwc-textfield>
+      </form>
+      <data-grist
+        .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
+        .config=${this.config}
+        .fetchHandler=${this.fetchHandler.bind(this)}
+      >
+      </data-grist>
     `
   }
 
