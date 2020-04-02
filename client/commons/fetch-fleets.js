@@ -5,7 +5,6 @@ function latlng(lat, lng) {
 }
 
 export async function fetchFleets({ page, limit, sorters = [] } = {}) {
-  console.log(Chance)
   var chance = new Chance()
   var date = new Date().toISOString().slice(0, 10)
 

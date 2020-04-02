@@ -4,6 +4,7 @@ import { store, PageView } from '@things-factory/shell'
 import '@things-factory/grist-ui'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { openPopup } from '@things-factory/layout-base'
+import Chance from 'chance'
 
 import { fetchTrack } from '../../commons/fetch-track'
 import '../../commons/fleet-search'
@@ -64,16 +65,24 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
   }
 
   async fetchHandler({ page, limit, sorters = [] }) {
-    return {
+    var chance = new Chance()
+    var date = new Date().toISOString().slice(0, 10)
+
+    return await {
       total: 300,
       records: Array(50)
         .fill()
         .map(() => {
-          var num = ~~(Math.random() * 100)
+          var status = Math.random() - 0.5 > 0 ? 0 : 1
+          var id = chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true })
+
           return {
-            client: 'Client-' + num,
-            delivery: 'Delivery-' + num,
-            device: 'Device-' + num,
+            id,
+            name: id,
+            client: 'ebay',
+            delivery: date + '-' + ~~(Math.random() * 1000),
+            device: 'wizxyz-' + ~~(Math.random() * 10000),
+            driver: chance.name(),
             value: ~~(Math.random() * 1500),
             updatedAt: Date.now() - ~~(Math.random() * 100000000)
           }
