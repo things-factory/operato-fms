@@ -12,8 +12,12 @@ import { searchFleets, setFocusedFleet } from '../actions/fleets'
 function scrollIntoViewIfNeeded(container, target) {
   let rect = target.getBoundingClientRect(),
     rectContainer = container.getBoundingClientRect()
-  if (rect.bottom > rectContainer.bottom) target.scrollIntoView(false)
-  if (rect.top < rectContainer.top) target.scrollIntoView()
+  if (rect.bottom > rectContainer.bottom) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
+  }
+  if (rect.top < rectContainer.top) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+  }
 }
 
 export class FleetSearch extends connect(store)(localize(i18next)(LitElement)) {
