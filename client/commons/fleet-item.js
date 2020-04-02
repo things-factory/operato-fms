@@ -5,7 +5,8 @@ export class FleetItem extends LitElement {
     return [
       css`
         :host {
-          font-size: 14px;
+          font-size: 12px;
+          color: var(--secondary-color);
         }
 
         [first-line] {
@@ -13,32 +14,57 @@ export class FleetItem extends LitElement {
           flex-direction: row;
           position: relative;
         }
+        [first-line] * {
+          vertical-align: middle;
+        }
 
         [second-line] {
           display: flex;
           flex-direction: row;
           position: relative;
         }
+        [second-line] * {
+          vertical-align: middle;
+          opacity: 0.8;
+        }
+        [second-line] mwc-icon {
+          margin-right: 2px;
+          font-size: 13px;
+        }
 
         [name] {
           flex: 1;
-          font-size: 16px;
-          color: tomato;
+          font-size: 15px;
+          font-weight: bold;
         }
 
         [battery] {
           flex: none;
           margin-left: auto;
+          font-weight: bold;
+          /* green : #539d04, red : #bb4023, orange : #f48400 */
+        }
+        [active] [battery] {
+          color: #fff;
         }
 
         [status] {
           flex: none;
-          margin-left: auto;
-          background-color: #c5c8d1;
+          margin-left: 3px;
+          background-color: #737679;
+          border-radius: var(--border-radius);
+          width: 28px;
+          height: 14px;
+
+          text-align: center;
+          color: #fff;
+          font-size: 10px;
+          text-transform: uppercase;
+          font-weight: bold;
         }
 
         [status][on] {
-          background-color: #5c9cd5;
+          background-color: #539d04;
         }
 
         [client] {
@@ -68,13 +94,13 @@ export class FleetItem extends LitElement {
     return html`
       <div first-line>
         <span name>${name}</span>
-        <span battery>${battery}</span>
-        <span status ?on=${!!status}>${status ? 'online' : 'offline'}</span>
+        <span battery>${battery}%</span>
+        <span status ?on=${!!status}>${status ? 'on' : 'off'}</span>
       </div>
       <div second-line>
-        <span client>${client}</span>
-        <span delivery>${delivery}</span>
-        <span driver>${driver}</span>
+        <span client><mwc-icon>domain</mwc-icon>${client}</span>
+        <span delivery><mwc-icon>local_shipping</mwc-icon>${delivery}</span>
+        <span driver><mwc-icon>account_circle</mwc-icon>${driver}</span>
       </div>
     `
   }
