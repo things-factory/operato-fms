@@ -15,6 +15,8 @@ export class GeofenceSearch extends LitElement {
           flex-direction: column;
           overflow: hidden;
           background-color: var(--main-section-background-color);
+          box-shadow: inset 2px 0px 3px 0px rgba(0, 0, 0, 0.15);
+          border-right: 1px solid rgba(0, 0, 0, 0.2);
         }
 
         [search] {
@@ -22,7 +24,7 @@ export class GeofenceSearch extends LitElement {
           grid-template-columns: repeat(10, 1fr);
           grid-gap: 5px;
 
-          padding: 4px 6px;
+          padding: 9px 7px 9px 3px;
           align-items: center;
         }
 
@@ -71,22 +73,31 @@ export class GeofenceSearch extends LitElement {
         }
 
         [search-result] {
-          padding: 3px 0 5px 3px;
+          background-color: #fff;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-width: 1px 0;
+          padding: 3px 0 3px 7px;
           font: normal 13px var(--theme-font);
           color: var(--secondary-text-color);
         }
 
         ul {
-          padding: 4px;
+          padding: 0;
           margin: 0;
           list-style-type: none;
         }
 
         li {
+          background-color: #fff;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          padding: 5px 5px 3px 7px;
         }
 
         [active] {
-          background-color: #34a6ff;
+          background-color: var(--primary-color);
+        }
+        [active] * {
+          color: #fff !important;
         }
       `
     ]
@@ -123,7 +134,7 @@ export class GeofenceSearch extends LitElement {
 
       <div search-result><i18n-msg msgid="title.total"></i18n-msg> : <strong>${total}</strong></div>
 
-      <ul style="overflow:scroll;">
+      <ul style="overflow:auto;">
         ${geofences.map(
           geofence => html`
             <li @click=${e => this.setFocusedGeofence(geofence.id)} ?active=${this.focusedGeofenceId == geofence.id}>
