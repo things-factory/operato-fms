@@ -66,6 +66,9 @@ export class MenuTools extends connect(store)(LitElement) {
         :host([width='WIDE']) ul {
           flex-direction: column;
         }
+        :host([width='NARROW']) li {
+          flex: 1;
+        }
 
         :host([width='WIDE']) li {
           border-top: 1px solid rgba(255, 255, 255, 0.1);
