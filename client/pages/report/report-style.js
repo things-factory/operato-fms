@@ -7,8 +7,8 @@ export const ReportStyles = css`
     display: flex;
     flex-direction: column;
 
-    /* grid의 horizontal scroll을 나타나게 함 */
-    width: 0;
+    /* grist의 수평 스크롤이 나오도록 */
+    overflow: hidden;
   }
 
   data-grist {
@@ -22,11 +22,12 @@ export const ReportStyles = css`
     flex-direction: row;
     justify-content: flex-start;
 
-    padding: 10px;
+    padding: 0 10px 2px 10px;
   }
 
   [search] * {
     flex: none;
+    max-width: 220px;
     margin: 0 20px 0 0;
   }
 `

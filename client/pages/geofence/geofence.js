@@ -1,5 +1,6 @@
 import { html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
+import '@material/mwc-textfield'
 import { store, PageView } from '@things-factory/shell'
 import { i18next, localize } from '@things-factory/i18n-base'
 
@@ -24,16 +25,37 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
 
   get context() {
     return {
-      title: i18next.t('title.geofence')
+      title: i18next.t('title.geofence'),
+      exportable: {
+        accept: ['json'],
+        name: 'device',
+        data: () => {
+          return []
+        }
+      },
+      actions: [
+        {
+          title: i18next.t('button.register'),
+          action: this.register.bind(this)
+        }
+      ]
     }
   }
 
   render() {
     return html`
-      <geofence-search sidebar @geofence=${e => (this.coords = e.detail)}></geofence-search>
+      <form search>
+        <mwc-textfield label="client" icon="domain"></mwc-textfield>
+        <mwc-textfield label="geofence" icon="tab_unselected"></mwc-textfield>
+        <mwc-textfield label="type" icon="sync_alt"></mwc-textfield>
+      </form>
 
-      <common-map main .polygons=${this.polygons} .boundCoords=${this.coords} @map-change=${e => (this.map = e.detail)}>
-      </common-map>
+      <div main>
+        <geofence-search sidebar @geofence=${e => (this.coords = e.detail)}></geofence-search>
+
+        <common-map .polygons=${this.polygons} .boundCoords=${this.coords} @map-change=${e => (this.map = e.detail)}>
+        </common-map>
+      </div>
     `
   }
 
@@ -70,6 +92,8 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
       this.polygons = []
     }
   }
+
+  register() {}
 }
 
 window.customElements.define('fms-geofence', FMSGeoFence)

@@ -40,22 +40,20 @@ class FMSDevice extends connect(store)(localize(i18next)(PageView)) {
 
   render() {
     return html`
-      <div main>
-        <form search>
-          <mwc-textfield label="device" icon="router"></mwc-textfield>
-          <mwc-textfield label="client" icon="domain"></mwc-textfield>
-          <mwc-textfield label="delivery" icon="local_shipping"></mwc-textfield>
-          <mwc-textfield label="from date" icon="event" type="date"></mwc-textfield>
-          <mwc-textfield label="to date" icon="event" type="date"></mwc-textfield>
-        </form>
+      <form search>
+        <mwc-textfield label="device" icon="router"></mwc-textfield>
+        <mwc-textfield label="client" icon="domain"></mwc-textfield>
+        <mwc-textfield label="delivery" icon="local_shipping"></mwc-textfield>
+        <mwc-textfield label="from date" icon="event" type="date"></mwc-textfield>
+        <mwc-textfield label="to date" icon="event" type="date"></mwc-textfield>
+      </form>
 
-        <data-grist
-          .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
-          .config=${this.config}
-          .fetchHandler=${this.fetchHandler.bind(this)}
-        >
-        </data-grist>
-      </div>
+      <data-grist
+        .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
+        .config=${this.config}
+        .fetchHandler=${this.fetchHandler.bind(this)}
+      >
+      </data-grist>
     `
   }
 

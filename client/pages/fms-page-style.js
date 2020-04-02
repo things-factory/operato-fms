@@ -3,28 +3,35 @@ import { css } from 'lit-element'
 export const FMSPageStyles = css`
   :host {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
-    --header-bar-background-color: var(--primary-color);
-  }
-
-  [sidebar] {
-    width: 260px;
+    /* grist의 수평 스크롤이 나오도록 */
+    overflow: hidden;
   }
 
   [main] {
     flex: 1;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: stretch;
 
-    /* grid의 horizontal scroll을 나타나게 함 */
-    width: 0;
+    /* sidebar의 스크롤이 나오도록 */
+    overflow: hidden;
+  }
+
+  [sidebar] {
+    width: 260px;
+    height: 100%;
+  }
+
+  data-grist,
+  common-map {
+    flex: 1 1 0;
   }
 
   data-grist {
-    flex: 1;
-
     overflow: auto;
   }
 
@@ -33,11 +40,12 @@ export const FMSPageStyles = css`
     flex-direction: row;
     justify-content: flex-start;
 
-    padding: 10px;
+    padding: 0 10px 2px 10px;
   }
 
   [search] * {
     flex: none;
+    max-width: 220px;
     margin: 0 20px 0 0;
   }
 `

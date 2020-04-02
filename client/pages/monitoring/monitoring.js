@@ -1,5 +1,6 @@
 import { html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
+import '@material/mwc-textfield'
 import { store, PageView } from '@things-factory/shell'
 import { i18next, localize } from '@things-factory/i18n-base'
 
@@ -7,7 +8,7 @@ import { ScrollbarStyles } from '@things-factory/styles'
 import { FMSPageStyles } from '../fms-page-style'
 
 import { MapBuilder } from '../../commons/map-builder'
-import { setFocusedFleet } from '../../actions/fleets'
+import { searchFleets, setFocusedFleet } from '../../actions/fleets'
 
 import '../../commons/fleet-search'
 import '../../commons/common-map'
@@ -47,7 +48,8 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       fleetId: String,
       trackId: String,
       map: Object,
-      googleMap: Object
+      googleMap: Object,
+      search: Object
     }
   }
 
@@ -62,16 +64,28 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   render() {
+    var { device = '', client = '', delivery = '', fromdate, todate } = this.search || {}
+
     return html`
-      <fleet-search sidebar @tracks=${e => (this.tracks = e.detail)}></fleet-search>
-      <common-map
-        main
-        .polylines=${this._polylines}
-        .markers=${this._markers}
-        .boundCoords=${this._boundCoords}
-        @map-change=${e => (this.map = e.detail)}
-      >
-      </common-map>
+      <form @change=${this.onchangeSearch.bind(this)} search>
+        <mwc-textfield label="device" icon="router" .value=${device}></mwc-textfield>
+        <mwc-textfield label="client" icon="domain" .value=${client}></mwc-textfield>
+        <mwc-textfield label="delivery" icon="local_shipping" .value=${delivery}></mwc-textfield>
+        <mwc-textfield label="from date" icon="event" type="date" .value=${fromdate}></mwc-textfield>
+        <mwc-textfield label="to date" icon="event" type="date" .value=${todate}></mwc-textfield>
+      </form>
+
+      <div main>
+        <fleet-search sidebar @tracks=${e => (this.tracks = e.detail)}></fleet-search>
+        <common-map
+          main
+          .polylines=${this._polylines}
+          .markers=${this._markers}
+          .boundCoords=${this._boundCoords}
+          @map-change=${e => (this.map = e.detail)}
+        >
+        </common-map>
+      </div>
     `
   }
 
@@ -158,6 +172,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   stateChanged(state) {
     this.fleets = state.fleets.fleets
     this.fleetId = state.fleets.focusedFleetId
+    this.search = state.fleets.search
 
     this.fleetBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_FLEET] || { board: {} }).board.id
   }
@@ -198,6 +213,15 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
         this.infoWindow.setContent(marker.content)
       }
     }
+  }
+
+  onchangeSearch(e) {
+    var target = e.target
+
+    searchFleets({
+      ...this.search,
+      [target.name]: target.value
+    })
   }
 }
 

@@ -20,59 +20,6 @@ export class GeofenceSearch extends LitElement {
           border-right: 1px solid rgba(0, 0, 0, 0.2);
         }
 
-        [search] {
-          display: grid;
-          grid-template-columns: repeat(10, 1fr);
-          grid-gap: 5px;
-
-          padding: 9px 7px 9px 3px;
-          align-items: center;
-        }
-
-        [search] > * {
-          box-sizing: border-box;
-          margin: 0;
-
-          color: var(--secondary-text-color);
-          font: normal 13px var(--theme-font);
-        }
-
-        [search] label {
-          grid-column: span 3;
-          text-transform: capitalize;
-          font-weight: bold;
-          text-align: right;
-          align-self: center;
-        }
-
-        [search] > input,
-        [search] > select,
-        [wrap] {
-          grid-column: span 7;
-          border: 1px solid rgba(0, 0, 0, 0.2);
-          align-self: stretch;
-        }
-
-        [search] label {
-          grid-column: span 3;
-          text-transform: capitalize;
-          font-weight: bold;
-          text-align: right;
-          align-self: center;
-        }
-
-        [search] > input,
-        [search] > select {
-          grid-column: span 7;
-          border: 1px solid rgba(0, 0, 0, 0.2);
-          align-self: stretch;
-        }
-
-        input {
-          border: 1px solid rgba(0, 0, 0, 0.2);
-          background-color: transparent;
-        }
-
         [search-result] {
           background-color: #fff;
           border: 1px solid rgba(0, 0, 0, 0.1);
@@ -122,17 +69,6 @@ export class GeofenceSearch extends LitElement {
     var total = this.total || 0
 
     return html`
-      <div search>
-        <label><i18n-msg msgid="field.client"></i18n-msg></label>
-        <select></select>
-
-        <label><i18n-msg msgid="field.geofence"></i18n-msg></label>
-        <select></select>
-
-        <label><i18n-msg msgid="field.type"></i18n-msg></label>
-        <select></select>
-      </div>
-
       <div search-result><i18n-msg msgid="title.total"></i18n-msg> : <strong>${total}</strong></div>
 
       <ul style="overflow:auto;">
