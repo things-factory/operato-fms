@@ -93,7 +93,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     var fleetBoardId = this.fleetBoardId
 
     var fleets = (this.fleets || []).map(fleet => {
-      var { id, name, latlng, parameters } = fleet
+      var { id, name, latlng, delivery, client, driver, parameters } = fleet
       var [lat, lng] = latlng.split(',').map(parseFloat)
       var position = { lat, lng }
 
@@ -107,6 +107,9 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
           content.data = {
             id,
             name,
+            delivery,
+            client,
+            driver,
             position,
             parameters
           }

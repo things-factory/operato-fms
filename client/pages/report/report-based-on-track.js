@@ -26,7 +26,8 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
     var template = document.createElement('track-popup')
 
     template.tracks = fetchTrack().map(track => {
-      var { name, lat, lng, parameters } = track
+      var { id, name, lat, lng, delivery, client, driver, parameters } = track
+
       var position = { lat, lng }
 
       return {
@@ -40,7 +41,11 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
           var content = document.createElement('marker-info-content')
           content.boardId = boardId
           content.data = {
+            id,
             name,
+            delivery,
+            client,
+            driver,
             position,
             parameters
           }

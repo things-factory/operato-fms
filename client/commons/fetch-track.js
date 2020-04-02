@@ -1,3 +1,5 @@
+import Chance from 'chance'
+
 const TRACKS = [
   [
     '37.4852999247, 126.8752357351',
@@ -153,11 +155,30 @@ const TRACKS = [
 ]
 
 export function fetchTrack() {
+  console.log(Chance)
+  var chance = new Chance()
+  var date = new Date().toISOString().slice(0, 10)
+  var client = 'ebay'
+  var delivery = date + '-' + ~~(Math.random() * 1000)
+  var device = 'wizxyz-' + ~~(Math.random() * 10000)
+  var driver = chance.name()
+  var status = 1
+  var battery = ~~(Math.random() * 100)
+
   return TRACKS[~~(Math.random() * TRACKS.length)].map((position, idx) => {
     var [lat, lng] = position.split(',').map(pos => Number(pos))
+
+    var id = chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true })
+
     return {
-      id: idx,
+      id: id,
       name: String(idx),
+      client,
+      delivery,
+      device,
+      driver,
+      status,
+      battery,
       lat,
       lng,
       parameters: {
