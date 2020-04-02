@@ -40,17 +40,26 @@ export class FleetItem extends LitElement {
 
         [battery] {
           flex: none;
+          width: 50px;
           margin-left: auto;
           font-weight: bold;
-          /* green : #539d04, red : #bb4023, orange : #f48400 */
+          text-align: right;
         }
-        [active] [battery] {
+        [battery] mwc-icon {
+          width: 10px;
+          height: 10px;
+          background-color: #539d04; /* green : #539d04, red : #bb4023, orange : #f48400 */
+          border-radius: 50%;
+          margin-right: 3px;
+          padding: 1px 3px 3px 1px;
           color: #fff;
+          font-size: 12px;
+          font-weight: normal;
         }
 
         [status] {
           flex: none;
-          margin-left: 3px;
+          margin-left: 5px;
           background-color: #737679;
           border-radius: var(--border-radius);
           width: 28px;
@@ -94,7 +103,7 @@ export class FleetItem extends LitElement {
     return html`
       <div first-line>
         <span name>${name}</span>
-        <span battery>${battery}%</span>
+        <span battery><mwc-icon>battery_full</mwc-icon>${battery}%</span>
         <span status ?on=${!!status}>${status ? 'on' : 'off'}</span>
       </div>
       <div second-line>
