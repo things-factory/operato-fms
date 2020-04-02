@@ -93,6 +93,23 @@ export class MenuTools extends connect(store)(LitElement) {
           border-left: 2px solid var(--menu-tools-active-color);
         }
 
+        :host([width='NARROW']) a {
+          padding: 0px 0px 5px 0px;
+          opacity: 0.8;
+          color: var(--menu-tools-color);
+          border-left: none;
+          border-top: 2px solid transparent;
+        }
+
+        :host([width='NARROW']) a[active] {
+          opacity: 1;
+          color: var(--menu-tools-active-color);
+          font-weight: bold;
+          background-color: rgba(0, 0, 0, 0.15);
+          border-left: none;
+          border-top: 2px solid var(--menu-tools-active-color);
+        }
+
         img {
           display: block;
           width: 35px;
@@ -101,7 +118,7 @@ export class MenuTools extends connect(store)(LitElement) {
         }
 
         :host([width='NARROW']) img {
-          width: 20px;
+          padding: 0;
         }
 
         div {
