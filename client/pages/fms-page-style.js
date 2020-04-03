@@ -7,6 +7,8 @@ export const FMSPageStyles = css`
 
     /* grist의 수평 스크롤이 나오도록 */
     overflow: hidden;
+
+    --mdc-theme-primary: var(--secondary-color);
   }
 
   [main] {
