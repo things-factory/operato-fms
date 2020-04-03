@@ -1,5 +1,6 @@
 import { html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
+import '@material/mwc-button'
 import '@material/mwc-textfield'
 import { store, PageView } from '@things-factory/shell'
 import { i18next, localize } from '@things-factory/i18n-base'
@@ -48,6 +49,7 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
         <mwc-textfield label="client" icon="domain"></mwc-textfield>
         <mwc-textfield label="geofence" icon="tab_unselected"></mwc-textfield>
         <mwc-textfield label="type" icon="sync_alt"></mwc-textfield>
+        <mwc-button outlined label="search"></mwc-button>
       </form>
 
       <div main>

@@ -1,5 +1,6 @@
 import { html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
+import '@material/mwc-button'
 import '@material/mwc-textfield'
 import { store, PageView } from '@things-factory/shell'
 import '@things-factory/grist-ui'
@@ -46,6 +47,7 @@ class FMSClient extends connect(store)(localize(i18next)(PageView)) {
         <mwc-textfield label="delivery" icon="local_shipping"></mwc-textfield>
         <mwc-textfield label="from date" icon="event" type="date"></mwc-textfield>
         <mwc-textfield label="to date" icon="event" type="date"></mwc-textfield>
+        <mwc-button outlined label="search"></mwc-button>
       </form>
 
       <data-grist

@@ -1,4 +1,5 @@
 import { connect } from 'pwa-helpers/connect-mixin.js'
+import '@material/mwc-button'
 import '@material/mwc-textfield'
 import { store, PageView } from '@things-factory/shell'
 import '@things-factory/grist-ui'

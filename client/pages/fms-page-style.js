@@ -41,6 +41,7 @@ export const FMSPageStyles = css`
 
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: flex-start;
     padding: 5px 15px;
     box-shadow: inset 0px 3px 3px 0px rgba(0, 0, 0, 0.2);

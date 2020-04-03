@@ -21,6 +21,7 @@ export const ReportStyles = css`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
 
     padding: 0 10px 2px 10px;
   }
