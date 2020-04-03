@@ -18,17 +18,21 @@ export const ReportStyles = css`
   }
 
   [search] {
+    --mdc-text-field-fill-color: transparent;
+    --mdc-text-field-ink-color: var(--secondary-color);
+
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
-
-    padding: 0 10px 2px 10px;
+    justify-content: flex-start;
+    padding: 5px 15px;
+    box-shadow: inset 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+    background-color: var(--main-section-background-color);
   }
 
   [search] * {
     flex: none;
-    max-width: 220px;
+    max-width: 20%;
     margin: 0 20px 0 0;
   }
 `

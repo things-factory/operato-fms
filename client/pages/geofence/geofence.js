@@ -46,7 +46,7 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
   render() {
     return html`
       <form search>
-        <mwc-textfield label="client" icon="domain"></mwc-textfield>
+        <mwc-textfield outlined label="client" icon="domain"></mwc-textfield>
         <mwc-textfield label="geofence" icon="tab_unselected"></mwc-textfield>
         <mwc-textfield label="type" icon="sync_alt"></mwc-textfield>
         <mwc-button outlined label="search"></mwc-button>
