@@ -21,7 +21,15 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
   }
 
   static get styles() {
-    return [ScrollbarStyles, FMSPageStyles]
+    return [
+      ScrollbarStyles,
+      FMSPageStyles,
+      css`
+        :host {
+          --mdc-theme-primary: var(--secondary-color);
+        }
+      `
+    ]
   }
 
   get context() {
@@ -46,10 +54,10 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
   render() {
     return html`
       <form search>
-        <mwc-textfield outlined label="client" icon="domain"></mwc-textfield>
+        <mwc-textfield label="client" icon="domain"></mwc-textfield>
         <mwc-textfield label="geofence" icon="tab_unselected"></mwc-textfield>
         <mwc-textfield label="type" icon="sync_alt"></mwc-textfield>
-        <mwc-button outlined label="search"></mwc-button>
+        <mwc-button label="search" icon="search" raised></mwc-button>
       </form>
 
       <div main>
