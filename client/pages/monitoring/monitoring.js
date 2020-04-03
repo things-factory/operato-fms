@@ -74,7 +74,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
         <mwc-textfield label="delivery" icon="local_shipping" .value=${delivery}></mwc-textfield>
         <mwc-textfield label="from date" icon="event" type="date" .value=${fromdate}></mwc-textfield>
         <mwc-textfield label="to date" icon="event" type="date" .value=${todate}></mwc-textfield>
-        <mwc-button outlined label="search"></mwc-button>
+        <mwc-button label="search" icon="search" raised></mwc-button>
       </form>
 
       <div main>

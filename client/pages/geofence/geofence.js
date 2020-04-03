@@ -21,15 +21,7 @@ class FMSGeoFence extends connect(store)(localize(i18next)(PageView)) {
   }
 
   static get styles() {
-    return [
-      ScrollbarStyles,
-      FMSPageStyles,
-      css`
-        :host {
-          --mdc-theme-primary: var(--secondary-color);
-        }
-      `
-    ]
+    return [ScrollbarStyles, FMSPageStyles]
   }
 
   get context() {

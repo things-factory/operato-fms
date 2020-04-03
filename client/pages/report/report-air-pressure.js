@@ -40,7 +40,7 @@ class ReportAirPressure extends ReportBasedOnTrack {
         <mwc-textfield label="delivery" icon="local_shipping"></mwc-textfield>
         <mwc-textfield label="from date" icon="event" type="date"></mwc-textfield>
         <mwc-textfield label="to date" icon="event" type="date"></mwc-textfield>
-        <mwc-button outlined label="search"></mwc-button>
+        <mwc-button label="search" icon="search" raised></mwc-button>
       </form>
       <data-grist
         .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
