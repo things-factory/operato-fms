@@ -30,7 +30,6 @@ export class FleetSearch extends connect(store)(localize(i18next)(LitElement)) {
           flex-direction: column;
           overflow: hidden;
           background-color: var(--main-section-background-color);
-          box-shadow: inset 2px 0px 3px 0px rgba(0, 0, 0, 0.15);
           border-right: 1px solid rgba(0, 0, 0, 0.2);
         }
 
@@ -54,7 +53,7 @@ export class FleetSearch extends connect(store)(localize(i18next)(LitElement)) {
         li {
           background-color: #fff;
           border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-          padding: 5px 3px 3px 7px;
+          padding: 10px 7px 7px 10px;
         }
 
         [active] {

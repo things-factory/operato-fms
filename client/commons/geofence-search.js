@@ -38,7 +38,7 @@ export class GeofenceSearch extends LitElement {
         li {
           background-color: #fff;
           border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-          padding: 5px 5px 3px 7px;
+          padding: 10px 7px 7px 10px;
         }
 
         [active] {
