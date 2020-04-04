@@ -1,6 +1,4 @@
 import { LitElement, html, css } from 'lit-element'
-import { navigate } from '@things-factory/shell'
-import '@material/mwc-icon'
 
 import '@material/mwc-icon'
 
@@ -35,6 +33,23 @@ export class NotificationItem extends LitElement {
 
         mwc-icon {
           font-size: 1em;
+          color: black;
+        }
+
+        :host([type='SEVERE']) mwc-icon {
+          color: var(--status-danger-color);
+        }
+
+        :host([type='WARN']) mwc-icon {
+          color: var(--status-warning-color);
+        }
+
+        :host([type='SUCCESS']) mwc-icon {
+          color: var(--status-success-color);
+        }
+
+        :host([type='INFO']) mwc-icon {
+          color: var(--status-info-color);
         }
 
         [message] {
@@ -52,7 +67,10 @@ export class NotificationItem extends LitElement {
 
   static get properties() {
     return {
-      type: String,
+      type: {
+        type: String,
+        reflect: true
+      },
       title: String,
       message: String,
       timestamp: Number,

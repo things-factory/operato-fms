@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { connect } from 'pwa-helpers'
 import { store, navigate } from '@things-factory/shell'
+import { CONFIRM_NOTIFICATION } from '../actions/notification'
 
 import '@material/mwc-icon'
 import './notification-item'
@@ -35,24 +36,33 @@ export class NotificationList extends connect(store)(LitElement) {
   }
 
   render() {
-    var history = this.history
+    var history = this.history.filter(notification => !notification.confirmed)
 
-    return html`
-      ${history.map(
-        notification => html`
-          <notification-item
-            @click=${e => {
-              navigate(notification.link)
-            }}
-            .title=${notification.title}
-            .message=${notification.message}
-            .timestamp=${notification.timestamp}
-            .link=${notification.link}
-            .confirmed=${notification.confirmed}
-          ></notification-item>
+    return history.length > 0
+      ? html`
+          ${history.map(
+            notification => html`
+              <notification-item
+                @click=${e => {
+                  store.dispatch({
+                    type: CONFIRM_NOTIFICATION,
+                    id: notification.id
+                  })
+                  navigate(notification.link)
+                }}
+                .title=${notification.title}
+                .type=${notification.type}
+                .message=${notification.message}
+                .timestamp=${notification.timestamp}
+                .link=${notification.link}
+                .confirmed=${notification.confirmed}
+              ></notification-item>
+            `
+          )}
         `
-      )}
-    `
+      : html`
+          <span>Nothing to show</span>
+        `
   }
 
   stateChanged(state) {

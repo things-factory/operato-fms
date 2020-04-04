@@ -34,7 +34,6 @@ export class NotificationBadge extends connect(store)(LitElement) {
           line-height: 18px;
           border-radius: 50%;
           box-shadow: 0 0 1px #333;
-          opacity: 0.8;
         }
 
         [data-badge='0']::after {

@@ -1,10 +1,12 @@
-import { ADD_NOTIFICATION } from '../actions/notification'
+import { ADD_NOTIFICATION, CONFIRM_NOTIFICATION } from '../actions/notification'
 
 const INITIAL_STATE = {
-  badge: 9,
+  badge: 12,
   history: [
     {
-      title: 'Shock',
+      id: 1,
+      type: 'SEVERE',
+      title: 'Shock detected',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -12,7 +14,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 2,
+      type: 'SEVERE',
+      title: 'Smoking detected',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -20,7 +24,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 3,
+      type: 'WARN',
+      title: 'Temperature is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -28,7 +34,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 4,
+      type: 'SEVERE',
+      title: 'Humidity is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -36,7 +44,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 5,
+      type: 'INFO',
+      title: 'Came into the geofence',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -44,7 +54,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 6,
+      type: 'SEVERE',
+      title: 'Temperature is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -52,7 +64,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 7,
+      type: 'SUCCESS',
+      title: 'Temperature is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -60,7 +74,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 8,
+      type: 'WARN',
+      title: 'Temperature is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -68,7 +84,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 9,
+      type: 'SEVERE',
+      title: 'Lack of air-pressure',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -76,7 +94,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 10,
+      type: 'SEVERE',
+      title: 'Shock detected',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -84,7 +104,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 11,
+      type: 'SEVERE',
+      title: 'Lack of air-pressure',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -92,7 +114,9 @@ const INITIAL_STATE = {
       timestamp: Date.now()
     },
     {
-      title: 'Shock',
+      id: 12,
+      type: 'SEVERE',
+      title: 'Lack of air-pressure',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
@@ -102,15 +126,31 @@ const INITIAL_STATE = {
   ]
 }
 
+function countBadge(history) {
+  return history.filter(notification => !notification.confirmed).length
+}
+
+function confirm(history, id) {
+  var notification = history.find(noti => noti.id === id)
+  notification && (notification.confirmed = true)
+}
+
 const notification = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_NOTIFICATION:
       var history = [...state.history, action.notification]
-      var badge = history.filter(notification => !notification.confirmed).length
 
       return {
-        badge,
+        badge: countBadge(history),
         history
+      }
+
+    case CONFIRM_NOTIFICATION:
+      confirm(state.history, action.id)
+
+      return {
+        badge: countBadge(state.history),
+        history: [...state.history]
       }
 
     default:
