@@ -1,7 +1,13 @@
 import { html } from 'lit-element'
 import { store } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
-import { appendViewpart, updateViewpart, TOOL_POSITION, VIEWPART_POSITION } from '@things-factory/layout-base'
+import {
+  appendViewpart,
+  updateViewpart,
+  toggleOverlay,
+  TOOL_POSITION,
+  VIEWPART_POSITION
+} from '@things-factory/layout-base'
 import { APPEND_APP_TOOL } from '@things-factory/apptool-base'
 import { ADD_SETTING } from '@things-factory/setting-base'
 import '@things-factory/setting-ui/client/setting-lets/domain-switch-let'
@@ -12,6 +18,7 @@ import { fetchBoardSettings } from './viewparts/fetch-board-settings'
 
 import boardSetting from './reducers/board-settings'
 import fleets from './reducers/fleets'
+import notification from './reducers/notification'
 
 import GoogleMapLoader from './commons/google-map-loader'
 
@@ -19,6 +26,8 @@ import './viewparts/user-circle'
 import './viewparts/menu-tools'
 import './viewparts/dashboard-setting-let'
 import './viewparts/infowindow-setting-let'
+import './viewparts/notification-badge'
+import './viewparts/notification-list'
 
 console.log(
   `%c
@@ -36,7 +45,7 @@ export default function bootstrap() {
   GoogleMapLoader.load()
 
   /* initialize reducers */
-  store.addReducers({ boardSetting, fleets })
+  store.addReducers({ boardSetting, fleets, notification })
 
   /* get fleets information from the start */
   searchFleets()
@@ -66,7 +75,7 @@ export default function bootstrap() {
 
   /* append viewpart anchor to asidebar */
   appendViewpart({
-    name: 'viewpart-info',
+    name: 'asidebar-anchor',
     viewpart: {
       show: false,
       hovering: 'edge',
@@ -108,10 +117,29 @@ export default function bootstrap() {
     type: APPEND_APP_TOOL,
     tool: {
       template: html`
-        <span style="font-size: 2.0em;"><mwc-icon>notification_important</mwc-icon></span>
+        <notification-badge
+          @click=${e => {
+            toggleOverlay('notification', {
+              // backdrop: true
+            })
+          }}
+        >
+        </notification-badge>
       `,
       position: TOOL_POSITION.REAR
     }
+  })
+
+  appendViewpart({
+    name: 'notification',
+    viewpart: {
+      show: false,
+      hovering: 'edge',
+      template: html`
+        <notification-list style="min-width: 300px;"></notification-list>
+      `
+    },
+    position: VIEWPART_POSITION.ASIDEBAR
   })
 
   store.dispatch({
