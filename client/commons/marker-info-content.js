@@ -61,6 +61,7 @@ export class MarkerInfoContent extends LitElement {
         .data=${this.data}
         .provider=${provider}
         hide-fullscreen
+        hide-navigation
       ></board-viewer>
 
       ${this.board
