@@ -52,7 +52,7 @@ export const FMSPageStyles = css`
 
   [search] * {
     flex: none;
-    max-width: 20%;
+    max-width: 220px;
     margin: 0 20px 0 0;
   }
 `
