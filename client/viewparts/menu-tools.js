@@ -1,8 +1,6 @@
 import { css, html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers'
 
-import '@material/mwc-icon'
-
 import { store } from '@things-factory/shell'
 
 import {
@@ -21,8 +19,7 @@ export class MenuTools extends connect(store)(LitElement) {
       width: {
         type: String,
         reflect: true
-      },
-      context: Object
+      }
     }
   }
 
@@ -186,7 +183,6 @@ export class MenuTools extends connect(store)(LitElement) {
   stateChanged(state) {
     this.page = state.route.page
     this.width = state.layout.width
-    this.context = state.route.context
   }
 }
 

@@ -89,7 +89,7 @@ export class CommonMap extends connect(store)(LitElement) {
     var { center, zoom = 10 } = this
 
     /* center 속성이 설정되어있지 않으면, 현재 위치를 구해서 지도의 center로 설정한다. */
-    if (!center && 'geolocation' in navigator) {
+    if (!center && 'geolocation' in navigator && !this.boundCoords?.length) {
       navigator.geolocation.getCurrentPosition(
         ({ coords: { latitude: lat, longitude: lng } }) => show({ lat, lng }, zoom),
         err => {
@@ -98,7 +98,7 @@ export class CommonMap extends connect(store)(LitElement) {
         },
         {
           /* https://stackoverflow.com/questions/3397585/navigator-geolocation-getcurrentposition-sometimes-works-sometimes-doesnt */
-          timeout: 2000
+          timeout: 500
         }
       )
     } else {

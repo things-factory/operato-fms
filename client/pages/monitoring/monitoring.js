@@ -50,7 +50,8 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       trackId: String,
       map: Object,
       googleMap: Object,
-      search: Object
+      search: Object,
+      fleetBoardId: String
     }
   }
 
