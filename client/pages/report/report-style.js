@@ -38,4 +38,8 @@ export const ReportStyles = css`
     max-width: 220px;
     margin: 0 20px 0 0;
   }
+
+  [search] mwc-button {
+    margin: 10px 0;
+  }
 `
