@@ -6,122 +6,122 @@ const INITIAL_STATE = {
     {
       id: 1,
       type: 'SEVERE',
-      title: 'Shock detected',
+      title: 'Q479HI5F - Shock detected',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 2,
       type: 'SEVERE',
-      title: 'Smoking detected',
+      title: '23W7PYPP - Smoking detected',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 3,
       type: 'WARN',
-      title: 'Temperature is out of range',
+      title: '3Z4959CQ - Temperature is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 4,
       type: 'SEVERE',
-      title: 'Humidity is out of range',
+      title: 'Q9NDYM39 - Humidity is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 5,
       type: 'INFO',
-      title: 'Came into the geofence',
+      title: 'K8GI1U8L - Came into the geofence',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 6,
       type: 'SEVERE',
-      title: 'Temperature is out of range',
+      title: 'CPMNRI2H - Temperature is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 7,
       type: 'SUCCESS',
-      title: 'Temperature is out of range',
+      title: 'A1U89PQA - Temperature is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 8,
       type: 'WARN',
-      title: 'Temperature is out of range',
+      title: 'UNDE98H3 - Temperature is out of range',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 9,
       type: 'SEVERE',
-      title: 'Lack of air-pressure',
+      title: '5Q3S7ZYN - Lack of air-pressure',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 10,
       type: 'SEVERE',
-      title: 'Shock detected',
+      title: 'IQYVZQ55 - Shock detected',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 11,
       type: 'SEVERE',
-      title: 'Lack of air-pressure',
+      title: 'GS1UNJ3A - Lack of air-pressure',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     },
     {
       id: 12,
       type: 'SEVERE',
-      title: 'Lack of air-pressure',
+      title: 'LZKDDRTO - Lack of air-pressure',
       message:
         'Tesla is letting go of contractors from its U.S. car and battery plants, according to three workers and correspondence shared with CNBC. The cuts affect hundreds, according to estimates from the people familiar with the move.',
       link: 'fms-report-shock/00342197',
       confirmed: false,
-      timestamp: Date.now()
+      timestamp: Date.now() - ~~(Math.random() * 100000000)
     }
   ]
 }
