@@ -10,6 +10,7 @@ import { FMSPageStyles } from '../fms-page-style'
 
 import { MapBuilder } from '../../commons/map-builder'
 import { searchFleets, setFocusedFleet } from '../../actions/fleets'
+import { fetchTrack } from '../../commons/fetch-track'
 
 import { getISO6709StringFromLatLng } from '../../commons/iso-6709'
 import '../../commons/fleet-search'
@@ -17,6 +18,9 @@ import '../../commons/common-map'
 import '../../commons/marker-info-content'
 
 import { FLEET_ICONS } from '../../icons/fleet-marker-icons'
+import { EVENT_ICONS } from '../../icons/event-marker-icons'
+import { MARKER_IW_BOARD_FOR_FLEET, MARKER_IW_BOARD_FOR_TRACK } from '../../actions/board-settings'
+import { MODE_FLEET, MODE_TRACK } from './map-mode'
 
 const SCALED_SIZE = { width: 24, height: 24 }
 const FOCUSED_SIZE = { width: 32, height: 32 }
@@ -37,8 +41,6 @@ const FOCUSED_ICON = {
   scaledSize: FOCUSED_SIZE
 }
 
-import { MARKER_IW_BOARD_FOR_FLEET } from '../../actions/board-settings'
-
 class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   static get properties() {
     return {
@@ -52,7 +54,9 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       map: Object,
       googleMap: Object,
       search: Object,
-      fleetBoardId: String
+      fleetBoardId: String,
+      trackBoardId: String,
+      mode: Number
     }
   }
 
@@ -94,29 +98,38 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   updated(changes) {
-    // if (changes.has('map') && this.map) {
-    //   var search = document.createElement('fleet-search')
-    //   search.style.cssText = `
-    //     width: 300px;
-    //     height: 500px;
-    //   `
+    if (changes.has('map') && this.map) {
+      var mode = document.createElement('map-mode')
+      mode.mode = this.mode
 
-    //   this.map.controls[google.maps.ControlPosition.LEFT].push(search)
-    // }
+      this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(mode)
 
-    if (changes.has('map') || changes.has('fleets')) {
+      mode.addEventListener('change-mode', e => {
+        this.mode = e.detail
+      })
+    }
+
+    if (
+      changes.has('map') ||
+      changes.has('fleets') ||
+      changes.has('mode') ||
+      (this.mode == MODE_TRACK && changes.has('fleetId'))
+    ) {
       this.map && this.updateMapComponents()
     }
 
     if (changes.has('fleetId')) {
-      this.map && this.changeFleetId(this.fleetId, changes.get('fleetId'))
+      var mode = this.mode || MODE_FLEET
+      this.map && mode == MODE_FLEET && this.changeFleetId(this.fleetId, changes.get('fleetId'))
     }
   }
 
   updateMapComponents() {
+    var mode = this.mode || MODE_FLEET
     var fleetBoardId = this.fleetBoardId
+    var trackBoardId = this.trackBoardId
 
-    var fleets = (this.fleets || []).map(fleet => {
+    var fleets = ((mode == MODE_FLEET && this.fleets) || []).map(fleet => {
       var { id, name, latlng, delivery, client, driver, updatedAt, parameters } = fleet
       var [lat, lng] = latlng.split(',').map(parseFloat)
       var position = { lat, lng }
@@ -145,15 +158,54 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
       }
     })
 
-    var { polylines, markers, boundCoords } = MapBuilder.createMapComponents(fleets, [])
+    var tracks = ((mode == MODE_TRACK && fetchTrack()) || []).map(track => {
+      var { id, name, lat, lng, delivery, client, driver, updatedAt, parameters } = track
+
+      var position = { lat, lng }
+
+      return {
+        title: name,
+        position: { lat, lng },
+        icon: {
+          url: EVENT_ICONS[~~(Math.random() * 5)],
+          scaledSize: SCALED_SIZE
+        },
+        get content() {
+          var content = document.createElement('marker-info-content')
+          content.boardId = trackBoardId
+          content.data = {
+            id,
+            name,
+            delivery,
+            client,
+            driver,
+            position,
+            ISO6709: getISO6709StringFromLatLng(lat, lng),
+            updatedAt: new Date(updatedAt).toLocaleString(),
+            parameters
+          }
+
+          return content
+        }
+      }
+    })
+
+    var { polylines, markers, boundCoords } = MapBuilder.createMapComponents(fleets, tracks)
 
     markers.forEach(marker => {
       google.maps.event.addListener(marker, 'click', e => {
-        var focusedFleet = this.fleets.find(fleet => {
-          return fleet.id == marker.content.data.id
-        })
+        if (mode == MODE_TRACK) {
+          if (marker?.content) {
+            this.infoWindow.open(this.map, marker)
+            this.infoWindow.setContent(marker.content)
+          }
+        } else {
+          var focusedFleet = this.fleets.find(fleet => {
+            return fleet.id == marker.content.data.id
+          })
 
-        setFocusedFleet(focusedFleet.id)
+          focusedFleet && setFocusedFleet(focusedFleet.id)
+        }
       })
     })
 
@@ -167,11 +219,13 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   pageUpdated(changes, lifecycle) {
+    if ('resourceId' in changes) {
+      setFocusedFleet(changes.resourceId)
+    }
+
     if ('params' in changes) {
-      var { fleetId, trackId } = changes.params
-      if (fleetId) {
-        setFocusedFleet(fleetId)
-      }
+      var { mode } = changes.params
+      this.mode = mode == 'track' ? MODE_TRACK : MODE_FLEET
     }
   }
 
@@ -181,6 +235,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
     this.search = state.fleets.search
 
     this.fleetBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_FLEET] || { board: {} }).board.id
+    this.trackBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_TRACK] || { board: {} }).board.id
   }
 
   get infoWindow() {
@@ -206,15 +261,15 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   async changeFleetId(after, before) {
     if (before) {
       var idx = this.fleets.findIndex(fleet => fleet.id == before)
-      idx !== -1 && this._markers && this.resetFocus(this._markers[idx], NORMAL_ICON)
+      idx !== -1 && this._markers && this._markers.length && this.resetFocus(this._markers[idx], NORMAL_ICON)
     }
 
     if (after) {
       var idx = this.fleets.findIndex(fleet => fleet.id == after)
-      idx !== -1 && this._markers && this.setFocus(this._markers[idx], FOCUSED_ICON)
+      idx !== -1 && this._markers && this._markers.length && this.setFocus(this._markers[idx], FOCUSED_ICON)
 
-      var marker = this._markers[idx]
-      if (marker.content) {
+      var marker = this._markers.length && this._markers[idx]
+      if (marker?.content) {
         this.infoWindow.open(this.map, marker)
         this.infoWindow.setContent(marker.content)
       }
