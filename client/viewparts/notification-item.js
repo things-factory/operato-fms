@@ -8,17 +8,18 @@ export class NotificationItem extends LitElement {
       css`
         :host {
           background-color: white;
-          padding: 10px;
+          padding: 5px 10px;
 
-          border-left: 0 solid #00ff99;
+          border-left: 0 solid #fff;
           transition: border-left 300ms ease-in-out, padding-left 300ms ease-in-out;
           box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
           border-radius: 0.5rem;
+          color: var(--scondary-color);
         }
 
-        :host:hover {
+        :host(:hover) {
           padding-left: 0.5rem;
-          border-left: 0.5rem solid #00ff99;
+          border-left: 0.5rem solid #fff;
         }
 
         [title] {
@@ -36,24 +37,41 @@ export class NotificationItem extends LitElement {
           color: black;
         }
 
+        :host([type='SEVERE']) [title],
         :host([type='SEVERE']) mwc-icon {
           color: var(--status-danger-color);
         }
+        :host([type='SEVERE']) {
+          border-color: var(--status-danger-color);
+        }
 
+        :host([type='WARN']) [title],
         :host([type='WARN']) mwc-icon {
           color: var(--status-warning-color);
         }
+        :host([type='WARN']) {
+          border-color: var(--status-warning-color);
+        }
 
+        :host([type='SUCCESS']) [title],
         :host([type='SUCCESS']) mwc-icon {
           color: var(--status-success-color);
         }
+        :host([type='SUCCESS']) {
+          border-color: var(--status-success-color);
+        }
 
+        :host([type='INFO']) [title],
         :host([type='INFO']) mwc-icon {
           color: var(--status-info-color);
+        }
+        :host([type='INFO']) {
+          border-color: var(--status-info-color);
         }
 
         [message] {
           font-size: 0.8em;
+          line-height: 1.3;
         }
 
         [timestamp] {

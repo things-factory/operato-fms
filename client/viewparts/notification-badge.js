@@ -22,18 +22,18 @@ export class NotificationBadge extends connect(store)(LitElement) {
         [data-badge]::after {
           content: attr(data-badge);
           position: absolute;
-          bottom: -6px;
+          top: 0px;
           right: -6px;
           font-family: roboto;
-          font-size: 0.5em;
-          background: red;
+          font-size: 0.4em;
+          background: #ff5722;
           color: white;
-          width: 18px;
-          height: 18px;
+          width: 15px;
+          height: 15px;
           text-align: center;
-          line-height: 18px;
+          line-height: 15px;
           border-radius: 50%;
-          box-shadow: 0 0 1px #333;
+          box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.2);
         }
 
         [data-badge='0']::after {

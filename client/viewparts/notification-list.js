@@ -19,13 +19,13 @@ export class NotificationList extends connect(store)(LitElement) {
           height: 100%;
           overflow: auto;
 
-          padding: 10px 0;
+          padding: 10px;
 
-          background-color: rgba(0, 0, 0, 0.2);
+          background-color: rgba(58, 71, 104, 0.5);
         }
 
         :host * {
-          margin: 10px;
+          margin-bottom: 10px;
         }
       `
     ]
