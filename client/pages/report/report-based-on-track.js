@@ -29,7 +29,7 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
     var template = document.createElement('track-popup')
 
     template.tracks = fetchTrack().map(track => {
-      var { id, name, lat, lng, delivery, client, driver, parameters } = track
+      var { id, name, lat, lng, delivery, client, driver, updatedAt, parameters } = track
 
       var position = { lat, lng }
 
@@ -51,6 +51,7 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
             driver,
             position,
             ISO6709: getISO6709StringFromLatLng(lat, lng),
+            updatedAt: new Date(updatedAt).toLocaleString(),
             parameters
           }
 
@@ -69,13 +70,15 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
 
   async fetchHandler({ page, limit, sorters = [] }) {
     var chance = new Chance()
-    var date = new Date().toISOString().slice(0, 10)
+    var timestamp = Date.now()
 
     return await {
       total: 300,
       records: Array(50)
         .fill()
         .map(() => {
+          var issued = timestamp - ~~(Math.random() * 100000000)
+          var date = new Date(issued).toISOString().slice(0, 10)
           var status = Math.random() - 0.5 > 0 ? 0 : 1
           var id = chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true })
 

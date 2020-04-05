@@ -6,7 +6,8 @@ function latlng(lat, lng) {
 
 export async function fetchFleets({ page, limit, sorters = [] } = {}) {
   var chance = new Chance()
-  var date = new Date().toISOString().slice(0, 10)
+  var now = Date.now()
+  var date = new Date(now).toISOString().slice(0, 10)
 
   return await {
     total: 300,
@@ -15,6 +16,7 @@ export async function fetchFleets({ page, limit, sorters = [] } = {}) {
       .map(() => {
         var status = ~~(Math.random() * 5)
         var id = chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true })
+        var updatedAt = now - 60 * 1000
 
         return {
           id,
@@ -26,6 +28,7 @@ export async function fetchFleets({ page, limit, sorters = [] } = {}) {
           status,
           battery: status > 0 ? ~~(Math.random() * 100) : 0,
           latlng: latlng(37.5326 + Math.random() / 2 - 0.25, 127.024612 + Math.random() / 2 - 0.25),
+          updatedAt: new Date(updatedAt).toISOString(),
           parameters: {
             temperature: ~~(Math.random() * 100),
             humidity: ~~(Math.random() * 100),

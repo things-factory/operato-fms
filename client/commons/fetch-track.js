@@ -156,7 +156,8 @@ const TRACKS = [
 
 export function fetchTrack() {
   var chance = new Chance()
-  var date = new Date().toISOString().slice(0, 10)
+  var now = Date.now()
+  var date = new Date(now).toISOString().slice(0, 10)
   var client = 'ebay'
   var delivery = date + '-' + ~~(Math.random() * 1000)
   var device = 'wizxyz-' + ~~(Math.random() * 10000)
@@ -168,6 +169,7 @@ export function fetchTrack() {
     var [lat, lng] = position.split(',').map(pos => Number(pos))
 
     var id = chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true })
+    var updatedAt = now - idx * 60 * 1000
 
     return {
       id: id,
@@ -180,6 +182,7 @@ export function fetchTrack() {
       battery,
       lat,
       lng,
+      updatedAt,
       parameters: {
         temperature: ~~(Math.random() * 100),
         humidity: ~~(Math.random() * 100),
