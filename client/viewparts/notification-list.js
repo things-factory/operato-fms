@@ -19,6 +19,8 @@ export class NotificationList extends connect(store)(LitElement) {
           height: 100%;
           overflow: auto;
 
+          padding: 10px 0;
+
           background-color: rgba(0, 0, 0, 0.2);
         }
 
