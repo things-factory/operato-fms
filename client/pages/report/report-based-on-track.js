@@ -11,6 +11,7 @@ import { fetchTrack } from '../../commons/fetch-track'
 import '../../commons/fleet-search'
 import '../../commons/track-popup'
 import '../../commons/marker-info-content'
+import { getISO6709StringFromLatLng } from '../../commons/iso-6709'
 
 import { MARKER_IW_BOARD_FOR_TRACK } from '../../actions/board-settings'
 
@@ -49,6 +50,7 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
             client,
             driver,
             position,
+            ISO6709: getISO6709StringFromLatLng(lat, lng),
             parameters
           }
 

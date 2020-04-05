@@ -11,6 +11,7 @@ import { FMSPageStyles } from '../fms-page-style'
 import { MapBuilder } from '../../commons/map-builder'
 import { searchFleets, setFocusedFleet } from '../../actions/fleets'
 
+import { getISO6709StringFromLatLng } from '../../commons/iso-6709'
 import '../../commons/fleet-search'
 import '../../commons/common-map'
 import '../../commons/marker-info-content'
@@ -134,6 +135,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
             client,
             driver,
             position,
+            ISO6709: getISO6709StringFromLatLng(lat, lng),
             parameters
           }
 

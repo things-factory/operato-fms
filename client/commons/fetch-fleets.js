@@ -13,7 +13,7 @@ export async function fetchFleets({ page, limit, sorters = [] } = {}) {
     records: Array(50)
       .fill()
       .map(() => {
-        var status = Math.random() - 0.5 > 0 ? 0 : 1
+        var status = ~~(Math.random() * 5)
         var id = chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true })
 
         return {
@@ -24,7 +24,7 @@ export async function fetchFleets({ page, limit, sorters = [] } = {}) {
           device: 'wizxyz-' + ~~(Math.random() * 10000),
           driver: chance.name(),
           status,
-          battery: status == 0 ? 0 : ~~(Math.random() * 100),
+          battery: status > 0 ? ~~(Math.random() * 100) : 0,
           latlng: latlng(37.5326 + Math.random() / 2 - 0.25, 127.024612 + Math.random() / 2 - 0.25),
           parameters: {
             temperature: ~~(Math.random() * 100),
