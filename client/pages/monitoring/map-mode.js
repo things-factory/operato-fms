@@ -10,16 +10,15 @@ class MapMode extends LitElement {
     return [
       css`
         :host {
+          --mdc-radio-unchecked-color: rgba(0, 0, 0, 0.5);
+
           margin: 10px;
+          padding-right: 12px;
+          background-color: #fff;
+          box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
         }
-
-        span {
-          background-color: white;
-          padding: 0;
-        }
-
-        [active] {
-          background-color: tomato;
+        mwc-radio {
+          margin-right: -10px;
         }
       `
     ]
