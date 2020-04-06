@@ -1,9 +1,9 @@
 export class MapBuilder {
   static createMapComponents(fleets = [], tracks = []) {
-    var positions = [...fleets, ...tracks]
+    const positions = [...fleets, ...tracks]
 
-    var markers = positions.map(spot => {
-      var { title, position } = spot
+    const markers = positions.map(spot => {
+      const { title, position } = spot
       return new google.maps.Marker({
         title,
         position,
@@ -12,19 +12,19 @@ export class MapBuilder {
       })
     })
 
-    var path = tracks.map(spot => spot.position)
+    const path = tracks.map(spot => spot.position)
 
-    var polyline = new google.maps.Polyline({
+    const polyline = new google.maps.Polyline({
       path,
       geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
+      strokeColor: '#3E9CFA',
+      strokeOpacity: 0.8,
       strokeWeight: 2
     })
 
-    var polylines = [polyline]
+    const polylines = [polyline]
 
-    var boundCoords = positions.map(spot => spot.position)
+    const boundCoords = positions.map(spot => spot.position)
 
     return {
       markers,

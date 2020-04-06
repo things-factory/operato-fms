@@ -27,6 +27,14 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
   showTrack() {
     var boardId = this.trackBoardId
     var template = document.createElement('track-popup')
+    const icon = {
+      path: 'M-4,0a4,4 0 1,0 8,0a4,4 0 1,0 -8,0',
+      fillColor: '#3E9CFA',
+      fillOpacity: 0.8,
+      anchor: new google.maps.Point(0, 0),
+      strokeWeight: 0,
+      scale: 1
+    }
 
     template.tracks = fetchTrack().map(track => {
       var { id, name, lat, lng, delivery, client, driver, updatedAt, parameters } = track
@@ -36,10 +44,12 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
       return {
         title: name,
         position: { lat, lng },
-        icon: {
-          url: EVENT_ICONS[~~(Math.random() * 5)],
-          scaledSize: SCALED_SIZE
-        },
+        icon: ~~(Math.random() * 20)
+          ? icon
+          : {
+              url: EVENT_ICONS[~~(Math.random() * 5)],
+              scaledSize: SCALED_SIZE
+            },
         get content() {
           var content = document.createElement('marker-info-content')
           content.boardId = boardId
