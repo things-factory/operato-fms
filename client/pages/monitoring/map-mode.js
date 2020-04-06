@@ -1,4 +1,6 @@
 import { LitElement, html, css } from 'lit-element'
+import '@material/mwc-radio'
+import '@material/mwc-formfield'
 
 export const MODE_FLEET = 0
 export const MODE_TRACK = 1
@@ -8,13 +10,12 @@ class MapMode extends LitElement {
     return [
       css`
         :host {
-          border: 10px solid red;
           margin: 10px;
         }
 
         span {
           background-color: white;
-          padding: 5px 10px;
+          padding: 0;
         }
 
         [active] {
@@ -33,8 +34,13 @@ class MapMode extends LitElement {
   render() {
     var mode = this.mode || MODE_FLEET
     return html`
-      <span @click=${e => this.setMode(MODE_FLEET)} ?active=${mode == MODE_FLEET}>fleet</span>
-      <span @click=${e => this.setMode(MODE_TRACK)} ?active=${mode == MODE_TRACK}>track</span>
+      <mwc-formfield label="Fleet">
+        <mwc-radio @click=${e => this.setMode(MODE_FLEET)} name="fleet" ?checked=${mode == MODE_FLEET}></mwc-radio>
+      </mwc-formfield>
+
+      <mwc-formfield label="Track">
+        <mwc-radio @click=${e => this.setMode(MODE_TRACK)} name="track" ?checked=${mode == MODE_TRACK}></mwc-radio>
+      </mwc-formfield>
     `
   }
 
