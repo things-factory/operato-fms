@@ -23,8 +23,9 @@ import { EVENT_ICONS } from '../../icons/event-marker-icons'
 import { MARKER_IW_BOARD_FOR_FLEET, MARKER_IW_BOARD_FOR_TRACK } from '../../actions/board-settings'
 import { MODE_FLEET, MODE_TRACK } from './map-mode'
 
-const SCALED_SIZE = { width: 24, height: 24 }
-const FOCUSED_SIZE = { width: 32, height: 32 }
+const FLEET_MARKER_SIZE = { width: 24, height: 24 }
+const FOCUSED_MARKER_SIZE = { width: 32, height: 32 }
+const EVENT_MARKER_SIZE = FOCUSED_MARKER_SIZE
 
 const NORMAL = 0
 const WARN = 1
@@ -34,12 +35,12 @@ const DISCONNECTED = 4
 
 const NORMAL_ICON = {
   url: FLEET_ICONS[NORMAL],
-  scaledSize: SCALED_SIZE
+  scaledSize: FLEET_MARKER_SIZE
 }
 
 const FOCUSED_ICON = {
   url: FLEET_ICONS[FOCUS],
-  scaledSize: FOCUSED_SIZE
+  scaledSize: FOCUSED_MARKER_SIZE
 }
 
 class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
@@ -180,7 +181,7 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
           ? icon
           : {
               url: EVENT_ICONS[~~(Math.random() * 5)],
-              scaledSize: SCALED_SIZE
+              scaledSize: EVENT_MARKER_SIZE
             },
         get content() {
           var content = document.createElement('marker-info-content')
@@ -242,12 +243,12 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
   }
 
   stateChanged(state) {
+    this.fleetBoardId = state.boardSetting[MARKER_IW_BOARD_FOR_FLEET]?.board.id
+    this.trackBoardId = state.boardSetting[MARKER_IW_BOARD_FOR_TRACK]?.board.id
+
     this.fleets = state.fleets.fleets
     this.fleetId = state.fleets.focusedFleetId
     this.search = state.fleets.search
-
-    this.fleetBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_FLEET] || { board: {} }).board.id
-    this.trackBoardId = (state.boardSetting[MARKER_IW_BOARD_FOR_TRACK] || { board: {} }).board.id
   }
 
   get infoWindow() {

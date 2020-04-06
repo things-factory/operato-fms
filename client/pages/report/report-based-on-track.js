@@ -17,7 +17,7 @@ import { MARKER_IW_BOARD_FOR_TRACK } from '../../actions/board-settings'
 
 import { EVENT_ICONS } from '../../icons/event-marker-icons'
 
-const SCALED_SIZE = { width: 24, height: 24 }
+const EVENT_MARKER_SIZE = { width: 32, height: 32 }
 
 export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageView)) {
   stateChanged(state) {
@@ -48,7 +48,7 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
           ? icon
           : {
               url: EVENT_ICONS[~~(Math.random() * 5)],
-              scaledSize: SCALED_SIZE
+              scaledSize: EVENT_MARKER_SIZE
             },
         get content() {
           var content = document.createElement('marker-info-content')
