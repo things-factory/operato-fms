@@ -162,11 +162,12 @@ class FMSMonitoring extends connect(store)(localize(i18next)(PageView)) {
 
     const icon = {
       path: 'M-4,0a4,4 0 1,0 8,0a4,4 0 1,0 -8,0',
-      fillColor: '#3E9CFA',
-      fillOpacity: 0.8,
+      fillColor: '#fff',
+      fillOpacity: 1,
       anchor: new google.maps.Point(0, 0),
-      strokeWeight: 0,
-      scale: 1
+      strokeWeight: 2.5,
+      strokeColor: '#3E9CFA',
+      scale: 1.2
     }
 
     var tracks = ((mode == MODE_TRACK && fetchTrack()) || []).map(track => {

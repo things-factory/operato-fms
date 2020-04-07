@@ -18,8 +18,8 @@ export class MapBuilder {
       path,
       geodesic: true,
       strokeColor: '#3E9CFA',
-      strokeOpacity: 0.8,
-      strokeWeight: 2
+      strokeOpacity: 1,
+      strokeWeight: 3
     })
 
     const polylines = [polyline]
