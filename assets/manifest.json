@@ -1,7 +1,7 @@
 {
-  "name": "Things Factory",
-  "short_name": "Things Factory",
-  "description": "Things Factory",
+  "name": "Operato FMS",
+  "short_name": "Operato FMS",
+  "description": "Reimagining Mobility.",
   "icons": [
     {
       "src": "manifest/icon-192x192.png",
