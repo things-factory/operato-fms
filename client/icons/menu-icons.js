@@ -130,33 +130,30 @@ const ICON_DEVICE = `
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
 		<g>
-			<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M108,118.9c0,1.1-0.9,2-2,2H41c-1.1,0-2-0.9-2-2V31.1c0-1.1,0.9-2,2-2h65c1.1,0,2,0.9,2,2V118.9z"/>
+			<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M110.6,120c0,1.1-0.9,2-2,2H40c-1.1,0-2-0.9-2-2V29c0-1.1,0.9-2,2-2h68.6c1.1,0,2,0.9,2,2V120z"/>
 		</g>
-		<line style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" x1="98.3" y1="113.8" x2="98.3" y2="107.8"/>
-		<line style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" x1="92" y1="113.8" x2="92" y2="107.8"/>
 		<g>
 			<g>
 				<g>
-					<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" d="M81.1,64.5c-4.1-4.1-10.8-4.1-14.9,0"/>
-					<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" d="M86.4,59.2c-7-7-18.4-7-25.4,0"/>
-					<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" d="M91.7,53.9c-9.9-9.9-26.1-9.9-36,0"/>
+					<path style="fill:none;stroke:{{strokecolor}};stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M84.2,66.7c-4.9-5.1-12.8-5.1-17.8,0"/>
+					<path style="fill:none;stroke:{{strokecolor}};stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M90.5,60.1c-8.4-8.7-22-8.7-30.4,0"/>
+					<path style="fill:none;stroke:{{strokecolor}};stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M96.8,53.5c-11.9-12.4-31.1-12.4-43,0"/>
 				</g>
 				<g>
-					<circle style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" cx="73.7" cy="80.2" r="4.6"/>
-					<g>
-						<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" d="M84.2,80.2c0,5.8-10.5,18.3-10.5,18.3S63.2,86,63.2,80.2c0-5.8,4.7-10.5,10.5-10.5
-							C79.5,69.7,84.2,74.4,84.2,80.2z"/>
-					</g>
+					<path style="fill:{{strokecolor}};" d="M75.3,71.7C69.1,71.7,64,77,64,83.5c0,6.5,11.4,20.7,11.4,20.7s11.4-14.1,11.4-20.7
+						C86.7,77,81.6,71.7,75.3,71.7z M75.3,89.1c-2.9,0-5.3-2.5-5.3-5.6c0-3.1,2.4-5.6,5.3-5.6s5.3,2.5,5.3,5.6
+						C80.7,86.6,78.3,89.1,75.3,89.1z"/>
 				</g>
 			</g>
 		</g>
+		<line style="fill:none;stroke:{{strokecolor}};stroke-width:9;stroke-miterlimit:10;" x1="113.2" y1="40" x2="113.2" y2="53.3"/>
 	</g>
 </svg>
 `
 
 function icons(template) {
   return ['#ffffff', '#64A3D9'].map(
-    (color) => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
+    color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
   )
 }
 
