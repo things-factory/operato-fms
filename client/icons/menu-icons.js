@@ -32,7 +32,7 @@ const ICON_REPORT = `
 	</g>
 </svg>
 `
-const ICON_DEVICE = `
+const ICON_FLEET = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
@@ -115,6 +115,34 @@ const ICON_CLIENT = `
 		<path style="fill:none;stroke:{{strokecolor}};stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M91.2,84l0.3,8.5"/>
 		<path style="fill:none;stroke:{{strokecolor}};stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M82.8,117.7h39v-4.3c0-2.1-1.2-4-3.1-4.9l-10.9-6.7c3.5-1.7,5.9-5.2,6-9.3l0.3-8.5c0-5.6-4.6-10.1-10.2-10.1
 			h-5.3"/>
+	</g>
+</svg>
+`
+const ICON_DEVICE = `
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
+	 <g>
+		<g>
+			<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M108,118.9c0,1.1-0.9,2-2,2H41c-1.1,0-2-0.9-2-2V31.1c0-1.1,0.9-2,2-2h65c1.1,0,2,0.9,2,2V118.9z"/>
+		</g>
+		<line style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" x1="98.3" y1="113.8" x2="98.3" y2="107.8"/>
+		<line style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" x1="92" y1="113.8" x2="92" y2="107.8"/>
+		<g>
+			<g>
+				<g>
+					<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" d="M81.1,64.5c-4.1-4.1-10.8-4.1-14.9,0"/>
+					<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" d="M86.4,59.2c-7-7-18.4-7-25.4,0"/>
+					<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" d="M91.7,53.9c-9.9-9.9-26.1-9.9-36,0"/>
+				</g>
+				<g>
+					<circle style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" cx="73.7" cy="80.2" r="4.6"/>
+					<g>
+						<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" d="M84.2,80.2c0,5.8-10.5,18.3-10.5,18.3S63.2,86,63.2,80.2c0-5.8,4.7-10.5,10.5-10.5
+							C79.5,69.7,84.2,74.4,84.2,80.2z"/>
+					</g>
+				</g>
+			</g>
+		</g>
 	</g>
 </svg>
 `
