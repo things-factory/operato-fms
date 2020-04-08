@@ -29,14 +29,15 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
     var template = document.createElement('track-popup')
     const icon = {
       path: 'M-4,0a4,4 0 1,0 8,0a4,4 0 1,0 -8,0',
-      fillColor: '#3E9CFA',
-      fillOpacity: 0.8,
+      fillColor: '#fff',
+      fillOpacity: 1,
       anchor: new google.maps.Point(0, 0),
-      strokeWeight: 0,
-      scale: 1
+      strokeWeight: 2.5,
+      strokeColor: '#3E9CFA',
+      scale: 1,
     }
 
-    template.tracks = fetchTrack().map(track => {
+    template.tracks = fetchTrack().map((track) => {
       var { id, name, lat, lng, delivery, client, driver, updatedAt, parameters } = track
 
       var position = { lat, lng }
@@ -48,7 +49,7 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
           ? icon
           : {
               url: EVENT_ICONS[~~(Math.random() * 5)],
-              scaledSize: EVENT_MARKER_SIZE
+              scaledSize: EVENT_MARKER_SIZE,
             },
         get content() {
           var content = document.createElement('marker-info-content')
@@ -62,11 +63,11 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
             position,
             ISO6709: getISO6709StringFromLatLng(lat, lng),
             updatedAt: new Date(updatedAt).toLocaleString(),
-            parameters
+            parameters,
           }
 
           return content
-        }
+        },
       }
     })
 
@@ -74,7 +75,7 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
       backdrop: true,
       size: 'large',
       closable: true,
-      title: i18next.t('title.track')
+      title: i18next.t('title.track'),
     })
   }
 
@@ -100,9 +101,9 @@ export class ReportBasedOnTrack extends connect(store)(localize(i18next)(PageVie
             device: 'wizxyz-' + ~~(Math.random() * 10000),
             driver: chance.name(),
             value: ~~(Math.random() * 1500),
-            updatedAt: Date.now() - ~~(Math.random() * 100000000)
+            updatedAt: Date.now() - ~~(Math.random() * 100000000),
           }
-        })
+        }),
     }
   }
 }

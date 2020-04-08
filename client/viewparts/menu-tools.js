@@ -6,10 +6,12 @@ import { store } from '@things-factory/shell'
 import {
   ICONS_MONITORING,
   ICONS_REPORT,
+  ICONS_FLEET,
+  ICONS_CLIENT,
   ICONS_DEVICE,
   ICONS_DRIVER,
   ICONS_GEOFENCE,
-  ICONS_ADMINISTRATOR
+  ICONS_ADMINISTRATOR,
 } from '../icons/menu-icons'
 
 export class MenuTools extends connect(store)(LitElement) {
@@ -18,8 +20,8 @@ export class MenuTools extends connect(store)(LitElement) {
       page: String,
       width: {
         type: String,
-        reflect: true
-      }
+        reflect: true,
+      },
     }
   }
 
@@ -124,7 +126,7 @@ export class MenuTools extends connect(store)(LitElement) {
         div {
           font-size: 0.6em;
         }
-      `
+      `,
     ]
   }
 
@@ -133,33 +135,43 @@ export class MenuTools extends connect(store)(LitElement) {
       {
         name: 'monitoring',
         path: 'fms-monitoring',
-        icons: ICONS_MONITORING
+        icons: ICONS_MONITORING,
       },
       {
         name: 'report',
         path: 'fms-report',
-        icons: ICONS_REPORT
-      },
-      {
-        name: 'device',
-        path: 'fms-device',
-        icons: ICONS_DEVICE
+        icons: ICONS_REPORT,
       },
       {
         name: 'client',
         path: 'fms-client',
-        icons: ICONS_DRIVER
+        icons: ICONS_CLIENT,
+      },
+      {
+        name: 'fleet',
+        path: 'fms-fleet',
+        icons: ICONS_FLEET,
+      },
+      {
+        name: 'driver',
+        path: 'fms-driver',
+        icons: ICONS_DRIVER,
+      },
+      {
+        name: 'device',
+        path: 'fms-device',
+        icons: ICONS_DEVICE,
       },
       {
         name: 'geo-fence',
         path: 'fms-geofence',
-        icons: ICONS_GEOFENCE
+        icons: ICONS_GEOFENCE,
       },
       {
         name: 'admin',
         path: 'fms-admin',
-        icons: ICONS_ADMINISTRATOR
-      }
+        icons: ICONS_ADMINISTRATOR,
+      },
     ]
 
     var page = this.page || ''
@@ -167,7 +179,7 @@ export class MenuTools extends connect(store)(LitElement) {
     return html`
       <ul>
         ${this.menus.map(
-          menu => html`
+          (menu) => html`
             <li>
               <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)}>
                 <img src=${!!~page.indexOf(menu.path) ? menu.icons[1] : menu.icons[0]} />

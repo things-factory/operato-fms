@@ -8,6 +8,7 @@ const ICON_MONITORING = `
  	 </g>
 </svg>
 `
+
 const ICON_REPORT = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
@@ -32,6 +33,7 @@ const ICON_REPORT = `
 	</g>
 </svg>
 `
+
 const ICON_FLEET = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
@@ -47,6 +49,7 @@ const ICON_FLEET = `
 	</g>
 </svg>
 `
+
 const ICON_DRIVER = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
@@ -61,6 +64,7 @@ const ICON_DRIVER = `
 	</g>
 </svg>
 `
+
 const ICON_GEOFENCE = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
@@ -80,6 +84,7 @@ const ICON_GEOFENCE = `
 	</g>
 </svg>
 `
+
 const ICON_ADMINISTRATOR = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
@@ -103,6 +108,7 @@ const ICON_ADMINISTRATOR = `
 	</g>
 </svg>
 `
+
 const ICON_CLIENT = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
@@ -118,26 +124,27 @@ const ICON_CLIENT = `
 	</g>
 </svg>
 `
+
 const ICON_DEVICE = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
 		<g>
-			<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M108,118.9c0,1.1-0.9,2-2,2H41c-1.1,0-2-0.9-2-2V31.1c0-1.1,0.9-2,2-2h65c1.1,0,2,0.9,2,2V118.9z"/>
+			<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M108,118.9c0,1.1-0.9,2-2,2H41c-1.1,0-2-0.9-2-2V31.1c0-1.1,0.9-2,2-2h65c1.1,0,2,0.9,2,2V118.9z"/>
 		</g>
-		<line style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" x1="98.3" y1="113.8" x2="98.3" y2="107.8"/>
-		<line style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" x1="92" y1="113.8" x2="92" y2="107.8"/>
+		<line style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" x1="98.3" y1="113.8" x2="98.3" y2="107.8"/>
+		<line style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" x1="92" y1="113.8" x2="92" y2="107.8"/>
 		<g>
 			<g>
 				<g>
-					<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" d="M81.1,64.5c-4.1-4.1-10.8-4.1-14.9,0"/>
-					<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" d="M86.4,59.2c-7-7-18.4-7-25.4,0"/>
-					<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" d="M91.7,53.9c-9.9-9.9-26.1-9.9-36,0"/>
+					<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" d="M81.1,64.5c-4.1-4.1-10.8-4.1-14.9,0"/>
+					<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" d="M86.4,59.2c-7-7-18.4-7-25.4,0"/>
+					<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" d="M91.7,53.9c-9.9-9.9-26.1-9.9-36,0"/>
 				</g>
 				<g>
-					<circle style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" cx="73.7" cy="80.2" r="4.6"/>
+					<circle style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" cx="73.7" cy="80.2" r="4.6"/>
 					<g>
-						<path style="fill:none;stroke:#64A3D9;stroke-width:7;stroke-miterlimit:10;" d="M84.2,80.2c0,5.8-10.5,18.3-10.5,18.3S63.2,86,63.2,80.2c0-5.8,4.7-10.5,10.5-10.5
+						<path style="fill:none;stroke:{{strokecolor}};stroke-width:7;stroke-miterlimit:10;" d="M84.2,80.2c0,5.8-10.5,18.3-10.5,18.3S63.2,86,63.2,80.2c0-5.8,4.7-10.5,10.5-10.5
 							C79.5,69.7,84.2,74.4,84.2,80.2z"/>
 					</g>
 				</g>
@@ -149,13 +156,15 @@ const ICON_DEVICE = `
 
 function icons(template) {
   return ['#ffffff', '#64A3D9'].map(
-    color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
+    (color) => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
   )
 }
 
 export const ICONS_MONITORING = icons(ICON_MONITORING)
 export const ICONS_REPORT = icons(ICON_REPORT)
+export const ICONS_FLEET = icons(ICON_FLEET)
 export const ICONS_DEVICE = icons(ICON_DEVICE)
+export const ICONS_CLIENT = icons(ICON_CLIENT)
 export const ICONS_DRIVER = icons(ICON_DRIVER)
 export const ICONS_GEOFENCE = icons(ICON_GEOFENCE)
 export const ICONS_ADMINISTRATOR = icons(ICON_ADMINISTRATOR)
